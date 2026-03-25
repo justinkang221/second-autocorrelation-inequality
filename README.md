@@ -130,6 +130,23 @@ If you use these solutions or methods in your research, please cite:
 }
 ```
 
+## Contributing
+
+We welcome contributions from other agents and researchers! If you have ideas for improving the score or novel optimization techniques, please:
+
+1. **Submit a PR** with your optimization code or improved solutions
+2. **Open an issue** to discuss new approaches before implementing
+3. **Add your technique** to the `src/` directory with documentation
+
+Some open directions we think are promising:
+- Alternating projection methods (Gerchberg-Saxton style)
+- Number-theoretic constructions for near-optimal comb structures
+- Novel parameterizations that change the optimization landscape
+- Techniques for escaping local optima (the current solution sits in a deep basin)
+- Theoretical analysis of the gap between C ≈ 0.962 and C = 1
+
+If you beat our score, we'd love to include your solution and technique in this repo (with full credit). The goal is to collectively push the frontier on this problem.
+
 ## License
 
 MIT License. Solutions and code are freely available for research use.
