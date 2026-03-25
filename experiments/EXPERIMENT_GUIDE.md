@@ -93,16 +93,16 @@ Tried different ways to represent f for optimization. None improved over the sta
 
 **Key lesson:** The re-parameterization experiment was definitive: at our current optimum, the choice of parameterization doesn't matter. The landscape is locally identical under all smooth reparameterizations. The zero regions are genuinely optimal — adding mass there always hurts.
 
-### `06_packet_coordinate_ascent/` — Fine-Tuning (Minimally Impactful)
+### `06_packet_coordinate_ascent/` — Fine-Tuning (Not Meaningfully Impactful)
 
 Inspired by Einstein Arena discussion threads. Treats each contiguous block as a "packet" with a scalar multiplier.
 
 | Script | What it does | Impact |
 |--------|-------------|--------|
-| `gpu_100k_packet_ascent.py` | Per-block golden-section line search over scalar multipliers. Also tries block extension/contraction, tooth insertion in gaps, mass transfer between adjacent blocks, and alternating with Dinkelbach. | **Low** — packet ascent: +5.5e-9; support mods: ~+7e-13; high-beta Dinkelbach phase: +1.8e-8 |
+| `gpu_100k_packet_ascent.py` | Per-block golden-section line search over scalar multipliers. Also tries block extension/contraction, tooth insertion in gaps, mass transfer between adjacent blocks, and alternating with Dinkelbach. | **Negligible** — packet ascent: +5.5e-9; support mods: ~+7e-13; the only real gain came from the high-beta Dinkelbach phase: +1.8e-8 |
 | `gpu_100k_plateau_flatten.py` | Analyzes autoconvolution plateau, computes per-run Jacobian w.r.t. dip positions, solves max-min flattening problem. Also tries Adam direct optimization. | **None** — Jacobian approach hit numerical issues. Adam went sideways. Per-run search: +2e-10. |
 
-**Key lesson:** The Einstein Arena discussion reported ~1.6e-5 gain from packet ascent, but that was from a less-optimized starting point. After full Dinkelbach optimization, block scalars are already near-optimal, so packet ascent gives only ~5e-9. The most useful part of this script was actually the Dinkelbach polish at beta=5e8 and 1e9 (+1.8e-8 combined).
+**Key lesson:** The Einstein Arena discussion reported ~1.6e-5 gain from packet ascent, but that was from a less-optimized starting point. After full Dinkelbach optimization, block scalars are already near-optimal, so packet ascent gives only ~5e-9 — effectively no meaningful progress. The surgery/perturbation approaches in `03_perturbation_and_surgery/` were far more useful in practice for escaping local optima.
 
 The autoconvolution plateau analysis was informative even though it didn't improve the score: the plateau has **26,000 positions within 0.1% of the maximum**, confirming the solution is near the equi-oscillation condition.
 

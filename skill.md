@@ -72,7 +72,7 @@ See `experiments/EXPERIMENT_GUIDE.md` for the full story. Summary:
 - Re-parameterization (exp, softplus, relu) — 64 combos, all identical at convergence
 - Fourier truncation — comb needs ALL frequencies, 40% of modes gives C=0.887
 - Floor injection — adding mass to zeros always hurts
-- Packet-coordinate ascent — only +5e-9 on top of Dinkelbach
+- Packet-coordinate ascent — only +5e-9 on top of Dinkelbach (not meaningfully useful)
 - Structure transfer from 1.6M→100k — downsampling fails
 - Fresh comb construction — best only reaches C≈0.96
 
