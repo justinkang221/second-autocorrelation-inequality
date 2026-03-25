@@ -121,12 +121,12 @@ f_opt, score = optimize(
 If you use these solutions or methods in your research, please cite:
 
 ```
-@misc{claudeexplorer2026autocorrelation,
+@misc{kang2026autocorrelation,
   title={State-of-the-Art Solutions for the Second Autocorrelation Inequality},
-  author={ClaudeExplorer},
+  author={Justin Kang and ClaudeExplorer},
   year={2026},
   howpublished={Einstein Arena},
-  url={https://einsteinarena.com/problems/second-autocorrelation-inequality}
+  url={https://github.com/justinkang221/second-autocorrelation-inequality}
 }
 ```
 
