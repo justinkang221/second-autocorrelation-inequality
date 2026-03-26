@@ -6,6 +6,7 @@
 > - `boyer_li_2025/autoconv.tex` — Boyer & Li (simulated annealing approach)
 > - `barnard_steinerberger_2017/barnard_steinerberger_2017.tex` — Barnard & Steinerberger (original problem, arcsine)
 > - `rechnitzer_2026/bound.py` — Rechnitzer's Python verification code
+> - `improvevolve_2026/modevolve_kdd.tex` — Kravatskiy et al. (ImprovEvolve: LLM-evolved optimization, ACI 2 results)
 
 ## Problem Statement
 
@@ -24,6 +25,7 @@ Trivially $C \leq 1$ (Hölder). The question is: how close to 1 can we get?
 | 2025 | Boyer & Li | C ≥ 0.901564 | 575 | Simulated annealing + gradient |
 | 2025 | Jaech & Joseph | C ≥ 0.926529 (559 intervals) | 559 | Adam + noise + elitist respawn |
 | 2025 | Jaech & Joseph | C ≥ 0.94136 (upsampled) | 2,399 | 4× upsampling + gradient ascent |
+| 2026 | ImprovEvolve (Kravatskiy et al.) | C ≥ 0.9512 (pure) / 0.96258 (+edits) | 1.6M | LLM-evolved improve/perturb + basin hopping |
 | 2026 | **Us (ClaudeExplorer)** | **C ≥ 0.96272** | **~760 blocks in 1.6M** | **Dinkelbach + L-BFGS + β cascade** |
 
 ---
@@ -139,6 +141,36 @@ Proves the bound ν_∞ ≥ 1.28 (improving previous 1.274 of Matolcsi-Vinuesa).
 **"Improved bounds on the supremum of autoconvolutions"**
 
 Original 20-step construction achieving C ≥ 0.88922. Foundation that all later work builds on.
+
+### 7. Kravatskiy, Khrulkov, & Oseledets (2026) — [arXiv:2602.10233](https://arxiv.org/abs/2602.10233)
+
+**"ImprovEvolve: Evolving Improvement Operators for Mathematical Optimization"**
+
+**What it does:** Uses LLMs to evolve three Python functions — `improve(x)`, `perturb(x, σ)`, and `generate_config(seed)` — which are then used in a basin-hopping loop. Applied to multiple Einstein Arena problems including ACI 2.
+
+**Algorithm:**
+1. **Population of programs**: Maintain a population of (improve, perturb, generate_config) triples
+2. **LLM mutation**: Sample a parent program, prompt the LLM to modify one of the three functions
+3. **Evaluation**: Run the modified program on the target problem, keep if it improves
+4. **Basin hopping loop**: `x ← perturb(x, σ)` → `x ← improve(x)` → accept/reject
+5. **Human-in-the-loop (+E variant)**: After LLM evolution, humans inspect and edit the evolved code
+
+**Key ACI 2 results:**
+- **ImprovEvolve (pure)**: C = 0.9512 at n = 1,600,000
+- **ImprovEvolve+E (with 3 human edits)**: C = 0.96258 at n = 1,600,000
+- **AlphaEvolve baseline**: C = 0.96102
+- The 3 human edits were: (1) resolution schedule starting coarse then upsampling to 1.6M, (2) removing lower clipping that was constraining values, (3) increasing L-BFGS iteration count
+
+**Key observations:**
+- The LLM-evolved `improve()` converged to using L-BFGS with Dinkelbach-like fractional programming — the same core technique we discovered independently
+- Pure LLM evolution (0.9512) significantly underperforms human-guided evolution (0.96258), suggesting the resolution schedule and clipping fix were critical insights
+- Their best result (0.96258) at n=1.6M is very close to our best (0.96272), confirming both approaches found nearly the same optimum
+
+**Actionable for us:**
+- Confirms Dinkelbach + L-BFGS is the right core optimizer — both human and LLM evolution converge to it
+- The resolution schedule (coarse → fine upsampling) was one of the 3 critical human edits, suggesting multi-scale approaches matter
+- Their pure LLM evolution plateaued at 0.9512, much lower than gradient methods — LLM search is better for discovering algorithmic structure than for numerical optimization
+- The gap between 0.96258 and our 0.96272 at 1.6M suggests diminishing returns at this resolution
 
 ---
 

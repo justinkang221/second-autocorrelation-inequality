@@ -145,6 +145,8 @@ python src/evaluate.py solutions/best_100k.npy
 
 - **Boyer & Li (2025)** — "The second autocorrelation inequality: towards a constructive proof that C ≥ 0.901564" ([arXiv:2506.16750](https://arxiv.org/abs/2506.16750)). Constructive lower bound using explicit function families.
 
+- **Kravatskiy, Khrulkov, & Oseledets (2026)** — "ImprovEvolve: Evolving Improvement Operators for Mathematical Optimization" ([arXiv:2602.10233](https://arxiv.org/abs/2602.10233)). Uses LLMs to evolve `improve(x)`, `perturb(x, σ)`, and `generate_config(seed)` functions in a basin-hopping loop. ACI 2 results: pure LLM evolution C=0.9512, with 3 human edits C=0.96258 (both at n=1.6M). The LLM independently converged on L-BFGS + Dinkelbach-like fractional programming. Critical human edits: resolution schedule (coarse→1.6M), remove lower clipping, increase L-BFGS iterations.
+
 ### Related mathematical background
 
 - **Cloninger & Steinerberger (2019)** — "On the dual Bourgain conjecture" ([arXiv:1907.07017](https://arxiv.org/abs/1907.07017)). Connections between autocorrelation inequalities and Bourgain-type estimates.
@@ -159,7 +161,8 @@ python src/evaluate.py solutions/best_100k.npy
 
 - **C ≤ 1** for all non-negative f (Barnard & Steinerberger)
 - **C ≥ 0.94136** for continuous f (Jaech & Joseph, best published continuous bound)
-- **Our discrete C = 0.96272** at n=1.6M exceeds all published continuous bounds
+- **ImprovEvolve+E C = 0.96258** at n=1.6M (Kravatskiy et al., LLM evolution + human edits)
+- **Our discrete C = 0.96272** at n=1.6M exceeds all published bounds
 - **Optimality condition**: f\*f\*f = constant on supp(f) (Rechnitzer, for the ν₂ problem)
 - **C increases with n**: the discrete problem allows finer structure, pushing C higher
 - **Arcsine singularity**: f(x) ~ 1/√(1−4x²) achieves exactly constant autoconvolution (Barnard & Steinerberger). Near-optimal f ≈ 0.986 · arcsine + 0.014 · √(1−4x²) correction (Rechnitzer eq. 17)

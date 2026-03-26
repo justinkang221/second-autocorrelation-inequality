@@ -1,0 +1,1043 @@
+%%
+%% \improvevolve -- ACM SIGCONF (KDD) format
+%% Converted from article/modevolve.tex
+%%
+% \documentclass[sigconf, review]{acmart}
+\documentclass[sigconf]{acmart}
+
+\AtBeginDocument{%
+  \providecommand\BibTeX{{Bib\TeX}}}
+
+%% Optional math commands (from article)
+\input{math_commands.tex}
+\usepackage{cleveref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{fvextra}
+\usepackage{paracol}
+\usepackage{listings}
+\usepackage[frozencache, cachedir=.]{minted}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{xcolor}
+\usepackage{threeparttable} % for footnotes
+\definecolor{bg}{rgb}{0.95,0.95,0.95}
+\lstset{
+  basicstyle=\scriptsize\ttfamily,
+  breaklines=true,
+  breakatwhitespace=false,
+  breakindent=0pt,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  frame=none,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  aboveskip=\smallskipamount,
+  belowskip=\smallskipamount,
+}
+
+%% Rights and conference metadata
+%% ArXiv version: suppress ACM copyright and publisher-specific metadata.
+%% These will be provided by the publisher upon acceptance.
+% \setcopyright{acmlicensed}
+% \copyrightyear{2026}
+\acmYear{2026}
+% \acmDOI{XXXXXXX.XXXXXXX}
+\acmConference[KDD '26]{Under review for the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining}{Under review}{Jeju, Korea}
+% \acmISBN{978-1-4503-XXXX-X/2026/08}
+\settopmatter{printacmref=false}
+
+\begin{document}
+
+\title{ImprovEvolve: Ask AlphaEvolve to Improve the Input Solution and Then Improvise}
+
+\author{Alexey Kravatskiy}
+\affiliation{%
+  \institution{MIRIAI}
+  \country{Russia}}
+\email{kravatskii.a@miriai.org}
+
+\author{Valentin Khrulkov}
+\affiliation{%
+  \institution{FusionBrain Lab}
+  \institution{AXXX}
+  \country{Russia}}
+\email{}
+
+\author{Ivan Oseledets}
+\affiliation{%
+  \institution{Institute of Numerical Mathematics}
+  \institution{AXXX}
+  \country{Russia}}
+\email{}
+
+\renewcommand{\shortauthors}{Kravatskiy et al.}
+\newcommand{\alphaevolve}{\emph{AlphaEvolve}}
+\newcommand{\improvevolve}{\emph{ImprovEvolve}}
+\newcommand{\improvevolvepluse}{\emph{ImprovEvolve+E}}
+\newcommand{\gigaevo}{\emph{GigaEvo}}
+
+\begin{abstract}
+Recent advances in LLM-guided evolutionary computation, particularly 
+\alphaevolve\ \cite{novikov2025alphaevolve}, have demonstrated remarkable success in discovering novel mathematical constructions and solving challenging optimization problems. In this article, we present 
+\textbf{ImprovEvolve}, a simple yet effective technique for enhancing LLM-based evolutionary approaches such as \alphaevolve. Given an optimization problem, the standard approach is to evolve program code that, when executed, produces a solution close to the optimum. We propose an alternative program parameterization that maintains the ability to construct optimal solutions while reducing the cognitive load on the LLM. Specifically, we evolve a program (implementing, e.g., a Python class with a prescribed interface) that provides the following functionality: (1) propose a valid initial solution, (2) improve any given solution in terms of fitness, and (3) perturb a solution with a specified intensity. The optimum can then be approached by iteratively applying 
+\texttt{improve()} and \texttt{perturb()} with a scheduled intensity. We evaluate \improvevolve\ on challenging problems from the \alphaevolve\ paper: hexagon packing in a hexagon and the second autocorrelation inequality. For hexagon packing, the evolved program achieves new state-of-the-art results for 11, 12, 15, and 16 hexagons; a lightly human-edited variant further improves results for 14, 17, and 23 hexagons. For the second autocorrelation inequality, the human-edited program achieves a new state-of-the-art lower bound of 0.96258, improving upon \alphaevolve's 0.96102.
+\end{abstract}
+
+\begin{CCSXML}
+<ccs2012>
+ <concept>
+  <concept_id>10010147.10010257.10010293.10010294</concept_id>
+  <concept_desc>Computing methodologies~Neural networks</concept_desc>
+  <concept_significance>500</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10010147.10010178.10010179</concept_id>
+  <concept_desc>Computing methodologies~Evolutionary algorithms</concept_desc>
+  <concept_significance>500</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10010147.10010257.10010293.10011809</concept_id>
+  <concept_desc>Computing methodologies~Optimization</concept_desc>
+  <concept_significance>300</concept_significance>
+ </concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Computing methodologies~Neural networks}
+\ccsdesc[500]{Computing methodologies~Evolutionary algorithms}
+\ccsdesc[300]{Computing methodologies~Optimization}
+
+\keywords{genetic programming, optimization, evolutionary computation, large language models, AlphaEvolve, mathematical discovery}
+
+\maketitle
+
+\section{Introduction}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.95\linewidth]{figs/diagram_v2.pdf}
+    \caption{\textbf{Comparison of \alphaevolve\ and \improvevolve.} \emph{Top:} In \alphaevolve, the LLM evolves a program that directly outputs a candidate solution, requiring the model to design an end-to-end optimization algorithm including initialization, search strategy, and termination criteria. \emph{Bottom:} In \improvevolve, the LLM evolves a class with three modular methods---\texttt{generate\allowbreak\_config} (initialization), \texttt{improve} (local optimization), and \texttt{perturb} (exploration)---which are combined via basin-hopping dynamics with a scheduled perturbation intensity. This decomposition reduces the cognitive burden on the LLM by separating distinct optimization concerns into tractable subproblems. The pseudocode shown for \improvevolve\ is simplified; see Algorithm~\ref{alg:validation} for the full description.}
+    \label{fig:diagram}
+\end{figure*}
+
+In the recent work \alphaevolve~\cite{novikov2025alphaevolve}, an approach for solving optimization problems by combining powerful Large Language Models (LLMs) with the classical evolutionary algorithm MAP-Elites \cite{mouret2015illuminatingsearchspacesmapping} was proposed. The method operates as follows: given an optimization task, the user specifies (1) a validation function to evaluate candidate solutions, and (2) a set of initial programs. The solution to an optimization problem is then iteratively improved by selecting promising parent programs and combining them via an LLM-based mutation operator. While the original implementation has not been released, several open-source reimplementations are available \cite{openevolve,lange2025shinkaevolve, assumpção2026codeevolveopensourceevolutionary, khrulkov2025gigaevo}.
+
+In this work, we investigate the ability of LLMs to generate optimization code for problems with extremely rugged landscapes. Optimal solutions to such problems often exhibit intricate structure---a phenomenon observed across various packing problems. Devising an effective optimization routine \emph{ab initio} is challenging for an LLM, which requires it to iteratively design an end-to-end optimization algorithm along with an intricate initialization scheme. In practice, generated programs typically rely on standard routines such as \texttt{L-BFGS-B}, which are inadequate for the non-convex, non-smooth landscapes that arise once all constraints are imposed. Consequently, LLM-generated programs combine mathematical insights with heuristics rather than solving the optimization rigorously.
+
+When such an approach yields an imperfect solution, or when a non-trivial solution has been previously constructed by domain experts, this initial solution can often be improved through local search. This motivates \textbf{ImprovEvolve}: rather than evolving a program that directly outputs an optimal solution (as in \alphaevolve), we evolve a class implementing the following interface:
+\begin{itemize}
+    \item \texttt{improve}$(x)$: returns an improved solution $x'$ with better fitness than $x$;
+    \item \texttt{perturb}$(x, \sigma)$: performs random exploration of the solution space, where $\sigma$ controls the perturbation intensity;
+    \item \texttt{generate\allowbreak\_config}$(seed)$: returns a feasible initial solution for a given random seed.
+\end{itemize}
+By combining these three methods, we search for optimal solutions as follows: we sample initial configurations via \texttt{generate\allowbreak\_config} and a subsequent \texttt{improve} to select the best initial configuration, to which we then iteratively apply \texttt{perturb} and \texttt{improve} with scheduled intensity to greedily search for an improved solution.
+
+This decomposition offers several advantages. First, it reduces the cognitive burden on the LLM by separating the distinct concerns of initialization, local improvement, and exploration, providing a natural interface for incorporating domain knowledge at each stage. Second, the modular structure facilitates interpretability and debugging of the evolved programs, both for humans and LLMs. Third and most importantly, the evolved class can be applied to \emph{any} given starting solution---for instance, one provided by a domain expert representing a sophisticated mathematical construction beyond the LLM's immediate grasp.
+
+We now discuss related work before proceeding with the algorithmic details.
+
+\section{Related Work}\label{sec:related}
+
+The idea of utilizing evolutionary search for machine learning tasks has a long history in the literature, spanning multiple diverse areas. Recently, \citet{romera2024mathematical, novikov2025alphaevolve} proposed \emph{FunSearch} and \alphaevolve\ frameworks, respectively, leveraging evolutionary algorithms to improve programs that solve mathematical problems, with mutations guided by powerful LLMs, e.g., Gemini 2.5 Pro \cite{comanici2025gemini}. \emph{FunSearch} evolves Python functions that construct solutions; \alphaevolve\ generalizes this by allowing arbitrary code blocks to be mutated and by incorporating richer evolutionary feedback. \alphaevolve\ was subsequently evaluated at scale by \citet{georgiev2025mathematical}, demonstrating its effectiveness on cutting-edge mathematical challenges.
+
+\alphaevolve\ has inspired numerous open-source implementations and extensions \citep{openevolve,lange2025shinkaevolve, khrulkov2025gigaevo, assumpção2026codeevolveopensourceevolutionary, wang2025thetaevolve, yan2026pacevolve, yuksekgonul2026learning}. Most of these works focus on refining the evolutionary loop or replacing it with alternative techniques, such as reinforced learning \citep{wang2025thetaevolve, yuksekgonul2026learning}. In contrast, rather than devising a new scheme for the evolutionary algorithm itself, we address a more fundamental challenge: the difficulty of using LLMs to generate effective optimization code. We achieve this by reformulating the optimization problem definition commonly adopted in prior work. To the best of our knowledge, ours is the first work to apply this reformulation in the context of LLM-guided evolution.
+
+For our implementation, we adopt the open-source \gigaevo\ framework\footnote{\url{https://github.com/FusionBrainLab/gigaevo-core}} of \citet{khrulkov2025gigaevo} as the backbone of \improvevolve, selected for its flexibility and comprehensive collection of implemented mathematical problems.
+
+
+\section{Methodology}
+We now describe our approach, which reformulates the optimization target to leverage LLM-evolved local search operators within a classical global optimization framework.
+
+\paragraph{Connection to Basin-Hopping.}
+Basin-hopping~\cite{wales1997basinhopping} is a well-known optimization technique that has proven particularly effective for high-dimensional landscapes with many local minima separated by large barriers. The algorithm iterates by (1)~applying a random perturbation to the current solution, (2)~performing local optimization from the perturbed point, and (3)~accepting or rejecting the new solution based on the Metropolis criterion with temperature parameter $T$. When $T = 0$, the algorithm becomes \emph{Monotonic Basin-Hopping}, accepting only moves that improve the objective.
+
+\improvevolve\ can be viewed as a variant of basin-hopping where the perturbation and local optimization subroutines are themselves \emph{evolved} by an LLM rather than being fixed generic operators. Specifically:
+\begin{itemize}
+    \item \texttt{perturb}$(x, \sigma)$ replaces the random coordinate perturbation step, with $\sigma$ controlling intensity;
+    \item \texttt{improve}$(x)$ replaces the local minimization step (e.g., L-BFGS);
+    \item We use $T = 0$ (monotonic acceptance) to accelerate convergence during validation.
+\end{itemize}
+This reformulation shifts the LLM's task from designing an end-to-end optimization algorithm to designing domain-specific \texttt{improve} and \texttt{perturb} operators---a more tractable objective that leverages the LLM's ability to encode mathematical structure and heuristics.
+
+\paragraph{Validation Scheme.}
+The validation scheme for \improvevolve\ is presented in Algorithm~\ref{alg:validation} and proceeds in two stages.
+In \emph{Stage~A}, $K$ candidate solutions are generated with distinct random seeds and immediately refined via \texttt{improve}; the solution with the highest fitness is retained as the starting point~$\vx^*$. Since the quality of the final solution depends heavily on the basin in which the search begins, sampling multiple initial configurations and selecting the best one reduces sensitivity to poor initializations.
+In \emph{Stage~B}, the algorithm performs $R$ rounds of iterative perturbation and improvement. Within each round, the perturbation intensity $\sigma$ decays from $\sigma_{\max}$ to $\sigma_{\min}$ over $M$ iterations, encouraging broad exploration early (large perturbations to escape local minima) and fine-grained refinement later (small perturbations to converge to a nearby optimum). Each perturbed solution is refined via \texttt{improve} and accepted only if it improves upon the current best (monotonic acceptance, corresponding to basin-hopping with temperature $T = 0$). The $\sigma$ schedule is restarted in every round, allowing the search to repeatedly attempt large jumps to new basins while still refining the current best solution.
+
+\begin{algorithm}[ht]
+\caption{Validation Scheme for \improvevolve}\label{alg:validation}
+\KwIn{Evolved class with methods \texttt{generate\allowbreak\_config}, \texttt{improve}, \texttt{perturb}; evaluation function \texttt{fitness}; number of rounds $R$}
+\KwOut{Solution $\vx^*$ with highest fitness found}
+\BlankLine
+\tcp{Hyperparameters}
+$K \gets 10$ \tcp*{number of initial seeds}
+$M \gets 10$ \tcp*{iterations per round}
+$\sigma_{\max} \gets 100$; \quad $\sigma_{\min} \gets 0.001$\;
+\BlankLine
+\tcp{Stage A: Initialization}
+\For{$s \gets 1$ \KwTo $K$}{
+    $\vx_s \gets \texttt{improve}(\texttt{generate\allowbreak\_config}(s))$\;
+}
+$\vx^* \gets \arg\max_{s \in \{1,\ldots,K\}} \texttt{fitness}(\vx_s)$\;
+\BlankLine
+\tcp{Stage B: Basin-hopping with scheduled perturbation}
+\For{$\text{round} \gets 1$ \KwTo $R$}{
+    \For{$t \gets 1$ \KwTo $M$}{
+        $\sigma \gets \sigma_{\max} \cdot (\sigma_{\min} / \sigma_{\max})^{(t-1)/(M-1)}$ \tcp*{geometric decay or another schedule}
+        $\vx' \gets \texttt{improve}(\texttt{perturb}(\vx^*, \sigma))$\;
+        \If{$\texttt{fitness}(\vx') \geq \texttt{fitness}(\vx^*)$}{
+            $\vx^* \gets \vx'$ \tcp*{monotonic acceptance}
+        }
+    }
+}
+\Return{$\vx^*$}
+\end{algorithm}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figs/cartoon_stages.pdf}
+    \caption{Illustration of the two-stage validation scheme (Algorithm~\ref{alg:validation}) on the HEX~17 problem. \emph{Stage~A (top):} \texttt{generate} proposes initial configurations that typically contain overlapping hexagons (invalid); \texttt{improve} resolves these overlaps and produces valid packings. The best result ($L^* = 4.619$, gold border) is selected. \emph{Stage~B (bottom):} basin-hopping alternates \texttt{perturb} (red border) and \texttt{improve}. Even an extreme perturbation ($\sigma = 316$, round~4) that scatters hexagons across a vast enclosing hexagon ($L = 54.5$) is recovered by \texttt{improve} back to $L = 4.619$. The breakthrough occurs at round~8 ($\sigma = 56.2$), where \texttt{improve} discovers a new, tighter basin at $L = 4.6136$---a structural improvement inaccessible from the Stage~A initialization. Subsequent rounds with small $\sigma$ confirm stability.}
+    \label{fig:cartoon_stages}
+\end{figure*}
+
+\paragraph{Initialization Strategy.}
+Another important aspect of evolutionary frameworks is the set of initial programs from which the evolution starts. To accelerate the process without the assistance of human experts, we use \emph{Gemini~3~Pro} to generate a set of $N = 5$ initial programs that bootstrap evolution. We iteratively refine these programs in the same LLM chat to correct errors reported by the validation function (e.g., out-of-bounds configurations). According to~\citet{georgiev2025mathematical}, more capable LLMs achieve optimization goals significantly faster than smaller models. However, running experiments exclusively with high-capability models is prohibitively expensive. We therefore adopt a two-tier approach: generate the initial programs using \emph{Gemini~3~Pro} and perform the evolution itself with the faster \emph{Gemini~3~Flash~Preview}.
+We observe that the initial programs produced by \emph{Gemini~3~Pro} \emph{from the same prompt} exhibit a diverse set of approaches and yield competitive quality out of the box, consistent with the findings of~\citet{gideoni2025random}, where competitive performance on various mathematical problems was obtained by sampling LLM outputs without any evolution.
+
+\paragraph{Evolutionary setup.}
+We build on the open-source \gigaevo\ framework~\cite{khrulkov2025gigaevo}, which provides a modular evolutionary engine built around four components: a Redis-backed storage layer for candidate programs, an asynchronous DAG execution engine for evaluation pipelines, a MAP-Elites evolution loop with configurable island topologies, and an LLM-based mutation operator supporting multiple models and mutation modes.
+We employ a \emph{single-island} MAP-Elites configuration with a single behavior descriptor---fitness---discretized into $150$ bins. This resolution was not specifically tuned, yet proved sufficient to achieve state-of-the-art results across all considered benchmark problems. Our preliminary experiments with the multi-island setup showed no apparent benefit (e.g., when using program code complexity as an additional behavior descriptor) and only increased system complexity. To supply the mutation operator with rich program context, we adopt the default pipeline configuration provided by \gigaevo, which includes \texttt{InsightsStage} (generating suggestions for potential program improvements), \texttt{LineageInsights} (analyzing parent--child transitions and providing causal feedback on fitness changes), and aggregate evolutionary statistics. All system prompts were used without modification as provided in the repository.
+It is important to distinguish two nested levels of optimization in \improvevolve. The \emph{outer loop} (MAP-Elites) maintains a population of candidate \emph{programs}---each implementing the \texttt{generate\allowbreak\_config}, \texttt{improve}, and \texttt{perturb} interface. The \emph{inner loop} (Algorithm~\ref{alg:validation}) executes a single candidate program via basin-hopping to produce a \emph{solution} and assigns the program a fitness score equal to the best solution quality found during that execution. For baseline comparisons using the standard \gigaevo\ pipeline, each evolved program is invoked in a single call to directly produce a candidate solution.
+
+At each generation, $N_{\text{elites}}$ programs are selected from the archive with probability proportional to their fitness. Then, $N_{\text{offspring}}$ offspring are produced as follows: $N_{\text{parents}}$ programs are sampled uniformly at random from the elite set, and their source code, together with associated metrics and contextual information from the pipeline stages described above, is passed to the LLM, which produces a mutated offspring program. Each offspring is evaluated by running Algorithm~\ref{alg:validation} and, if its fitness warrants inclusion, it is inserted into the MAP-Elites archive.
+
+The number of basin-hopping rounds $R$ in Algorithm~\ref{alg:validation} controls the trade-off between evaluation cost and solution quality. During evolution we use a smaller value of $R$ to enable rapid fitness estimation, while for final validation of the best evolved programs we increase $R$ to obtain higher-quality solutions. Problem-specific values are reported in the respective benchmark sections below.
+
+Several additional hyperparameters govern the evolutionary process, including the choice of backbone LLM and timeout values for code execution stages. These choices proved critical to performance and are discussed in detail below. For a comprehensive description of the \gigaevo\ framework, we refer the reader to \cite{khrulkov2025gigaevo}.
+
+\paragraph{Computational cost.}
+The wall-clock time of a single evolutionary run depends heavily on the problem complexity, specifically the cost of each \texttt{improve} call. For hexagon packing, where the inner optimization is a moderate-dimensional constrained problem ($3n$ variables), one full run takes approximately 10 hours on a single machine. The second autocorrelation inequality is considerably more expensive: each \texttt{improve} call performs high-dimensional L-BFGS optimization over step functions with up to tens of thousands of parameters, resulting in runs of approximately 40 hours.
+
+\section{Benchmark problems}
+We evaluate \improvevolve\ on two challenging optimization problems studied in~\citet{novikov2025alphaevolve} and \citet{georgiev2025mathematical}: hexagon packing and the second autocorrelation inequality.
+
+For each problem, we describe the mathematical formulation and the evaluation approach used in the original work. For thorough descriptions and further background, we refer the reader to \citet{georgiev2025mathematical}; here we only discuss the most important details. As the backbone LLM, we use \textit{Gemini 3 Pro} accessed via chat at \url{aistudio.google.com} for generating initial programs and \textit{Gemini 3 Flash Preview} at \url{openrouter.ai} with default settings for evolution, including temperature $T=1$. Common evolution parameters for both benchmark problems are: $N_{\text{elites}}=6$, $N_{\text{parents}}=2$, and $N_{\text{offspring}}=10$. All programs are executed on a CPU to allow parallelization. During evolution, if a program's \texttt{improve} function outputs an invalid configuration, the program is discarded. However, this requirement is relaxed during the final validation to allow extended evaluation, as there is a small possibility that even the most reliable optimizers diverge after an unlucky perturbation.
+
+\begin{table}[t]
+    \centering
+    \begin{threeparttable}
+        \caption{Comparison of best known results for hexagon packing (HEX $n$) and the second autocorrelation inequality (ACI 2). Bold digits indicate improvement over the prior state of the art.}
+        \label{tab:new_sota_transposed}
+        \small
+        \setlength{\tabcolsep}{1.5mm}
+        \begin{tabular}{l|c|c|c}
+            \toprule
+            \textbf{Method} & \textbf{HEX 11} ($\downarrow$) & \textbf{HEX 12} ($\downarrow$) & \textbf{ACI 2} ($\uparrow$) \\
+            \midrule
+            \textbf{Human} & 3.9434 \cite{friedman2025packing} & 4.0000 \cite{friedman2025packing} & 0.94136 \cite{jaech2025secondcorrhuman} \\
+            \textbf{AlphaEvolve} & 3.9301 \cite{novikov2025alphaevolve} & 3.9419 \cite{novikov2025alphaevolve} & 0.96102 \cite{georgiev2025mathematical} \\
+            \textbf{ThetaEvolve}\cite{wang2025thetaevolve} & -- & -- & 0.94690 \\
+            \textbf{CodeEvolve}\cite{assumpção2026codeevolveopensourceevolutionary} & 3.9379 & 4.0000 & 0.88110 \\
+            \textbf{GigaEvo}\cite{khrulkov2025gigaevo} (baseline) & 3.9327 & invalid\tnote{1} & 0.94063 \\
+            \textbf{ImprovEvolve} & 3.9\textbf{245} & 3.941\textbf{6}\tnote{2} & 0.9512 \\
+            \textbf{ImprovEvolve+E\tnote{3}} & 3.9\textbf{245} & 3.941\textbf{6} & 0.96\textbf{258} \\
+            \bottomrule
+        \end{tabular}
+        \begin{tablenotes}
+            \footnotesize
+            \item[1] Hexagon overlap encountered when validating program evolved for $n = 11$ on $n = 12$.
+            \item[2] Value obtained by validating code evolved for $n = 11$ on $n = 12$.
+            \item[3] \improvevolvepluse\: the evolved program was lightly edited by a human expert. For HEX, the optimizer and convergence parameters were adjusted (see \Cref{sec:hex_improver_code}); for ACI 2, the program was modified to support an effective start from \alphaevolve's solution (see \Cref{sec:autocorr_improver_code}).
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+\subsection{Hexagon packing}
+\begin{table}[t]
+    \centering
+    \caption{\improvevolve\ hyperparameters for HEX 11 and ACI 2 problems.}
+    \label{tab:hyperparameters}
+    \small
+    \setlength{\tabcolsep}{1.5mm}
+    \begin{tabular}{l|c|c}
+        \toprule
+        \textbf{Parameter} & \textbf{HEX 11} & \textbf{ACI 2} \\
+        \midrule
+        Timeout & 5 min & 20 min \\
+        Init. seeds ($K$) & 10 & 3 \\
+        BH rounds ($R$) & 15 & 5 \\
+        Iter. per round ($M$) & 11 & 6 \\
+        $\sigma$ schedule & 
+        % HEX 11: Using \texttt for computer look and text-mode for short hyphen
+        \begin{tabular}{@{}l@{}}
+        \texttt{[1e2, 5e1, 1e1, 5,} \\
+        \texttt{1, 5e-1, 1e-1, 5e-2,} \\
+        \texttt{1e-2, 5e-3, 1e-3]}
+        \end{tabular}
+        & 
+        % ACI 2
+        \begin{tabular}{@{}l@{}}
+        \texttt{[1e2, 1e1,}\\
+        \texttt{1, 1e-1,}\\
+        \texttt{1e-2, 1e-3]}
+        \end{tabular}
+        \\        
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The hexagon packing (HEX $n$) problem asks to pack $n$ unit regular hexagons (circumradius $r = 1$) inside a flat-topped regular enclosing hexagon of side length~$L$, so as to minimize~$L$, subject to a no-overlap constraint. Each hexagon is parameterized by its center $(x_i, y_i)$ and rotation angle $\theta_i$, yielding a $3n$-dimensional search space. Following~\citet{novikov2025alphaevolve} and~\citet{georgiev2025mathematical}, we evolve programs for $n = 11$, for which the best previously known side length was $L = 3.9434$~\citep{friedman2025packing}, later improved to $L = 3.9301$ by \alphaevolve~\citep{novikov2025alphaevolve}, and then validate the evolved programs across a range of $n$ values.
+
+The fitness is defined as $-L$; if containment or non-overlap constraints are violated, an exception is raised and the configuration is discarded. The optimization landscape is highly non-convex: small perturbations in position or rotation can introduce overlaps or containment violations, making this problem particularly challenging for evolutionary search. At the same time, hexagon packing serves as an effective testbed for our approach, since perturbations are geometrically interpretable and configurations are easy to visualize.
+
+The task description is formulated to be valid for any $n$ from $1$ to $25$; however, evolution was run for a fixed value of $n = 11$, using the \improvevolve\ hyperparameters listed in \Cref{tab:hyperparameters}. We obtained two novel state-of-the-art packings: the first (\Cref{fig:medium_sota_hexagons}) is structurally distinct from \alphaevolve's packing (\Cref{fig:alpha_11}) and achieves a noticeably shorter enclosing side, while the second (\Cref{fig:hex11}) closely resembles \alphaevolve's solution and appears to be near-optimal. The existence of two qualitatively different high-quality packings suggests that the fitness landscape contains multiple deep basins, underscoring the importance of Stage~A diversity.
+
+\begin{figure}[t]
+    \centering
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/hex11_alpha_side_3.93009.pdf}
+        \caption{\alphaevolve's solution ($L = 3.9301$)}
+        \label{fig:alpha_11}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/hex11_asymmetric_side_3.92693.pdf}
+        \caption{Structurally distinct \improvevolve\ solution ($L = 3.9269$)}
+        \label{fig:medium_sota_hexagons}
+    \end{subfigure}
+    \caption{Two packings of $n = 11$ unit hexagons. (a)~The previous state-of-the-art by \alphaevolve~\citep{novikov2025alphaevolve}. (b)~A structurally different packing found by \improvevolve\ that improves upon \alphaevolve\ but is not the overall best (cf.\ \Cref{fig:hex11}, $L = 3.9245$).}
+    \label{fig:hex_packing11}
+\end{figure}
+
+We then validated the evolved program on a GPU for all $11 \leq n \leq 24$ with increased computational budgets: initial seeds $K = 100$, basin-hopping rounds $R = 100$, and a $\sigma$ schedule of \texttt{np.geom\-space(\allowbreak 1000,\allowbreak{} 0.001,\allowbreak{} 25)}. This yielded new state-of-the-art packings for $n = 12$, $15$, and $16$ (see \Cref{tab:hex_large_scale} for side lengths and \Cref{fig:all_hex_results} for the discovered configurations). Crucially, the same program evolved for $n = 11$ generalizes to unseen problem sizes without any retraining or re-evolution, demonstrating the robustness of the \texttt{improve}/\texttt{perturb} interface.
+
+\begin{table}[t]
+    \centering
+    \caption{Enclosing hexagon side lengths for HEX $13$--$30$. \improvevolvepluse\ denotes the evolved program with minor human edits to the optimizer and convergence parameters (see \Cref{sec:hex_improver_code}). Bold digits indicate improvement over the human baseline~\cite{friedman2025packing}. A dash (--) indicates no previously reported packing.}
+    \label{tab:hex_large_scale}
+    \small
+    \begin{tabular}{l|c|c|c}
+        \toprule
+        \textbf{Task} & \textbf{Human}~\cite{friedman2025packing} & \textbf{ImprovEvolve} & \textbf{ImprovEvolve+E} \\
+        \midrule
+        HEX 13 ($\downarrow$) & 4.0000 & 4.0000 & 4.0000\\
+        HEX 14 ($\downarrow$) & 4.2724 & 4.2724 & 4.2\textbf{690}\\
+        HEX 15 ($\downarrow$) & 4.4541 & 4.4\textbf{473} & 4.4\textbf{473} \\
+        HEX 16 ($\downarrow$) & 4.5363 & 4.5\textbf{275} & 4.5\textbf{275} \\
+        HEX 17 ($\downarrow$) & 4.6188 & 4.6188 & 4.61\textbf{36} \\
+        HEX 18 \& 19 ($\downarrow$) & 4.6188 & 4.6188 & 4.6188 \\
+        HEX 20 \& 21 ($\downarrow$) & 5.0000 & 5.0000 & 5.0000 \\
+        HEX 22 ($\downarrow$) & 5.2856 & 5.2857 & 5.2856\\
+        HEX 23 ($\downarrow$) & 5.4286 & 5.4848 & 5.4\textbf{000}\\
+        HEX 24 ($\downarrow$) & 5.4848 & 5.4848 & 5.4848 \\
+        HEX 25 ($\downarrow$) & -- & 5.6510 & 5.6239 \\
+        HEX 26 ($\downarrow$) & -- & 5.7142 & 5.7097 \\
+        HEX 27 ($\downarrow$) & -- & 5.7142 & 5.7142 \\
+        HEX 28 ($\downarrow$) & -- & 5.9723 & 5.9089 \\
+        HEX 29 ($\downarrow$) & -- & 6.0000 & 6.0000 \\
+        HEX 30 ($\downarrow$) & -- & 6.0045 & 6.0000 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+We also consider \textbf{ImprovEvolve+E}, a variant in which a human expert applies minor, targeted edits to the evolved program. For the hexagon task, three changes were made (see \Cref{sec:hex_improver_code} for the annotated diff): (i)~replacing the \texttt{L-BFGS-B} optimizer with \texttt{SLSQP}, which solves a quadratic subproblem at each step and is better suited to the constrained geometry but less numerically stable; (ii)~softening the initial penalty weights to provide a gentler warm-up; and (iii)~relaxing the variable bounds and increasing the iteration limit to allow finer convergence. These edits preserve the overall algorithmic structure produced by the LLM while leveraging human domain knowledge to improve robustness. With these modifications, we obtained additional state-of-the-art packings for $n = 14$, $17$, and $23$ (\Cref{tab:hex_large_scale}, \Cref{fig:all_hex_results}). We further evaluated the edited program on $25 \leq n \leq 30$, for which no packings have previously been reported. As shown in \Cref{fig:all_hex_results}, structured, non-chaotic packings can be found even for these values of $n$.
+
+\begin{figure*}[t]
+    \centering
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/hex11_side_3.9245.pdf}
+        \caption{$n = 11$}
+        \label{fig:hex11}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/hex12_side_3.94164.pdf}
+        \caption{$n = 12$}
+        \label{fig:hex12}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/hex14_side_4.269.pdf}
+        \caption{$n = 14$}
+        \label{fig:hex14}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/hex15_side_4.44727.pdf}
+        \caption{$n = 15$}
+        \label{fig:hex15}
+    \end{subfigure}
+
+    \vspace{0.8em}
+
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/hex16_side_4.52746.pdf}
+        \caption{$n = 16$}
+        \label{fig:hex16}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/hex17_side_4.6136.pdf}
+        \caption{$n = 17$}
+        \label{fig:hex17}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/hex23_side_5.4.pdf}
+        \caption{$n = 23$}
+        \label{fig:hex23}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/val_hex25_side_5.6239.pdf}
+        \caption{$n = 25$}
+        \label{fig:hex25}
+    \end{subfigure}\hfill
+
+    \vspace{0.8em}
+
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/val_hex26_side_5.70972.pdf}
+        \caption{$n = 26$}
+        \label{fig:hex26}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/val_hex27_side_5.71415.pdf}
+        \caption{$n = 27$}
+        \label{fig:hex27}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/val_hex28_side_5.90894.pdf}
+        \caption{$n = 28$}
+        \label{fig:hex28}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/val_hex30_side_6.0.pdf}
+        \caption{$n = 29-30$}
+        \label{fig:hex29}
+    \end{subfigure}\hfill
+
+    \caption{State-of-the-art hexagon packings discovered by \improvevolve. New best-known configurations are shown for $n = 11$--$17$ and $n = 23$. For $n = 25$--$30$, no prior packings have been reported; the discovered configurations exhibit structured, non-chaotic arrangements. The $n = 30$ packing (shown) achieves the same side length $L = 6.0$ as $n = 29$: any single hexagon can be removed to obtain a valid $n = 29$ packing with identical~$L$. Side lengths are listed in \Cref{tab:new_sota_transposed} and \Cref{tab:hex_large_scale}.}
+    \label{fig:all_hex_results}
+\end{figure*}
+
+Overall, \improvevolve\ proved substantially more effective than the \gigaevo\ baseline under identical evolutionary parameters and time limits; see \Cref{fig:hex11_w_perturb_fitness} for the distribution of validation fitness values across the evolution run. Moreover, validating the best \gigaevo\ program for $n > 11$ produced overlap errors, indicating that the evolved solution was not transferable to other problem sizes. This suggests that when the full complexity of an optimization procedure is encoded in a single program, the LLM struggles to produce a solution that generalizes reliably.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figs/fitness_histograms_hex.pdf}
+    \caption{Distribution of validation fitness values ($-L$) across all valid programs produced during evolution for the $n = 11$ hexagon packing problem. \improvevolve\ consistently yields higher-fitness programs compared to the \gigaevo\ baseline under identical evolutionary parameters and time limits.}
+    \label{fig:hex11_w_perturb_fitness}
+\end{figure}
+
+Further details, including the prompt and the evolved program, are provided in \Cref{sec:hexagons_expanded}.
+
+\subsection{Second autocorrelation inequality}
+To test the applicability of \improvevolve\ to problems with highly-parameterized constructions, we consider the second autocorrelation inequality (ACI~2) problem. For a non-negative function $f\colon \mathbb{R}\to\mathbb{R}$, define the autoconvolution as
+\[
+(f * f)(t) = \int_{\mathbb{R}} f(t - x)\, f(x)\, dx.
+\]
+Let $C_2$ be the smallest constant such that
+\[
+\|f * f\|_2^2 \;\leq\; C_2\, \|f * f\|_1\, \|f * f\|_\infty
+\]
+holds for all non-negative $f$. It is known that $0.88922 \leq C_2 \leq 1$~\citep{georgiev2025mathematical}. The goal is to tighten the lower bound by finding a function $f$ that maximizes the ratio $C(f) = \|f * f\|_2^2 \big/ \bigl(\|f * f\|_1\, \|f * f\|_\infty\bigr)$, which serves as the fitness. The state-of-the-art solution discovered by \alphaevolve~\citep{georgiev2025mathematical} achieves $C(f) = 0.96102$ and is a highly irregular step function of 50\,000 steps (\Cref{fig:alpha_func}), making this problem substantially more complex than hexagon packing.
+
+The evolved \improvevolve\ program achieved $C(f) = 0.9512$, which is close to \alphaevolve's $0.96102$~\citep{georgiev2025mathematical} and surpasses the results of all other open-source frameworks~\citep{wang2025thetaevolve,assumpção2026codeevolveopensourceevolutionary} (\Cref{tab:new_sota_transposed}). The \gigaevo\ baseline achieved $C(f) = 0.94063$ under the same conditions (see \Cref{fig:second_autocorr_w_perturb_fitness} for the full fitness distribution). \Cref{fig:cartoon_aci_stages} in \Cref{sec:autocorr_expanded} visualizes the full optimization path, showing how both~$f$ and~$f\!*\!f$ evolve across the two-stage validation scheme and how a single perturbation at $\varepsilon = 10^{-3}$ triggers a large jump in~$C(f)$.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figs/fitness_histograms.pdf}
+    \caption{Distribution of validation fitness values $C(f)$ across all valid programs produced during evolution for the ACI~2 problem. \improvevolve\ yields consistently higher fitness than the \gigaevo\ baseline.}
+    \label{fig:second_autocorr_w_perturb_fitness}
+\end{figure}
+
+A key advantage of \improvevolve's modular design is the built-in flexibility to resume optimization from a given high-quality solution. We demonstrate this with \textbf{ImprovEvolve+E}: starting from \alphaevolve's solution (\Cref{fig:alpha_func}), we apply a human-edited version of our evolved program with three changes (see \Cref{sec:autocorr_improver_code} for the annotated diff): (i)~replacing the original multi-grid schedule (resolutions up to 32\,768) with a progressive schedule that starts at the input resolution and scales up to 1.6 million steps, so that the optimizer can meaningfully refine \alphaevolve's 50\,000-step function; (ii)~removing the lower clipping of $10^{-10}$ to preserve small input function steps; and (iii)~increasing the number of L-BFGS iterations per stage to allow finer convergence at the higher resolutions. In just fifteen iterations of the \texttt{improve}--\texttt{perturb} loop, we obtain a new state-of-the-art lower bound of $C(f) = 0.96258$ (\Cref{fig:improv_func}). As with the hexagon task, this result highlights the value of human--LLM collaboration: the LLM produces the core algorithmic structure through evolution, while a domain expert contributes targeted refinements that would be difficult for the model to discover on its own---in this case, the knowledge that a much finer discretization is needed to improve upon a 50\,000-step solution.
+
+\begin{figure}[t]
+    \centering
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/step_function_normalized_alpha.pdf}
+        \caption{\alphaevolve}
+        \label{fig:alpha_func}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/step_function_normalized_improv.pdf}
+        \caption{\improvevolvepluse}
+        \label{fig:improv_func}
+    \end{subfigure}
+    \caption{Extremal functions $f$ for the second autocorrelation inequality. (a)~\alphaevolve's solution ($C(f) = 0.96102$, 50\,000 steps)~\citep{georgiev2025mathematical}. (b)~\improvevolvepluse\ solution ($C(f) = 0.96258$, 1.6M steps), obtained by resuming optimization from~(a). Despite the small difference in fitness, the two functions are qualitatively different in structure.}
+    \label{fig:func_comparison}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/step_function_convolution_normalized_alpha.pdf}
+        \caption{\alphaevolve}
+        \label{fig:alpha_auto}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/step_function_convolution_normalized_improv.pdf}
+        \caption{\improvevolvepluse}
+        \label{fig:improv_auto}
+    \end{subfigure}
+    \caption{Autoconvolutions $f * f$ of the extremal functions from \Cref{fig:func_comparison}. The \improvevolvepluse\ solution achieves a higher ratio $C(f) = \|f*f\|_2^2 / (\|f*f\|_1 \|f*f\|_\infty)$.}
+    \label{fig:autoconv_comparison}
+\end{figure}
+
+\section{Ablation study \& Variants}
+
+\subsection{Stage ablation}
+\begin{table}[t]
+    \centering
+    \begin{threeparttable}
+        \caption{Ablation study of the \improvevolve\ validation scheme on the HEX~11 problem. $L$: best enclosing-hexagon side length (lower is better). $K$: number of initial seeds in Stage~A. $R$: basin-hopping rounds in Stage~B. The perturbation schedule is $\sigma \in [100, 50, 10, 5, 1, 0.5, 0.1, 0.05, 0.01, 0.005, 0.001]$.}
+        \label{tab:stage_ablation}
+        \small
+        \setlength{\tabcolsep}{1.8mm}
+        \begin{tabular}{lccccc}
+            \toprule
+             & \textbf{A only} & \textbf{B only} & \textbf{A\,+\,B} & \textbf{A\,+\,B\,+\,LLM}\tnote{1} & \textbf{Lattice\,+\,B}\tnote{2}\\
+            \midrule
+            Best $L$      & 3.9282 & 3.9269 & 3.92\textbf{45} & 3.9270 & 3.9310 \\
+            Seeds $K$     & 1000   & 1      & 100              & 100    & 100    \\
+            Rounds $R$    & 0      & 100    & 5                & 100    & 100    \\
+            \bottomrule
+        \end{tabular}
+        \begin{tablenotes}
+            \footnotesize
+            \item[1] \emph{Gemini~3~Pro} was prompted to edit the evolved program (see \Cref{sec:llm_tuning_prompt}).
+            \item[2] Using \texttt{generate\allowbreak\_config} produced by \emph{Gemini~3~Pro}'s edited program.
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+Both Stage~A (multi-seed initialization) and Stage~B (basin-hopping) are essential components of the validation scheme. \Cref{tab:stage_ablation} presents an ablation study on the HEX~11 problem. Stage~A alone can generate a prototype of the optimal solution (see \Cref{fig:cartoon_stages}), but it cannot refine it further. Stage~B alone can polish a single initialization, yet without a diverse set of starting points the probability of reaching the global optimum remains low.
+
+Although basin-hopping with acceptance temperature $T > 0$ and a simulated-annealing schedule is theoretically preferable to monotonic basin-hopping ($T = 0$), its practical impact is limited. High temperatures prevent the optimizer from fully refining a solution, while low temperatures barely increase the probability of escaping a local optimum. Moreover, $T > 0$ introduces the risk of abandoning a suboptimal configuration that lies on the path to the global optimum---for example, the $L = 4.6188$ arrangement for HEX~17 shown in \Cref{fig:cartoon_stages}. Recovering such a configuration may be prohibitively slow, particularly for problems like ACI~2 where each call to \texttt{improve} is computationally expensive.
+
+\paragraph{Can an LLM replace human tuning?}
+The \improvevolvepluse\ results benefited from expert-guided hyperparameter edits. A natural question is whether an LLM can achieve similar improvements autonomously. To test this, we prompted \emph{Gemini~3~Pro} to make minimal modifications to the evolved programs for HEX~11---adjusting numerical constants, parameter values, or function arguments---without restructuring the code (the full prompt is given in \Cref{sec:llm_tuning_prompt}).
+
+\paragraph{LLM edits for the \gigaevo\ program.}
+The edits by \emph{Gemini~3~Pro} (marked \texttt{LLM-EDIT} in \Cref{sec:hex_baseline_code}) included increasing the batch size and number of optimization steps, tightening the initialization range for hexagon centers, and raising Langevin noise to escape local minima. However, the edited program produced overlapping hexagons---the same failure mode observed when validating the unedited program on $n > 11$. In this case, Langevin noise should be \emph{decreased}, not increased; the LLM's suggestion was harmful.
+
+\paragraph{LLM edits for the \improvevolve\ program.}
+The edits (marked \texttt{LLM-EDIT} in \Cref{sec:hex_improver_code}) included reducing noise in the \texttt{generate\allowbreak\_config} method, softening initial penalty weights, and changing the lattice orientation from point-topped to flat-topped---correcting a geometric mismatch with the flat-topped hexagons.
+While this last edit simplified the search for dense packings at $n = 13, 21, 31$, it inadvertently suppressed the stochastic exploration that Stage~A relies on.
+Consistent with our ablation study, both the LLM-edited program and a hybrid variant that only adopted the edited \texttt{generate\allowbreak\_config} produced results inferior to the unedited version (\Cref{tab:stage_ablation}).
+
+Even the most advanced LLMs tend to suggest theoretically plausible but empirically harmful changes. The damage from such changes is exacerbated in monolithic programs and mitigated when the program is modular and more interpretable. Evolution can partially compensate by feeding validation results back into the context, but this is not a silver bullet: models remain likely to propose harmful edits. More broadly, LLMs lack a reliable sense for choosing optimization hyperparameters---these depend heavily on problem specifics, and even human experts select them heuristically. AI agents, however, can readily approximate suitable values by evaluating the program under different hyperparameter configurations.
+
+\section{Discussion and Conclusion}
+\improvevolve\ demonstrates that decomposing an optimization task into modular subproblems substantially improves the output of an evolutionary coding agent. Although decomposition is a well-established principle, its significance in LLM-powered discovery deserves emphasis: current models produce a complete response in a single turn regardless of problem difficulty, and task decomposition---already a staple of AI-assisted code editors---can bring similar acceleration to AI for mathematics. Both human-guided and computer-guided decomposition can contribute: researchers specify the modules a program should contain, while AI agents validate and debug them so that the evolutionary LLM can focus on conceptual aspects.
+
+Decomposition is especially critical in mathematics, where an idea may fail entirely until its implementation is fully correct. For example, reproducing the 592-sphere construction from~\citet{ganzhinov2022highlysymmetriclines} for the kissing number problem in 11D required approximately 20 chat exchanges with \emph{Gemini~3~Pro}; intermediate versions produced fewer than 100 valid spheres. Such a construction is unlikely to emerge through evolution alone, as the sparse reward signal would cause the idea to be discarded before a correct implementation is found. An agentic approach could address this by setting reproduction of the construction as a long-term goal while delegating debugging to auxiliary agents.
+
+Incorporating human guidance is straightforward: domain experts can tailor the task decomposition, for instance delegating non-local optimization to basin-hopping---a technique naturally suited for evolutionary implementation. Looking ahead, combining task decomposition with agentic workflows---where an AI agent autonomously decides which modules to refine and when to invoke external solvers---is a promising direction for scaling LLM-powered mathematical discovery.
+
+\section*{Limitations and Ethical Considerations}
+\paragraph{Limitations.}
+Our evaluation is limited to two mathematical optimization problems (hexagon packing and the second autocorrelation inequality), both drawn from the \alphaevolve\ benchmark suite. While the results are strong on these tasks, the generalizability of \improvevolve\ to other problem classes, such as combinatorial optimization, scientific simulation, or machine learning pipeline design, remains to be demonstrated. Our experiments report single-run best results without confidence intervals, and the stochastic nature of both evolution and basin-hopping means that outcomes may vary across runs.
+
+\paragraph{Ethical considerations.}
+This work addresses purely mathematical optimization problems and does not involve human subjects, personal data, or sensitive information. The primary ethical consideration is the computational cost of LLM-guided evolution: each run consumes significant energy and API resources. We mitigate this by using a two-tier LLM strategy (a capable model for initialization, a lighter model for evolution) and by designing a modular framework that reduces the number of evolutionary iterations needed to reach competitive results.
+
+\section*{GenAI Disclosure}
+In addition to the LLM-based code evolution that constitutes the core contribution of this work (detailed in the main text), generative AI tools were used during the preparation of this manuscript. Specifically, \emph{Gemini~3~Pro} and \emph{Claude~4~Opus} were used to assist with polishing the text, generating plotting scripts for figures, and writing boilerplate code. All AI-generated content was reviewed, edited, and verified by the authors, who take full responsibility for the final manuscript.
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{evolve}
+
+\newpage
+\appendix
+\crefalias{section}{appendix}
+
+\onecolumn
+\section{Hexagon Packing Problem: Task Description and Evolved Solution}
+\label{sec:hexagons_expanded}
+
+\subsection{Prompts}
+\begin{paracol}{2}
+\subsubsection{Baseline}
+
+\noindent \textbf{TASK DEFINITION -- HEXAGON PACKING PROBLEM}
+
+\vspace{0.3cm}
+\noindent \textbf{Challenge:} Implement a Python function that minimizes the side length of a flat-topped regular enclosing hexagon required to contain $N$ non-overlapping unit regular hexagons.
+
+\vspace{0.3cm}
+\noindent \textbf{Specific Benchmark:} $N=11$.\\
+\textbf{General Requirement:} The code should be valid for any $N$ from 1 to 25, defaulting to 11.
+
+\vspace{0.3cm}
+\noindent \textbf{GEOMETRIC SPECIFICATIONS}
+\begin{enumerate}
+    \item \textbf{Unit Hexagons (Items):}
+    \begin{itemize}
+        \item Regular hexagons with circumradius $r = 1.0$.
+        \item Side length $= 1.0$.
+        \item May be arbitrarily placed $(x, y)$ and rotated $(\theta)$.
+    \end{itemize}
+    \item \textbf{Enclosing Hexagon (Container):}
+    \begin{itemize}
+        \item Regular, flat-topped, centered at $(0,0)$.
+        \item ``Flat-topped'' vertices are located at angles $[0^\circ, \allowbreak 60^\circ, \allowbreak 120^\circ, \allowbreak 180^\circ, \allowbreak 240^\circ, \allowbreak 300^\circ]$ relative to the center.
+        \item Objective: Minimize the enclosing hexagon's side length $L$ (which is equal to its circumradius).
+    \end{itemize}
+\end{enumerate}
+
+\noindent \textbf{OBJECTIVE FUNCTION}\\
+Maximize Fitness: $-L$ (Minimize side length $L$).\\
+\textbf{Target for $N=11$:} $L \le 3.92$.
+
+\vspace{0.3cm}
+\noindent \textbf{CONSTRAINTS}
+\begin{enumerate}
+    \item \textbf{Containment:} All vertices of every unit hexagon must lie inside or on the boundary of the enclosing hexagon.
+    \item \textbf{Non-overlap:} The intersection area between any pair of unit hexagons must be zero (touching is allowed).
+    \item \textbf{Count:} Exactly \texttt{hex\_num} unit hexagons must be placed.
+\end{enumerate}
+
+\vspace{0.3cm}
+\noindent \textbf{IMPLEMENTATION REQUIREMENTS}
+
+\noindent \textbf{Libraries:}\\
+Use \texttt{numpy}, \texttt{scipy}, \texttt{sklearn}, \texttt{jax}, \texttt{optax}, \texttt{jaxopt} or standard Python libraries.
+
+\noindent \textbf{Function Interface:}\\
+You must implement the following function structure exactly:
+
+\begin{lstlisting}[language=Python, frame=single, basicstyle=\ttfamily\scriptsize]
+import numpy as np
+
+def entrypoint(hex_num=11, seed=0) -> tuple[np.ndarray, np.ndarray]:
+    """
+    Calculates the optimal packing configuration.
+    
+    Args:
+        hex_num: Number of hexagons to pack.
+        seed: Random seed for reproducibility.
+
+    Returns:
+        centers: np.ndarray of shape (hex_num, 2) representing (x, y) coordinates.
+        angles: np.ndarray of shape (hex_num,) in radians [0, 2pi).
+    """
+    # Implement optimization logic here
+    pass
+\end{lstlisting}
+
+\noindent \textbf{CRITICAL FAILURE MODES}
+\begin{itemize}
+    \item \textbf{Wrong Shapes:} Returning arrays of shape \texttt{(12, ...)} when \texttt{hex\_num=11}.
+    \item \textbf{Geometry Errors:} Assuming point-topped enclosing hexagon instead of flat-topped.
+    \item \textbf{Invalid Output:} Hexagons overlapping or protruding outside the boundary in the final result.
+    \item \textbf{Wrong Return Type:} Returning a class or object instead of the \texttt{(centers, angles)} tuple.
+\end{itemize}
+
+\noindent \textbf{DOCUMENTATION}\\
+Supply your code with a brief explanation of the algorithm using \textbf{LaTeX} in the introductory comment.
+
+\switchcolumn
+\subsubsection{With Improver}
+
+\noindent \textbf{TASK DEFINITION -- HEXAGON PACKING OPTIMIZER}
+
+\vspace{0.3cm}
+\noindent \textbf{Challenge:} Implement a Python class that minimizes the side length of a flat-topped regular enclosing hexagon required to contain $N$ non-overlapping unit regular hexagons.
+
+\vspace{0.3cm}
+\noindent \textbf{Specific Benchmark:} $N=11$.\\
+\textbf{General Requirement:} The code must be valid for any $N$ from 1 to 25.
+
+\vspace{0.3cm}
+\noindent \textbf{GEOMETRIC SPECIFICATIONS}
+\begin{enumerate}
+    \item \textbf{Unit Hexagons (Items):}
+    \begin{itemize}
+        \item Regular hexagons with circumradius $r = 1.0$.
+        \item Side length $= 1.0$.
+        \item May be arbitrarily placed $(x, y)$ and rotated $(\theta)$.
+    \end{itemize}
+    \item \textbf{Enclosing Hexagon (Container):}
+    \begin{itemize}
+        \item Regular, flat-topped, centered at $(0,0)$.
+        \item ``Flat-topped'' vertices are located at angles $[0^\circ,\allowbreak 60^\circ,\allowbreak 120^\circ,\allowbreak 180^\circ,\allowbreak 240^\circ,\allowbreak 300^\circ]$ relative to the center.
+        \item Objective: Minimize the enclosing hexagon's side length $L$ (which is equal to its circumradius).
+    \end{itemize}
+\end{enumerate}
+
+\noindent \textbf{OBJECTIVE FUNCTION}\\
+Maximize Fitness: $-L$ (Minimize side length $L$).\\
+\textbf{Target for $N=11$:} $L \le 3.92$.
+
+\vspace{0.3cm}
+\noindent \textbf{CONSTRAINTS}
+\begin{enumerate}
+    \item \textbf{Containment:} All vertices of every unit hexagon must lie inside or on the boundary of the enclosing hexagon.
+    \item \textbf{Non-overlap:} The intersection area between any pair of unit hexagons must be zero (touching is allowed).
+    \item \textbf{Count:} Exactly \texttt{hex\_num} unit hexagons must be placed.
+\end{enumerate}
+
+\vspace{0.3cm}
+\noindent \textbf{IMPLEMENTATION REQUIREMENTS}
+
+\noindent \textbf{Libraries:}\\
+Use \texttt{numpy}, \texttt{scipy}, \texttt{sklearn}, \texttt{jax}, \texttt{optax}, \texttt{jaxopt} or standard Python libraries.
+
+\noindent \textbf{Class Interface:}\\
+You must implement the following class structure exactly:
+
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\scriptsize, frame=single]
+import numpy as np
+
+class Improver:
+    def __init__(self, hex_num=11, seed: int = 0):
+        self.hex_num = hex_num
+        self.seed = seed
+
+    def improve(self, input_config: tuple[np.ndarray, np.ndarray], seed=None) -> tuple[np.ndarray, np.ndarray]:
+        """
+        Refines the configuration to minimize L.
+        """
+        pass
+
+    def perturb(self, input_config, intensity: float, seed=None) -> tuple[np.ndarray, np.ndarray]:
+        """
+        Perturbs the configuration (position/rotation).
+        """
+        pass
+
+    def generate_config(self, seed=None) -> tuple[np.ndarray, np.ndarray]:
+        """
+        Generates a valid starting configuration.
+        """
+        pass
+
+def entrypoint():
+    return Improver
+\end{lstlisting}
+
+\noindent \textbf{CRITICAL FAILURE MODES}
+\begin{itemize}
+    \item \textbf{Wrong Shapes:} Returning arrays of shape \texttt{(12, ...)} when \texttt{hex\_num=11}.
+    \item \textbf{Geometry Errors:} Assuming point-topped enclosing hexagon instead of flat-topped.
+    \item \textbf{Invalid Output:} Hexagons overlapping or protruding outside the boundary in the final result.
+\end{itemize}
+
+\noindent \textbf{DOCUMENTATION}\\
+Supply your code with a brief explanation of the algorithm using \textbf{LaTeX} in the introductory comment.
+\end{paracol}
+
+\onecolumn
+\newpage
+\subsection{Evolved Solution Code}
+\begin{paracol}{2}
+\subsubsection{Baseline}\label{sec:hex_baseline_code}
+The following program was evolved by \gigaevo\ (Program ID: 80ed10a3-7d87-42f7-a610-068c6d69411e, Fitness: -3.9327, Generation: 13).
+\inputminted[
+  fontsize=\scriptsize,
+  bgcolor=bg,
+  frame=lines,
+  breaklines
+]{python}{appendix_hex_baseline.py}
+
+\switchcolumn
+\subsubsection{With Improver}\label{sec:hex_improver_code}
+The following program was evolved by \improvevolve\ (Program ID: e98264be-75e4-4160-aaaa-530ec55f7848, Fitness: -3.92467, Generation: 13). Lines marked with \texttt{EDIT} show the human modifications applied in the \improvevolvepluse\ variant: the optimizer was changed from \texttt{L-BFGS-B} to \texttt{SLSQP}, initial penalty weights were softened, variable bounds were relaxed, and the iteration limit was increased.
+
+\inputminted[
+  fontsize=\scriptsize,
+  bgcolor=bg,
+  frame=lines,
+  breaklines
+]{python}{appendix_novel_hex_improver.py}
+\end{paracol}
+
+\section{Second Autocorrelation Inequality: Prompt and Evolved Solution}
+\label{sec:autocorr_expanded}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figs/cartoon_aci_stages.pdf}
+    \caption{Optimization path of the \improvevolve\ validation scheme on the ACI~2 problem. Each column shows the evolved function $f(x)$ (top row) and its autoconvolution $(f\!*\!f)(x)$ (bottom row) at a key moment; $C(f)$ values are displayed between the rows. \emph{Stage~A} (blue background): two random seeds are generated and improved; seed~3 yields the best initial result ($C(f) = 0.9050$, gold border). \emph{Stage~B} (red background): the \texttt{perturb}--\texttt{improve} cycle is applied with geometrically decreasing perturbation intensity~$\varepsilon$. Iterations at $\varepsilon = 1$ and $\varepsilon = 10^{-2}$ produce only marginal gains ($C(f) \approx 0.908$). At $\varepsilon = 10^{-3}$ (red arrow), $C(f)$ jumps to $0.9508$, accompanied by a qualitative change in both~$f$ and~$f\!*\!f$. Further refinement yields the final result of $C(f) = 0.9512$ (gold border).}
+    \label{fig:cartoon_aci_stages}
+\end{figure}
+
+\onecolumn
+\subsection{Prompt}
+\begin{paracol}{2}
+\subsubsection{Baseline}
+\noindent \textbf{TASK DEFINITION -- SECOND AUTOCORRELATION INEQUALITY}
+
+\vspace{0.3cm}
+\noindent \textbf{Challenge:} Functional optimization in analysis. Implement a Python function that generates a non-negative function $f: \mathbb{R} \to [0, \infty)$ to maximize the constant $C$ in the second autocorrelation inequality.
+
+\vspace{0.3cm}
+\noindent \textbf{Adaptive Resolution:} The solver is \textbf{allowed and encouraged} to choose the optimal resolution (array size $N$) of the function.
+\begin{itemize}
+    \item \textit{Coarse Grids (Lower $N$):} faster iteration and global structure search.
+    \item \textit{Fine Grids (Higher $N$):} higher precision and higher potential fitness $C$.
+    \item Your solution should ideally be scalable for $N$ up to 100,000.
+\end{itemize}
+
+\vspace{0.3cm}
+\noindent \textbf{MATHEMATICAL SPECIFICATIONS}
+\begin{enumerate}
+    \item \textbf{The Function ($f$):}
+    \begin{itemize}
+        \item A discrete 1D array representing a function $f(x)$ on a finite support.
+        \item \textbf{Non-negativity:} $f(x) \ge 0$ for all $x$.
+        \item \textbf{Non-triviality:} $\sum f(x) > 0$.
+    \end{itemize}
+    \item \textbf{The Convolution ($g$):}
+    \begin{itemize}
+        \item $g = f \star f$. In the discrete domain, this is the discrete convolution of the array $f$ with itself (linear convolution).
+    \end{itemize}
+    \item \textbf{The Objective:}
+    \begin{itemize}
+        \item Maximize the ratio involving the $L_1, L_2,$ and $L_\infty$ norms of the autocorrelation $g$.
+    \end{itemize}
+\end{enumerate}
+
+\noindent \textbf{OBJECTIVE FUNCTION}\\
+Maximize the constant $C$:
+\[
+C(f) = \frac{\|f \star f\|_2^2}{\|f \star f\|_1 \|f \star f\|_\infty}
+\]
+\textbf{Target:} $C \ge 0.962$.
+
+\vspace{0.3cm}
+\noindent \textbf{CONSTRAINTS}
+\begin{enumerate}
+    \item \textbf{Validity:} All elements of the output array must be non-negative finite floats.
+    \item \textbf{Bounds:} $0.961 \le C \le 1$.
+    \item \textbf{Minimum Resolution:} The final output array must have length $N \ge 1024$ to ensure the discretization approximates the continuous function reasonably well.
+\end{enumerate}
+
+\vspace{0.3cm}
+\noindent \textbf{IMPLEMENTATION REQUIREMENTS}
+
+\noindent \textbf{Libraries:}\\
+Use \texttt{numpy}, \texttt{jax}, \texttt{optax}, \texttt{scipy}, \texttt{jaxopt}, or standard Python libraries. \textbf{JAX is preferred} for automatic differentiation and GPU acceleration.
+
+\noindent \textbf{Interface:}\\
+You must implement the following function structure exactly:
+
+\begin{lstlisting}[language=Python, frame=single, basicstyle=\ttfamily\scriptsize]
+import numpy as np
+
+def entrypoint() -> np.ndarray:
+    """
+    Generates and optimizes a function f to maximize the autocorrelation constant C.
+
+    The function should perform the optimization internally (using JAX/SciPy/etc.)
+    and return the final optimized 1D array.
+
+    Returns:
+        f: 1D NumPy array (float) representing the optimized function. 
+           Shape should be at least (1024,).
+    """
+    pass
+\end{lstlisting}
+
+\noindent \textbf{CRITICAL FAILURE MODES}
+\begin{itemize}
+    \item \textbf{Zero Function:} Returning an array of all zeros.
+    \item \textbf{Negative Values:} Returning $f(x) < 0$.
+    \item \textbf{Dimensionality Errors:} Returning a 2D array.
+    \item \textbf{Excessively Low Resolution:} Returning $N < 1000$ where convolution properties degrade significantly.
+    \item \textbf{Delusions:} Trying to ``guess'' optimal function rather than searching for it. Believe me, the example for $C = 0.961$ is a really strange function.
+\end{itemize}
+
+\noindent \textbf{DOCUMENTATION}\\
+Supply your code with a brief explanation of the algorithm, using \textbf{LaTeX} in the introductory comment.
+
+\switchcolumn
+\subsubsection{For Improver}
+
+\noindent \textbf{TASK DEFINITION -- SECOND AUTOCORRELATION INEQUALITY}
+
+\vspace{0.3cm}
+\noindent \textbf{Challenge:} Functional optimization in analysis. Implement a Python class that generates a non-negative function $f: \mathbb{R} \to [0, \infty)$ to maximize the constant $C$ in the second autocorrelation inequality.
+
+\vspace{0.3cm}
+\noindent \textbf{Adaptive Resolution:} The solver is \textbf{allowed and encouraged} to change the resolution (array size $N$) of the function.
+\begin{itemize}
+    \item \textit{Coarse Grids (Lower $N$):} faster iteration and global structure search.
+    \item \textit{Fine Grids (Higher $N$):} higher precision and higher potential fitness $C$.
+    \item Your solution must be scalable for $N$ up to $100\,000$ (but, of course, with larger time limits).
+\end{itemize}
+
+\vspace{0.3cm}
+\noindent \textbf{MATHEMATICAL SPECIFICATIONS}
+\begin{enumerate}
+    \item \textbf{The Function ($f$):}
+    \begin{itemize}
+        \item A discrete 1D array representing a function $f(x)$ on a finite support.
+        \item \textbf{Non-negativity:} $f(x) \ge 0$ for all $x$.
+        \item \textbf{Non-triviality:} $\sum f(x) > 0$.
+    \end{itemize}
+    \item \textbf{The Convolution ($g$):}
+    \begin{itemize}
+        \item $g = f \star f$. In the discrete domain, this is the discrete convolution of the array $f$ with itself (linear convolution).
+    \end{itemize}
+    \item \textbf{The Objective:}
+    \begin{itemize}
+        \item Maximize the ratio involving the $L_1, L_2,$ and $L_\infty$ norms of the autocorrelation $g$.
+    \end{itemize}
+\end{enumerate}
+
+\noindent \textbf{OBJECTIVE FUNCTION}\\
+Maximize the constant $C$:
+\[
+C(f) = \frac{\|f \star f\|_2^2}{\|f \star f\|_1 \|f \star f\|_\infty}
+\]
+\textbf{Target:} $C \ge 0.962$.
+
+\vspace{0.3cm}
+\noindent \textbf{CONSTRAINTS}
+\begin{enumerate}
+    \item \textbf{Validity:} All elements of the output array must be non-negative finite floats.
+    \item \textbf{Bounds:} $0.961 \le C \le 1$.
+    \item \textbf{Minimum Resolution:} The final output array must have length $N \ge 1024$ to ensure the discretization approximates the continuous function reasonably well.
+\end{enumerate}
+
+\vspace{0.3cm}
+\noindent \textbf{IMPLEMENTATION REQUIREMENTS}
+
+\noindent \textbf{Libraries:}\\
+Use \texttt{numpy}, \texttt{jax}, \texttt{optax}, \texttt{scipy}, \texttt{jaxopt}, or standard Python libraries. \textbf{JAX is preferred} for automatic differentiation and GPU acceleration.
+
+\noindent \textbf{Class Interface:}\\
+You must implement the following class structure exactly:
+
+\begin{lstlisting}[language=Python, frame=single, basicstyle=\ttfamily\scriptsize]
+import numpy as np
+
+class Improver:
+    def __init__(self, seed: int = 0):
+        """
+        Initialize with reproducible random state.
+        """
+        self.seed = seed
+        # Initialize JAX keys or RNG here
+
+    def improve(self, input_f: np.ndarray) -> np.ndarray:
+        """
+        Refines an existing function f using rigorous local optimization.
+        
+        ADAPTIVE RESOLUTION:
+        The output array does NOT need to match the input size.
+
+        Args:
+            input_f: 1D NumPy array of shape (N_in,)
+
+        Returns:
+            improved_f: 1D NumPy array of shape (N_out,)
+        """
+        pass
+
+    def perturb(self, input_f: np.ndarray, intensity: float) -> np.ndarray:
+        """
+        Applies DISCRETE, structural, or RESOLUTION modifications.
+        Args:
+            input_f: 1D NumPy array.
+            intensity: Float (1e-3 to 1e3).
+
+        Returns:
+            perturbed_f: 1D NumPy array (size may differ from input).
+        """
+        pass
+
+    def generate_config(self, initial_resolution: int = 1000) -> np.ndarray:
+        """
+        Generates a valid starting function f with a maximum possible fitness.
+
+        Args:
+            initial_resolution: Suggested starting size N.
+
+        Returns:
+            f: 1D NumPy array of shape (initial_resolution,)
+        """
+        pass
+
+def entrypoint():
+    return Improver
+\end{lstlisting}
+
+\noindent \textbf{CRITICAL FAILURE MODES}
+\begin{itemize}
+    \item \textbf{Zero Function:} Returning an array of all zeros.
+    \item \textbf{Negative Values:} Returning $f(x) < 0$.
+    \item \textbf{Dimensionality Errors:} Returning a 2D array.
+    \item \textbf{Excessively Low Resolution:} Returning $N < 1000$ where convolution properties degrade significantly.
+    \item \textbf{Excessively High Resolution:} Returning $N > 20000$ where optimization is very slow. Your solution must work even for this case, but we will not validate it now, so put in the comments to your program how it should be scaled or program a ``self.scale\_mode'' for your class. 
+    \item \textbf{Inefficiency:} Ignoring the benefits of Multigrid strategies (not utilizing lower $N$ for fast initial convergence), using a wrong optimizer, or resorting to extremely large $N$.
+    \item \textbf{Delusions:} Trying to ``guess'' optimal function rather than searching for it. Believe me, the example for $C = 0.961$ is a really strange function.
+\end{itemize}
+
+\noindent \textbf{DOCUMENTATION}\\
+Supply your code with a brief explanation of the algorithm, using \textbf{LaTeX} in the introductory comment.
+\end{paracol}
+
+\onecolumn
+\subsection{Evolved Solution Code}
+\begin{paracol}{2}
+\subsubsection{Baseline}
+The following program was evolved by \gigaevo\ (Program ID: 175c1208-29b0-4c6a-9323-c73d52804f2f, Fitness: 0.9406, Generation: 18).
+
+\inputminted[
+  fontsize=\scriptsize,
+  bgcolor=bg,
+  frame=lines,
+  breaklines
+]{python}{appendix_autocorr_baseline.py}
+
+\switchcolumn
+\subsubsection{For Improver}\label{sec:autocorr_improver_code}
+The following program was evolved by \improvevolve\ (Program ID: b8dadcb7-a2a7-452d-93ec-386e06ea1cb8, Fitness: 0.9512, Generation: 11). Lines marked with \texttt{EDIT START/END} show the human modifications applied in the \improvevolvepluse\ variant: the multi-grid schedule was scaled up to accommodate \alphaevolve's 50\,000-step solution and progressively refine it up to 1.6 million steps.
+
+\inputminted[
+  fontsize=\scriptsize,
+  bgcolor=bg,
+  frame=lines,
+  breaklines
+]{python}{appendix_autocorr_improver.py}
+\end{paracol}
+
+\section{LLM-Based Program Tuning: Prompt}
+\label{sec:llm_tuning_prompt}
+
+The following prompt was used to evaluate whether \emph{Gemini~3~Pro} could replicate the expert-guided edits of \improvevolvepluse\ (see \Cref{tab:stage_ablation} for results).
+
+\begin{quote}
+\small
+Your objective is to improve the program that solves the given mathematical challenge while making only minimal modifications to the existing code.
+Allowed changes include adjusting numerical constants, modifying parameter values, or replacing function arguments.
+
+Do not rewrite the program or restructure its logic; prioritize the smallest possible edits that lead to improved performance or correctness.
+
+\medskip
+\noindent\textbf{Program:} \textit{[evolved program inserted here]}
+
+\medskip
+\noindent\textbf{Challenge:} \textit{[task description inserted here]}
+\end{quote}
+
+\end{document}
