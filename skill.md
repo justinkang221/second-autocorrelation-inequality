@@ -161,6 +161,7 @@ python src/evaluate.py solutions/best_100k.npy
 
 - **C ≤ 1** for all non-negative f (Barnard & Steinerberger)
 - **C ≥ 0.94136** for continuous f (Jaech & Joseph, best published continuous bound)
+- **AlphaEvolve C = 0.96102** at n=50k (Georgiev et al., extended AlphaEvolve run)
 - **ImprovEvolve+E C = 0.96258** at n=1.6M (Kravatskiy et al., LLM evolution + human edits)
 - **Our discrete C = 0.96272** at n=1.6M exceeds all published bounds
 - **Optimality condition**: f\*f\*f = constant on supp(f) (Rechnitzer, for the ν₂ problem)

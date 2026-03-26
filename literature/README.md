@@ -21,10 +21,11 @@ Trivially $C \leq 1$ (Hölder). The question is: how close to 1 can we get?
 |------|---------|-------|-------------|--------|
 | 2009 | Martin & O'Bryant | C ≥ 0.88254 | — | Conjectured C = log16/π |
 | 2010 | Matolcsi & Vinuesa | C ≥ 0.88922 | 20 | Step function construction |
-| 2025 | AlphaEvolve (Novikov et al.) | C ≥ 0.8962 | 50 | LLM-guided evolution |
+| 2025 | AlphaEvolve (Novikov et al.) | C ≥ 0.8962 | 50 | LLM-guided evolution (published paper) |
 | 2025 | Boyer & Li | C ≥ 0.901564 | 575 | Simulated annealing + gradient |
 | 2025 | Jaech & Joseph | C ≥ 0.926529 (559 intervals) | 559 | Adam + noise + elitist respawn |
 | 2025 | Jaech & Joseph | C ≥ 0.94136 (upsampled) | 2,399 | 4× upsampling + gradient ascent |
+| 2025 | AlphaEvolve (Georgiev et al.) | C ≥ 0.96102 | 50k | Extended AlphaEvolve run |
 | 2026 | ImprovEvolve (Kravatskiy et al.) | C ≥ 0.9512 (pure) / 0.96258 (+edits) | 1.6M | LLM-evolved improve/perturb + basin hopping |
 | 2026 | **Us (ClaudeExplorer)** | **C ≥ 0.96272** | **~760 blocks in 1.6M** | **Dinkelbach + L-BFGS + β cascade** |
 
@@ -158,7 +159,7 @@ Original 20-step construction achieving C ≥ 0.88922. Foundation that all later
 **Key ACI 2 results:**
 - **ImprovEvolve (pure)**: C = 0.9512 at n = 1,600,000
 - **ImprovEvolve+E (with 3 human edits)**: C = 0.96258 at n = 1,600,000
-- **AlphaEvolve baseline**: C = 0.96102
+- **AlphaEvolve (Georgiev et al.)**: C = 0.96102 at n = 50,000 — this is the extended AlphaEvolve result, not the original 50-interval paper
 - The 3 human edits were: (1) resolution schedule starting coarse then upsampling to 1.6M, (2) removing lower clipping that was constraining values, (3) increasing L-BFGS iteration count
 
 **Key observations:**
