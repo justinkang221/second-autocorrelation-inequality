@@ -1,0 +1,212 @@
+\begin{thebibliography}{10}
+
+\bibitem{Dagdeviren2014}
+Canan Dagdeviren, Byung~Duk Yang, Yewang Su, Phat~L. Tran, Pauline Joe, Eric
+  Anderson, Jing Xia, Vijay Doraiswamy, Behrooz Dehdashti, Xue Feng, Bingwei
+  Lu, Robert Poston, Zain Khalpey, Roozbeh Ghaffari, Yonggang Huang, Marvin~J.
+  Slepian, and John~A. Rogers.
+\newblock Conformal piezoelectric energy harvesting and storage from motions of
+  the heart, lung, and diaphragm.
+\newblock {\em Proceedings of the National Academy of Sciences}, 2014.
+
+\bibitem{Werling0}
+Keith~A. Werling, Maryanne Griffin, Geoffrey~R. Hutchison, and Daniel~S.
+  Lambrecht.
+\newblock Piezoelectric hydrogen bonding: Computational screening for a design
+  rationale.
+\newblock {\em The Journal of Physical Chemistry A}, 0(0):null, 2014.
+
+\bibitem{Werling1}
+Keith~A Werling, Geoffrey~R Hutchison, and Daniel~S Lambrecht.
+\newblock {Piezoelectric Effects of Applied Electric Fields on Hydrogen-Bond
+  Interactions: First-Principles Electronic Structure Investigation of Weak
+  Electrostatic Interactions}.
+\newblock {\em J. Phys. Chem. Lett.}, 4(9):1365--1370, 2013.
+
+\bibitem{quan}
+Xinfeng Quan, Christopher~W. Marvin, Leah Seebald, and Geoffrey~R. Hutchison.
+\newblock Single-molecule piezoelectric deformation: Rational design from
+  first-principles calculations.
+\newblock {\em The Journal of Physical Chemistry C}, 117(33):16783--16790,
+  2013.
+
+\bibitem{Moody}
+GR~Hutchison MJ~Moody, CW~Marivn.
+\newblock Molecularly-doped polyurethane foams with massive piezoelectric
+  response.
+\newblock {\em Journal of Materials Chemistry C}, 4(20):4387--4392, 2016.
+
+\bibitem{Yamabe1977}
+Tokio Yamabe, Akitomo Tachibana, and Harris~J. Silverstone.
+\newblock Theory of the ionization of the hydrogen atom by an external
+  electrostatic field.
+\newblock {\em Phys. Rev. A}, 16:877--890, Sep 1977.
+
+\bibitem{raey}
+Cornel Lanczos.
+\newblock Zur intensitätsschwächung der spektrallinien in hohen elektrischen
+  feldern.
+\newblock {\em Zeitschrift für Physik}, 68(3-4):204--232, 1931.
+
+\bibitem{raey1}
+Cornel Lanczos.
+\newblock Zur theorie des starkeffekts in hohen feldern.
+\newblock {\em Zeitschrift für Physik}, 62(7-8):518--544, 1930.
+
+\bibitem{raey2}
+C.~Lanczos.
+\newblock Zur verschiebung der wasserstoffterme in hohen elektrischen feldern.
+\newblock {\em Zeitschrift für Physik}, 65(7-8):431--455, 1930.
+
+\bibitem{ieeePiezo}
+{\em IEEE Standard on Piezoelectricity}.
+\newblock The Institute of Electrical and electronics Engineers, Inc, 1988.
+
+\bibitem{Martin1972}
+Richard~M. Martin.
+\newblock Piezoelectricity.
+\newblock {\em Phys. Rev. B}, 5:1607--1613, Feb 1972.
+
+\bibitem{Cohen:2008gh}
+R~E Cohen.
+\newblock {First-Principles Theories of Piezoelectric Materials}.
+\newblock In {\em Piezoelectricity}, pages 471--492. Springer Berlin
+  Heidelberg, Berlin, Heidelberg, 2008.
+
+\bibitem{contMech}
+Fridtjov Irgens.
+\newblock {\em Continuum Mechanics}.
+\newblock Springer-Verlag Berlin Heidelberg, 2008.
+
+\bibitem{hartmann}
+Julia~R. Bursten, Michael~J. Hartmann, and Jill~E. Millstone.
+\newblock Conceptual analysis for nanoscience.
+\newblock {\em The Journal of Physical Chemistry Letters}, 7(10):1917--1918,
+  2016.
+\newblock PMID: 27193086.
+
+\bibitem{numRec}
+William~H. Press, Saul~A. Teukolsky, William~T. Vetterling, and Brian~P.
+  Flannery.
+\newblock {\em Numerical Recipes 3rd Edition: The Art of Scientific Computing}.
+\newblock Cambridge University Press, New York, NY, USA, 3 edition, 2007.
+
+\bibitem{schlegel}
+H.~Bernhard Schlegel.
+\newblock Geometry optimization.
+\newblock {\em Wiley Interdisciplinary Reviews: Computational Molecular
+  Science}, 1(5):790--809, 2011.
+
+\bibitem{baker}
+Jon Baker.
+\newblock Geometry optimization in cartesian coordinates: Constrained
+  optimization.
+\newblock {\em Journal of Computational Chemistry}, 13(2):240--253, 1992.
+
+\bibitem{b3lyp}
+Axel~D. Becke.
+\newblock Density‐functional thermochemistry. iii. the role of exact
+  exchange.
+\newblock {\em The Journal of Chemical Physics}, 98(7):5648--5652, 1993.
+
+\bibitem{Lee1988}
+Chengteh Lee, Weitao Yang, and Robert~G. Parr.
+\newblock Development of the colle-salvetti correlation-energy formula into a
+  functional of the electron density.
+\newblock {\em Phys. Rev. B}, 37:785--789, Jan 1988.
+
+\bibitem{pople}
+Vitaly~A. Rassolov, John~A. Pople, Mark~A. Ratner, and Theresa~L. Windus.
+\newblock 6-31g* basis set for atoms k through zn.
+\newblock {\em The Journal of Chemical Physics}, 109(4):1223--1229, 1998.
+
+\bibitem{kom}
+Andrew Komornicki and James W.~McIver Jr.
+\newblock An efficient ab initio method for computing infrared and raman
+  intensities: Application to ethylene.
+\newblock {\em The Journal of Chemical Physics}, 70(4):2014--2016, 1979.
+
+\bibitem{math}
+{Wolfram Research, Inc.}
+\newblock Mathematica 8.0.
+
+\bibitem{MATLAB:2010}
+MATLAB.
+\newblock {\em version 7.10.0 (R2010a)}.
+\newblock The MathWorks Inc., Natick, Massachusetts, 2010.
+
+\bibitem{python}
+Eric Jones, Travis Oliphant, Pearu Peterson, et~al.
+\newblock {SciPy}: Open source scientific tools for {Python}, 2001--.
+\newblock [Online; accessed <today>].
+
+\bibitem{HUMP96}
+William Humphrey, Andrew Dalke, and Klaus Schulten.
+\newblock {VMD} -- {V}isual {M}olecular {D}ynamics.
+\newblock {\em Journal of Molecular Graphics}, 14:33--38, 1996.
+
+\bibitem{STON1998}
+John Stone.
+\newblock {\em An Efficient Library for Parallel Ray Tracing and Animation}.
+\newblock Master's thesis, Computer Science Department, University of
+  Missouri-Rolla, April 1998.
+
+\bibitem{Qchem}
+Yihan Shao, Zhengting Gan, Evgeny Epifanovsky, Andrew~T.B. Gilbert, Michael
+  Wormit, Joerg Kussmann, Adrian~W. Lange, Andrew Behn, Jia Deng, Xintian Feng,
+  Debashree Ghosh, Matthew Goldey, Paul~R. Horn, Leif~D. Jacobson, Ilya
+  Kaliman, Rustam~Z. Khaliullin, Tomasz Kuś, Arie Landau, Jie Liu, Emil~I.
+  Proynov, Young~Min Rhee, Ryan~M. Richard, Mary~A. Rohrdanz, Ryan~P. Steele,
+  Eric~J. Sundstrom, H.~Lee~Woodcock III, Paul~M. Zimmerman, Dmitry Zuev, Ben
+  Albrecht, Ethan Alguire, Brian Austin, Gregory J.~O. Beran, Yves~A. Bernard,
+  Eric Berquist, Kai Brandhorst, Ksenia~B. Bravaya, Shawn~T. Brown, David
+  Casanova, Chun-Min Chang, Yunqing Chen, Siu~Hung Chien, Kristina~D. Closser,
+  Deborah~L. Crittenden, Michael Diedenhofen, Robert A.~DiStasio Jr., Hainam
+  Do, Anthony~D. Dutoi, Richard~G. Edgar, Shervin Fatehi, Laszlo Fusti-Molnar,
+  An~Ghysels, Anna Golubeva-Zadorozhnaya, Joseph Gomes, Magnus~W.D.
+  Hanson-Heine, Philipp~H.P. Harbach, Andreas~W. Hauser, Edward~G. Hohenstein,
+  Zachary~C. Holden, Thomas-C. Jagau, Hyunjun Ji, Benjamin Kaduk, Kirill
+  Khistyaev, Jaehoon Kim, Jihan Kim, Rollin~A. King, Phil Klunzinger, Dmytro
+  Kosenkov, Tim Kowalczyk, Caroline~M. Krauter, Ka~Un Lao, Adèle~D. Laurent,
+  Keith~V. Lawler, Sergey~V. Levchenko, Ching~Yeh Lin, Fenglai Liu, Ester
+  Livshits, Rohini~C. Lochan, Arne Luenser, Prashant Manohar, Samuel~F. Manzer,
+  Shan-Ping Mao, Narbe Mardirossian, Aleksandr~V. Marenich, Simon~A. Maurer,
+  Nicholas~J. Mayhall, Eric Neuscamman, C.~Melania Oana, Roberto
+  Olivares-Amaya, Darragh~P. O’Neill, John~A. Parkhill, Trilisa~M. Perrine,
+  Roberto Peverati, Alexander Prociuk, Dirk~R. Rehn, Edina Rosta, Nicholas~J.
+  Russ, Shaama~M. Sharada, Sandeep Sharma, David~W. Small, Alexander Sodt,
+  Tamar Stein, David Stück, Yu-Chuan Su, Alex~J.W. Thom, Takashi Tsuchimochi,
+  Vitalii Vanovschi, Leslie Vogt, Oleg Vydrov, Tao Wang, Mark~A. Watson, Jan
+  Wenzel, Alec White, Christopher~F. Williams, Jun Yang, Sina Yeganeh, Shane~R.
+  Yost, Zhi-Qiang You, Igor~Ying Zhang, Xing Zhang, Yan Zhao, Bernard~R.
+  Brooks, Garnet~K.L. Chan, Daniel~M. Chipman, Christopher~J. Cramer, William
+  A.~Goddard III, Mark~S. Gordon, Warren~J. Hehre, Andreas Klamt, Henry
+  F.~Schaefer III, Michael~W. Schmidt, C.~David Sherrill, Donald~G. Truhlar,
+  Arieh Warshel, Xin Xu, Alán Aspuru-Guzik, Roi Baer, Alexis~T. Bell,
+  Nicholas~A. Besley, Jeng-Da Chai, Andreas Dreuw, Barry~D. Dunietz, Thomas~R.
+  Furlani, Steven~R. Gwaltney, Chao-Ping Hsu, Yousung Jung, Jing Kong,
+  Daniel~S. Lambrecht, WanZhen Liang, Christian Ochsenfeld, Vitaly~A. Rassolov,
+  Lyudmila~V. Slipchenko, Joseph~E. Subotnik, Troy~Van Voorhis, John~M.
+  Herbert, Anna~I. Krylov, Peter~M.W. Gill, and Martin Head-Gordon.
+\newblock Advances in molecular quantum chemistry contained in the q-chem 4
+  program package.
+\newblock {\em Molecular Physics}, 113(2):184--215, 2015.
+
+\bibitem{fock}
+V~Fock.
+\newblock Z. physik 61, 126 (1930); jc slater.
+\newblock {\em Phys. Rev}, 35:210, 1930.
+
+\bibitem{hehre}
+W.~J. Hehre, R.~F. Stewart, and J.~A. Pople.
+\newblock Self‐consistent molecular‐orbital methods. i. use of gaussian
+  expansions of slater‐type atomic orbitals.
+\newblock {\em The Journal of Chemical Physics}, 51(6):2657--2664, 1969.
+
+\bibitem{collins}
+John~B. Collins, Paul von R.~Schleyer, J.~Stephen Binkley, and John~A. Pople.
+\newblock Self‐consistent molecular orbital methods. xvii. geometries and
+  binding energies of second‐row molecules. a comparison of three basis sets.
+\newblock {\em The Journal of Chemical Physics}, 64(12):5142--5151, 1976.
+
+\end{thebibliography}

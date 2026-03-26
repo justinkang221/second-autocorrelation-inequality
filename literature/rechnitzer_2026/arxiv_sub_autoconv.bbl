@@ -1,0 +1,931 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{abramowitz1964}{book}{}
+      \name{author}{2}{}{%
+        {{hash=b30c3e9da438d36efb5827b2fe852284}{%
+           family={Abramowitz},
+           familyi={A\bibinitperiod},
+           given={Milton},
+           giveni={M\bibinitperiod}}}%
+        {{hash=94cadaf0db044088c2558aa77e72748b}{%
+           family={Stegun},
+           familyi={S\bibinitperiod},
+           given={Irene\bibnamedelima A},
+           giveni={I\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {US Government printing office}%
+      }
+      \strng{namehash}{63984f02de086b7d6004b5486dbf6cab}
+      \strng{fullhash}{63984f02de086b7d6004b5486dbf6cab}
+      \strng{bibnamehash}{63984f02de086b7d6004b5486dbf6cab}
+      \strng{authorbibnamehash}{63984f02de086b7d6004b5486dbf6cab}
+      \strng{authornamehash}{63984f02de086b7d6004b5486dbf6cab}
+      \strng{authorfullhash}{63984f02de086b7d6004b5486dbf6cab}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Handbook of mathematical functions with formulas, graphs, and mathematical tables}
+      \field{volume}{55}
+      \field{year}{1964}
+    \endentry
+    \entry{cilleruelo2000}{article}{}
+      \name{author}{2}{}{%
+        {{hash=04da74352b095f656ff24ac293289aad}{%
+           family={Cilleruelo},
+           familyi={C\bibinitperiod},
+           given={Javier},
+           giveni={J\bibinitperiod}}}%
+        {{hash=e4f256a359a88e24e63c71cc5b98befd}{%
+           family={Jiménez-Urroz},
+           familyi={J\bibinithyphendelim U\bibinitperiod},
+           given={Jorge},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {London Mathematical Society}%
+      }
+      \strng{namehash}{21c22cc1d63eb1ddc8ed0984c59fad59}
+      \strng{fullhash}{21c22cc1d63eb1ddc8ed0984c59fad59}
+      \strng{bibnamehash}{21c22cc1d63eb1ddc8ed0984c59fad59}
+      \strng{authorbibnamehash}{21c22cc1d63eb1ddc8ed0984c59fad59}
+      \strng{authornamehash}{21c22cc1d63eb1ddc8ed0984c59fad59}
+      \strng{authorfullhash}{21c22cc1d63eb1ddc8ed0984c59fad59}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Mathematika}
+      \field{number}{1-2}
+      \field{title}{{\(B_h[g]\)} sequences}
+      \field{volume}{47}
+      \field{year}{2000}
+      \field{pages}{109\bibrangedash 115}
+      \range{pages}{7}
+    \endentry
+    \entry{cilleruelo2010}{article}{}
+      \name{author}{3}{}{%
+        {{hash=04da74352b095f656ff24ac293289aad}{%
+           family={Cilleruelo},
+           familyi={C\bibinitperiod},
+           given={Javier},
+           giveni={J\bibinitperiod}}}%
+        {{hash=3590abe43e2e8a461f434fd8f11315ca}{%
+           family={Ruzsa},
+           familyi={R\bibinitperiod},
+           given={Imre},
+           giveni={I\bibinitperiod}}}%
+        {{hash=ec378e3a2d94e59c65e387bfd6634100}{%
+           family={Vinuesa},
+           familyi={V\bibinitperiod},
+           given={Carlos},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{0f68ec12ef357dd0bbb0571c59aaf3fc}
+      \strng{fullhash}{0f68ec12ef357dd0bbb0571c59aaf3fc}
+      \strng{bibnamehash}{0f68ec12ef357dd0bbb0571c59aaf3fc}
+      \strng{authorbibnamehash}{0f68ec12ef357dd0bbb0571c59aaf3fc}
+      \strng{authornamehash}{0f68ec12ef357dd0bbb0571c59aaf3fc}
+      \strng{authorfullhash}{0f68ec12ef357dd0bbb0571c59aaf3fc}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Advances in Mathematics}
+      \field{number}{5}
+      \field{title}{Generalized sidon sets}
+      \field{volume}{225}
+      \field{year}{2010}
+      \field{pages}{2786\bibrangedash 2807}
+      \range{pages}{22}
+    \endentry
+    \entry{cilleruelo2008}{article}{}
+      \name{author}{2}{}{%
+        {{hash=04da74352b095f656ff24ac293289aad}{%
+           family={Cilleruelo},
+           familyi={C\bibinitperiod},
+           given={Javier},
+           giveni={J\bibinitperiod}}}%
+        {{hash=ec378e3a2d94e59c65e387bfd6634100}{%
+           family={Vinuesa},
+           familyi={V\bibinitperiod},
+           given={Carlos},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{1ce998daed1c7e6364194e2d3399d09e}
+      \strng{fullhash}{1ce998daed1c7e6364194e2d3399d09e}
+      \strng{bibnamehash}{1ce998daed1c7e6364194e2d3399d09e}
+      \strng{authorbibnamehash}{1ce998daed1c7e6364194e2d3399d09e}
+      \strng{authornamehash}{1ce998daed1c7e6364194e2d3399d09e}
+      \strng{authorfullhash}{1ce998daed1c7e6364194e2d3399d09e}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Combinatorics, Probability and Computing}
+      \field{number}{6}
+      \field{title}{{\(B_2[g]\)} sets and a conjecture of Schinzel and Schmidt}
+      \field{volume}{17}
+      \field{year}{2008}
+      \field{pages}{741\bibrangedash 747}
+      \range{pages}{7}
+    \endentry
+    \entry{cloninger2017}{article}{}
+      \name{author}{2}{}{%
+        {{hash=9d7af19d004c456f9e01341b171f173d}{%
+           family={Cloninger},
+           familyi={C\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod}}}%
+        {{hash=1b24a53e9b8e90712e18740e9a3b599d}{%
+           family={Steinerberger},
+           familyi={S\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{0d4df47677ad394e261086f8dd1c6dd6}
+      \strng{fullhash}{0d4df47677ad394e261086f8dd1c6dd6}
+      \strng{bibnamehash}{0d4df47677ad394e261086f8dd1c6dd6}
+      \strng{authorbibnamehash}{0d4df47677ad394e261086f8dd1c6dd6}
+      \strng{authornamehash}{0d4df47677ad394e261086f8dd1c6dd6}
+      \strng{authorfullhash}{0d4df47677ad394e261086f8dd1c6dd6}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the American Mathematical Society}
+      \field{number}{8}
+      \field{title}{On suprema of autoconvolutions with an application to Sidon sets}
+      \field{volume}{145}
+      \field{year}{2017}
+      \field{pages}{3191\bibrangedash 3200}
+      \range{pages}{10}
+    \endentry
+    \entry{erdos1941}{article}{}
+      \name{author}{2}{}{%
+        {{hash=6bdf16ead0815d7b7b3548f89f0f1355}{%
+           family={Erdős},
+           familyi={E\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+        {{hash=f4ee93efcace35c40df58fa6a8eb26ba}{%
+           family={Turán},
+           familyi={T\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{bbcd275591a6535c30f18c00a0d49c14}
+      \strng{fullhash}{bbcd275591a6535c30f18c00a0d49c14}
+      \strng{bibnamehash}{bbcd275591a6535c30f18c00a0d49c14}
+      \strng{authorbibnamehash}{bbcd275591a6535c30f18c00a0d49c14}
+      \strng{authornamehash}{bbcd275591a6535c30f18c00a0d49c14}
+      \strng{authorfullhash}{bbcd275591a6535c30f18c00a0d49c14}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issue}{4}
+      \field{title}{On a problem of Sidon in additive number theory, and on some related problems.}
+      \field{volume}{16}
+      \field{year}{1941}
+      \field{pages}{212\bibrangedash 215}
+      \range{pages}{4}
+    \endentry
+    \entry{fletcher2013}{book}{}
+      \name{author}{1}{}{%
+        {{hash=8abe2db93042a6dd925f3a2a2d32b43e}{%
+           family={Fletcher},
+           familyi={F\bibinitperiod},
+           given={Roger},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {John Wiley \& Sons}%
+      }
+      \strng{namehash}{8abe2db93042a6dd925f3a2a2d32b43e}
+      \strng{fullhash}{8abe2db93042a6dd925f3a2a2d32b43e}
+      \strng{bibnamehash}{8abe2db93042a6dd925f3a2a2d32b43e}
+      \strng{authorbibnamehash}{8abe2db93042a6dd925f3a2a2d32b43e}
+      \strng{authornamehash}{8abe2db93042a6dd925f3a2a2d32b43e}
+      \strng{authorfullhash}{8abe2db93042a6dd925f3a2a2d32b43e}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Practical methods of optimization}
+      \field{year}{2013}
+    \endentry
+    \entry{flint}{manual}{}
+      \name{author}{1}{}{%
+        {{hash=2ecf01760acf5e4067f1dda263343e96}{%
+           family={team},
+           familyi={t\bibinitperiod},
+           given={The\bibnamedelima {FLINT}},
+           giveni={T\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \strng{namehash}{2ecf01760acf5e4067f1dda263343e96}
+      \strng{fullhash}{2ecf01760acf5e4067f1dda263343e96}
+      \strng{bibnamehash}{2ecf01760acf5e4067f1dda263343e96}
+      \strng{authorbibnamehash}{2ecf01760acf5e4067f1dda263343e96}
+      \strng{authornamehash}{2ecf01760acf5e4067f1dda263343e96}
+      \strng{authorfullhash}{2ecf01760acf5e4067f1dda263343e96}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Version 3.4.0, \\ \url{https://flintlib.org}}
+      \field{title}{{FLINT}: {F}ast {L}ibrary for {N}umber {T}heory}
+      \field{year}{2025}
+    \endentry
+    \entry{georgiev2025}{article}{}
+      \name{author}{4}{}{%
+        {{hash=0ec8a1d9d75289b331bd56c9726e216f}{%
+           family={Georgiev},
+           familyi={G\bibinitperiod},
+           given={Bogdan},
+           giveni={B\bibinitperiod}}}%
+        {{hash=ded7c02c790f0c94e14bf5b45b7d52c4}{%
+           family={Gómez-Serrano},
+           familyi={G\bibinithyphendelim S\bibinitperiod},
+           given={Javier},
+           giveni={J\bibinitperiod}}}%
+        {{hash=4cea0d7ce90ed017dfa21b4cee6c72e9}{%
+           family={Tao},
+           familyi={T\bibinitperiod},
+           given={Terence},
+           giveni={T\bibinitperiod}}}%
+        {{hash=9cc01ed762e79427e8f941fec703d73c}{%
+           family={Wagner},
+           familyi={W\bibinitperiod},
+           given={Adam\bibnamedelima Zsolt},
+           giveni={A\bibinitperiod\bibinitdelim Z\bibinitperiod}}}%
+      }
+      \strng{namehash}{9b58cfca827e21119b40d4d4ff50110a}
+      \strng{fullhash}{f5a8878a6515152be62566318271375f}
+      \strng{bibnamehash}{9b58cfca827e21119b40d4d4ff50110a}
+      \strng{authorbibnamehash}{9b58cfca827e21119b40d4d4ff50110a}
+      \strng{authornamehash}{9b58cfca827e21119b40d4d4ff50110a}
+      \strng{authorfullhash}{f5a8878a6515152be62566318271375f}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv: 2511.02864}
+      \field{title}{Mathematical exploration and discovery at scale}
+      \field{year}{2025}
+    \endentry
+    \entry{green100}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=4c8c2ffb440fa772c62a8fd20063eb0b}{%
+           family={Green},
+           familyi={G\bibinitperiod},
+           given={Ben},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{4c8c2ffb440fa772c62a8fd20063eb0b}
+      \strng{fullhash}{4c8c2ffb440fa772c62a8fd20063eb0b}
+      \strng{bibnamehash}{4c8c2ffb440fa772c62a8fd20063eb0b}
+      \strng{authorbibnamehash}{4c8c2ffb440fa772c62a8fd20063eb0b}
+      \strng{authornamehash}{4c8c2ffb440fa772c62a8fd20063eb0b}
+      \strng{authorfullhash}{4c8c2ffb440fa772c62a8fd20063eb0b}
+      \field{extraname}{1}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{manuscript, available on request to Professor Green}
+      \field{title}{100 open problems}
+    \endentry
+    \entry{green2001}{article}{}
+      \name{author}{1}{}{%
+        {{hash=4c8c2ffb440fa772c62a8fd20063eb0b}{%
+           family={Green},
+           familyi={G\bibinitperiod},
+           given={Ben},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{4c8c2ffb440fa772c62a8fd20063eb0b}
+      \strng{fullhash}{4c8c2ffb440fa772c62a8fd20063eb0b}
+      \strng{bibnamehash}{4c8c2ffb440fa772c62a8fd20063eb0b}
+      \strng{authorbibnamehash}{4c8c2ffb440fa772c62a8fd20063eb0b}
+      \strng{authornamehash}{4c8c2ffb440fa772c62a8fd20063eb0b}
+      \strng{authorfullhash}{4c8c2ffb440fa772c62a8fd20063eb0b}
+      \field{extraname}{2}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Acta Arithmetica}
+      \field{number}{4}
+      \field{title}{The number of squares and $ B_h [g] $ sets}
+      \field{volume}{100}
+      \field{year}{2001}
+      \field{pages}{365\bibrangedash 390}
+      \range{pages}{26}
+    \endentry
+    \entry{johansson2017}{article}{}
+      \name{author}{1}{}{%
+        {{hash=1cd2f71317215f5336dbc31416e0bbd7}{%
+           family={Johansson},
+           familyi={J\bibinitperiod},
+           given={Fredrik},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{1cd2f71317215f5336dbc31416e0bbd7}
+      \strng{fullhash}{1cd2f71317215f5336dbc31416e0bbd7}
+      \strng{bibnamehash}{1cd2f71317215f5336dbc31416e0bbd7}
+      \strng{authorbibnamehash}{1cd2f71317215f5336dbc31416e0bbd7}
+      \strng{authornamehash}{1cd2f71317215f5336dbc31416e0bbd7}
+      \strng{authorfullhash}{1cd2f71317215f5336dbc31416e0bbd7}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{{IEEE} Transactions on Computers}
+      \field{number}{8}
+      \field{title}{{A}rb: Efficient arbitrary precision midpoint radius interval arithmetic}
+      \field{volume}{66}
+      \field{year}{2017}
+      \field{pages}{1281\bibrangedash 1292}
+      \range{pages}{12}
+    \endentry
+    \entry{johnston2022}{article}{}
+      \name{author}{3}{}{%
+        {{hash=4ed59d51b7cef80e6d0df23ac32279c7}{%
+           family={Johnston},
+           familyi={J\bibinitperiod},
+           given={Griffin},
+           giveni={G\bibinitperiod}}}%
+        {{hash=c59e6e684acfe2f8754e5ad26dafdf60}{%
+           family={Tait},
+           familyi={T\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=d48cb5c8c47996438959050ed38bba81}{%
+           family={Timmons},
+           familyi={T\bibinitperiod},
+           given={Craig},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{645cf27849d5d0f4177accde19e67f18}
+      \strng{fullhash}{645cf27849d5d0f4177accde19e67f18}
+      \strng{bibnamehash}{645cf27849d5d0f4177accde19e67f18}
+      \strng{authorbibnamehash}{645cf27849d5d0f4177accde19e67f18}
+      \strng{authornamehash}{645cf27849d5d0f4177accde19e67f18}
+      \strng{authorfullhash}{645cf27849d5d0f4177accde19e67f18}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Australiasian Journal of Combinatorics}
+      \field{number}{1}
+      \field{title}{Upper and lower bounds on the size of {\(B_k[g]\)} sets}
+      \field{volume}{83}
+      \field{year}{2022}
+      \field{pages}{129\bibrangedash 140}
+      \range{pages}{12}
+    \endentry
+    \entry{lindstrom2000}{article}{}
+      \name{author}{1}{}{%
+        {{hash=ac7326e9d963959452d375853cd03d00}{%
+           family={Lindström},
+           familyi={L\bibinitperiod},
+           given={Bernt},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {JSTOR}%
+      }
+      \strng{namehash}{ac7326e9d963959452d375853cd03d00}
+      \strng{fullhash}{ac7326e9d963959452d375853cd03d00}
+      \strng{bibnamehash}{ac7326e9d963959452d375853cd03d00}
+      \strng{authorbibnamehash}{ac7326e9d963959452d375853cd03d00}
+      \strng{authornamehash}{ac7326e9d963959452d375853cd03d00}
+      \strng{authorfullhash}{ac7326e9d963959452d375853cd03d00}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the American Mathematical Society}
+      \field{title}{{\(B_h[g]\)}-sequences from {\(B_h\)}-sequences}
+      \field{year}{2000}
+      \field{pages}{657\bibrangedash 659}
+      \range{pages}{3}
+    \endentry
+    \entry{martin2007}{article}{}
+      \name{author}{2}{}{%
+        {{hash=c06cf923cb7824f2455f1750eec3b292}{%
+           family={Martin},
+           familyi={M\bibinitperiod},
+           given={Greg},
+           giveni={G\bibinitperiod}}}%
+        {{hash=18cfc85c8f2c97616cb9ce8dbf13391d}{%
+           family={O'Bryant},
+           familyi={O\bibinitperiod},
+           given={Kevin},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Taylor \& Francis}%
+      }
+      \strng{namehash}{33366b6993f7b90627eedec67c40e148}
+      \strng{fullhash}{33366b6993f7b90627eedec67c40e148}
+      \strng{bibnamehash}{33366b6993f7b90627eedec67c40e148}
+      \strng{authorbibnamehash}{33366b6993f7b90627eedec67c40e148}
+      \strng{authornamehash}{33366b6993f7b90627eedec67c40e148}
+      \strng{authorfullhash}{33366b6993f7b90627eedec67c40e148}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Experimental Mathematics}
+      \field{number}{2}
+      \field{title}{The symmetric subset problem in continuous Ramsey theory}
+      \field{volume}{16}
+      \field{year}{2007}
+      \field{pages}{145\bibrangedash 165}
+      \range{pages}{21}
+    \endentry
+    \entry{martin2009}{article}{}
+      \name{author}{2}{}{%
+        {{hash=c06cf923cb7824f2455f1750eec3b292}{%
+           family={Martin},
+           familyi={M\bibinitperiod},
+           given={Greg},
+           giveni={G\bibinitperiod}}}%
+        {{hash=50955d2c61b26b77dcc2734ee89fe815}{%
+           family={O’Bryant},
+           familyi={O\bibinitperiod},
+           given={Kevin},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Duke University Press}%
+      }
+      \strng{namehash}{164ebc4ca3e3ded12cb4f704d1427c5a}
+      \strng{fullhash}{164ebc4ca3e3ded12cb4f704d1427c5a}
+      \strng{bibnamehash}{164ebc4ca3e3ded12cb4f704d1427c5a}
+      \strng{authorbibnamehash}{164ebc4ca3e3ded12cb4f704d1427c5a}
+      \strng{authornamehash}{164ebc4ca3e3ded12cb4f704d1427c5a}
+      \strng{authorfullhash}{164ebc4ca3e3ded12cb4f704d1427c5a}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Illinois Journal of Mathematics}
+      \field{number}{1}
+      \field{title}{The supremum of autoconvolutions, with applications to additive number theory}
+      \field{volume}{53}
+      \field{year}{2009}
+      \field{pages}{219\bibrangedash 235}
+      \range{pages}{17}
+    \endentry
+    \entry{mpmath}{manual}{}
+      \name{author}{1}{}{%
+        {{hash=82cdd9a527cde8cd39420dba064a4050}{%
+           family={team},
+           familyi={t\bibinitperiod},
+           given={The},
+           giveni={T\bibinitperiod},
+           prefix={mpmath\bibnamedelima development},
+           prefixi={m\bibinitperiod\bibinitdelim d\bibinitperiod}}}%
+      }
+      \strng{namehash}{82cdd9a527cde8cd39420dba064a4050}
+      \strng{fullhash}{82cdd9a527cde8cd39420dba064a4050}
+      \strng{bibnamehash}{82cdd9a527cde8cd39420dba064a4050}
+      \strng{authorbibnamehash}{82cdd9a527cde8cd39420dba064a4050}
+      \strng{authornamehash}{82cdd9a527cde8cd39420dba064a4050}
+      \strng{authorfullhash}{82cdd9a527cde8cd39420dba064a4050}
+      \field{sortinit}{m}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{\url{http://mpmath.org/}}
+      \field{title}{mpmath: a {P}ython library for arbitrary precision floating point arithmetic (version 1.3.0)}
+      \field{year}{2023}
+    \endentry
+    \entry{ries}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=f1dbeb5791a15ee5108401fea2cd8ee3}{%
+           family={Munafo},
+           familyi={M\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{f1dbeb5791a15ee5108401fea2cd8ee3}
+      \strng{fullhash}{f1dbeb5791a15ee5108401fea2cd8ee3}
+      \strng{bibnamehash}{f1dbeb5791a15ee5108401fea2cd8ee3}
+      \strng{authorbibnamehash}{f1dbeb5791a15ee5108401fea2cd8ee3}
+      \strng{authornamehash}{f1dbeb5791a15ee5108401fea2cd8ee3}
+      \strng{authorfullhash}{f1dbeb5791a15ee5108401fea2cd8ee3}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{\url{https://www.mrob.com/pub/ries/index.html}}
+      \field{title}{Ries: Rilybot Inverse Equation Solver}
+      \field{year}{2022}
+    \endentry
+    \entry{obraynt2004}{article}{}
+      \name{author}{1}{}{%
+        {{hash=18cfc85c8f2c97616cb9ce8dbf13391d}{%
+           family={O'Bryant},
+           familyi={O\bibinitperiod},
+           given={Kevin},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{18cfc85c8f2c97616cb9ce8dbf13391d}
+      \strng{fullhash}{18cfc85c8f2c97616cb9ce8dbf13391d}
+      \strng{bibnamehash}{18cfc85c8f2c97616cb9ce8dbf13391d}
+      \strng{authorbibnamehash}{18cfc85c8f2c97616cb9ce8dbf13391d}
+      \strng{authornamehash}{18cfc85c8f2c97616cb9ce8dbf13391d}
+      \strng{authorfullhash}{18cfc85c8f2c97616cb9ce8dbf13391d}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Electronic Journal of Combinatorics}
+      \field{title}{A complete annotated bibliography of work related to Sidon sequences}
+      \field{volume}{Dynamic surveys 11}
+      \field{year}{2004}
+      \field{pages}{1\bibrangedash 39}
+      \range{pages}{39}
+    \endentry
+    \entry{olver1997}{book}{}
+      \name{author}{1}{}{%
+        {{hash=f13d74b75ec5ba80a0c1f07242d42d46}{%
+           family={Olver},
+           familyi={O\bibinitperiod},
+           given={Frank},
+           giveni={F\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {AK Peters/CRC Press}%
+      }
+      \strng{namehash}{f13d74b75ec5ba80a0c1f07242d42d46}
+      \strng{fullhash}{f13d74b75ec5ba80a0c1f07242d42d46}
+      \strng{bibnamehash}{f13d74b75ec5ba80a0c1f07242d42d46}
+      \strng{authorbibnamehash}{f13d74b75ec5ba80a0c1f07242d42d46}
+      \strng{authornamehash}{f13d74b75ec5ba80a0c1f07242d42d46}
+      \strng{authorfullhash}{f13d74b75ec5ba80a0c1f07242d42d46}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Asymptotics and special functions}
+      \field{year}{1997}
+    \endentry
+    \entry{olver2019}{misc}{}
+      \name{author}{10}{}{%
+        {{hash=1895e2154c958edbb0c1336f7e566f03}{%
+           family={Olver},
+           familyi={O\bibinitperiod},
+           given={Frank\bibnamedelima W\bibnamedelima J},
+           giveni={F\bibinitperiod\bibinitdelim W\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=9a75a602bf85df59105b6cb96c3fd641}{%
+           family={Olde\bibnamedelima Daalhuis},
+           familyi={O\bibinitperiod\bibinitdelim D\bibinitperiod},
+           given={Adri\bibnamedelima B},
+           giveni={A\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=561b5e46228936fa50eaac378e86d1e7}{%
+           family={Lozier},
+           familyi={L\bibinitperiod},
+           given={Daniel\bibnamedelima W},
+           giveni={D\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=ab77e0e7a5e9cb4ad5d889f197b1c6aa}{%
+           family={Schneider},
+           familyi={S\bibinitperiod},
+           given={Barry},
+           giveni={B\bibinitperiod}}}%
+        {{hash=c2f8674464d45154f018ebc56dce2f3b}{%
+           family={Boisvert},
+           familyi={B\bibinitperiod},
+           given={Ronald\bibnamedelima F},
+           giveni={R\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=2990ead6f49dc03f149a073952a8750d}{%
+           family={Clark},
+           familyi={C\bibinitperiod},
+           given={Charles\bibnamedelima W},
+           giveni={C\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=780a7ab61aec1cda5638e7ba69fdefb2}{%
+           family={Miller},
+           familyi={M\bibinitperiod},
+           given={Bruce\bibnamedelima R},
+           giveni={B\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=66a83edb098c67dd1778c7e84e7f3114}{%
+           family={Saunders},
+           familyi={S\bibinitperiod},
+           given={Bonita\bibnamedelima V},
+           giveni={B\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+        {{hash=4c52dd04b398e9280ccadef60d1a1842}{%
+           family={Cohl},
+           familyi={C\bibinitperiod},
+           given={Howard\bibnamedelima S},
+           giveni={H\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=cb9644f564b4771765e6d0cd73a22ea8}{%
+           family={McClain},
+           familyi={M\bibinitperiod},
+           given={Marjorie\bibnamedelima A},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{publisher}{2}{%
+        {National Institute of Standards}%
+        {Technology (NIST)}%
+      }
+      \strng{namehash}{e4d338cfca2b9cdba347edc32688954f}
+      \strng{fullhash}{54cbf3350f94dcca79785bae7beec432}
+      \strng{bibnamehash}{e4d338cfca2b9cdba347edc32688954f}
+      \strng{authorbibnamehash}{e4d338cfca2b9cdba347edc32688954f}
+      \strng{authornamehash}{e4d338cfca2b9cdba347edc32688954f}
+      \strng{authorfullhash}{54cbf3350f94dcca79785bae7beec432}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{\url{https://dlmf.nist.gov/}}
+      \field{title}{Digital library of mathematical functions}
+      \field{year}{2019}
+    \endentry
+    \entry{schinzel2002}{article}{}
+      \name{author}{2}{}{%
+        {{hash=2cc2f5acee407ab8f1da927ca8294170}{%
+           family={Schinzel},
+           familyi={S\bibinitperiod},
+           given={A},
+           giveni={A\bibinitperiod}}}%
+        {{hash=b710f8cf78d70cfd89df0704ace3ee4d}{%
+           family={Schmidt},
+           familyi={S\bibinitperiod},
+           given={WM},
+           giveni={W\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Instytut Matematyczny Polskiej Akademii Nauk}%
+      }
+      \strng{namehash}{f36b43b84acf90f1cf4474bd2e77b93e}
+      \strng{fullhash}{f36b43b84acf90f1cf4474bd2e77b93e}
+      \strng{bibnamehash}{f36b43b84acf90f1cf4474bd2e77b93e}
+      \strng{authorbibnamehash}{f36b43b84acf90f1cf4474bd2e77b93e}
+      \strng{authornamehash}{f36b43b84acf90f1cf4474bd2e77b93e}
+      \strng{authorfullhash}{f36b43b84acf90f1cf4474bd2e77b93e}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Acta Arithmetica}
+      \field{title}{Comparison of {$L^{1}$}- and {$L^{\infty}$}-norms of squares of polynomials}
+      \field{volume}{104}
+      \field{year}{2002}
+      \field{pages}{283\bibrangedash 296}
+      \range{pages}{14}
+    \endentry
+    \entry{sidi2003}{book}{}
+      \name{author}{1}{}{%
+        {{hash=76fdae84d13ca3b033dc4d2860258586}{%
+           family={Sidi},
+           familyi={S\bibinitperiod},
+           given={Avram},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge university press}%
+      }
+      \strng{namehash}{76fdae84d13ca3b033dc4d2860258586}
+      \strng{fullhash}{76fdae84d13ca3b033dc4d2860258586}
+      \strng{bibnamehash}{76fdae84d13ca3b033dc4d2860258586}
+      \strng{authorbibnamehash}{76fdae84d13ca3b033dc4d2860258586}
+      \strng{authornamehash}{76fdae84d13ca3b033dc4d2860258586}
+      \strng{authorfullhash}{76fdae84d13ca3b033dc4d2860258586}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Practical extrapolation methods: Theory and applications}
+      \field{volume}{10}
+      \field{year}{2003}
+    \endentry
+    \entry{sidon1932}{article}{}
+      \name{author}{1}{}{%
+        {{hash=1ba4b7d91c41e44a171d0ac7c044e713}{%
+           family={Sidon},
+           familyi={S\bibinitperiod},
+           given={Simon},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{1ba4b7d91c41e44a171d0ac7c044e713}
+      \strng{fullhash}{1ba4b7d91c41e44a171d0ac7c044e713}
+      \strng{bibnamehash}{1ba4b7d91c41e44a171d0ac7c044e713}
+      \strng{authorbibnamehash}{1ba4b7d91c41e44a171d0ac7c044e713}
+      \strng{authornamehash}{1ba4b7d91c41e44a171d0ac7c044e713}
+      \strng{authorfullhash}{1ba4b7d91c41e44a171d0ac7c044e713}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Mathematische Annalen}
+      \field{number}{1}
+      \field{title}{Ein Satz über trigonometrische Polynome und seine Anwendung in der Theorie der Fourier-Reihen}
+      \field{volume}{106}
+      \field{year}{1932}
+      \field{pages}{536\bibrangedash 539}
+      \range{pages}{4}
+    \endentry
+    \entry{stoutemyer2021}{article}{}
+      \name{author}{1}{}{%
+        {{hash=2692b56d4f0710f2a8e279a1fc0229e2}{%
+           family={Stoutemyer},
+           familyi={S\bibinitperiod},
+           given={David\bibnamedelima R},
+           giveni={D\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \strng{namehash}{2692b56d4f0710f2a8e279a1fc0229e2}
+      \strng{fullhash}{2692b56d4f0710f2a8e279a1fc0229e2}
+      \strng{bibnamehash}{2692b56d4f0710f2a8e279a1fc0229e2}
+      \strng{authorbibnamehash}{2692b56d4f0710f2a8e279a1fc0229e2}
+      \strng{authornamehash}{2692b56d4f0710f2a8e279a1fc0229e2}
+      \strng{authorfullhash}{2692b56d4f0710f2a8e279a1fc0229e2}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv: 2103.16720}
+      \field{title}{How to hunt wild constants}
+      \field{year}{2021}
+    \endentry
+    \entry{white_data}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=6efd96072237a2541d5347381d3b9ffa}{%
+           family={White},
+           familyi={W\bibinitperiod},
+           given={Ethan\bibnamedelima Patrick},
+           giveni={E\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+      }
+      \strng{namehash}{6efd96072237a2541d5347381d3b9ffa}
+      \strng{fullhash}{6efd96072237a2541d5347381d3b9ffa}
+      \strng{bibnamehash}{6efd96072237a2541d5347381d3b9ffa}
+      \strng{authorbibnamehash}{6efd96072237a2541d5347381d3b9ffa}
+      \strng{authornamehash}{6efd96072237a2541d5347381d3b9ffa}
+      \strng{authorfullhash}{6efd96072237a2541d5347381d3b9ffa}
+      \field{extraname}{1}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{howpublished}{personal communication}
+      \field{year}{2024}
+      \field{dateera}{ce}
+    \endentry
+    \entry{white2022}{article}{}
+      \name{author}{1}{}{%
+        {{hash=6efd96072237a2541d5347381d3b9ffa}{%
+           family={White},
+           familyi={W\bibinitperiod},
+           given={Ethan\bibnamedelima Patrick},
+           giveni={E\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+      }
+      \strng{namehash}{6efd96072237a2541d5347381d3b9ffa}
+      \strng{fullhash}{6efd96072237a2541d5347381d3b9ffa}
+      \strng{bibnamehash}{6efd96072237a2541d5347381d3b9ffa}
+      \strng{authorbibnamehash}{6efd96072237a2541d5347381d3b9ffa}
+      \strng{authornamehash}{6efd96072237a2541d5347381d3b9ffa}
+      \strng{authorfullhash}{6efd96072237a2541d5347381d3b9ffa}
+      \field{extraname}{2}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv: 2210.16437}
+      \field{title}{An almost-tight $ L^2$ autoconvolution inequality}
+      \field{year}{2022}
+    \endentry
+    \entry{white2024}{article}{}
+      \name{author}{1}{}{%
+        {{hash=6efd96072237a2541d5347381d3b9ffa}{%
+           family={White},
+           familyi={W\bibinitperiod},
+           given={Ethan\bibnamedelima Patrick},
+           giveni={E\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Canadian Mathematical Society}%
+      }
+      \strng{namehash}{6efd96072237a2541d5347381d3b9ffa}
+      \strng{fullhash}{6efd96072237a2541d5347381d3b9ffa}
+      \strng{bibnamehash}{6efd96072237a2541d5347381d3b9ffa}
+      \strng{authorbibnamehash}{6efd96072237a2541d5347381d3b9ffa}
+      \strng{authornamehash}{6efd96072237a2541d5347381d3b9ffa}
+      \strng{authorfullhash}{6efd96072237a2541d5347381d3b9ffa}
+      \field{extraname}{3}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Canadian Mathematical Bulletin}
+      \field{number}{1}
+      \field{title}{An optimal autoconvolution inequality}
+      \field{volume}{67}
+      \field{year}{2024}
+      \field{pages}{108\bibrangedash 121}
+      \range{pages}{14}
+    \endentry
+    \entry{yuksekgonul2026}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{10}{}{%
+        {{hash=fce301bcc279f3a5b856deb48042c29e}{%
+           family={Yuksekgonul},
+           familyi={Y\bibinitperiod},
+           given={Mert},
+           giveni={M\bibinitperiod}}}%
+        {{hash=859d51382ffee81212039c9e1edd030e}{%
+           family={Koceja},
+           familyi={K\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+        {{hash=9bcb5ef489db27f906d0e8b424881c2d}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Xinhao},
+           giveni={X\bibinitperiod}}}%
+        {{hash=8fd2f3a22e37d84bb980f185b5a43a95}{%
+           family={Bianchi},
+           familyi={B\bibinitperiod},
+           given={Federico},
+           giveni={F\bibinitperiod}}}%
+        {{hash=c7076e64fec76138c8d4cb548ed9d81a}{%
+           family={McCaleb},
+           familyi={M\bibinitperiod},
+           given={Jed},
+           giveni={J\bibinitperiod}}}%
+        {{hash=84a57ab121539e94069a33b4d40492c1}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Xiaolong},
+           giveni={X\bibinitperiod}}}%
+        {{hash=08129312c062dd971f82ea43031cdef0}{%
+           family={Kautz},
+           familyi={K\bibinitperiod},
+           given={Jan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=64d48b2f4b0370b6692c87cfc65f19b9}{%
+           family={Choi},
+           familyi={C\bibinitperiod},
+           given={Yejin},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=1b868d50048a635fa27ffa744323fa41}{%
+           family={Zou},
+           familyi={Z\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod}}}%
+        {{hash=c9ab8ac486d7f85ac914b1a8e51e512b}{%
+           family={Guestrin},
+           familyi={G\bibinitperiod},
+           given={Carlos},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{0b7b594ab27b3efcb8ec08a917a67f6b}
+      \strng{fullhash}{df1d65fb508f11520dc23e7e8c26de9c}
+      \strng{bibnamehash}{0b7b594ab27b3efcb8ec08a917a67f6b}
+      \strng{authorbibnamehash}{0b7b594ab27b3efcb8ec08a917a67f6b}
+      \strng{authornamehash}{0b7b594ab27b3efcb8ec08a917a67f6b}
+      \strng{authorfullhash}{df1d65fb508f11520dc23e7e8c26de9c}
+      \field{sortinit}{Y}
+      \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv: 2601.16175}
+      \field{title}{Learning to Discover at Test Time}
+      \field{year}{2026}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

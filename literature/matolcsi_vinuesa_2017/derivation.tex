@@ -1,0 +1,1023 @@
+\section{Derivation of a Theory of Molecular Piezoelectric Response}
+
+In our previous publications \cite{Werling0,Werling1}, we described two simple approaches to calculate molecular piezoelectric responses in
+systems such as hydrogen-bonded organic crystals. 
+This type of system is relatively simple to describe, since the
+dominant contribution to the piezoelectric response arises from the hydrogen bond. 
+Consequently, our previous approaches
+focused on predicting, either numerically \cite{Werling1} or analytically \cite{Werling0}, the piezoelectric response along a single
+coordinate (in this case, the hydrogen bonding coordinate).  
+Our first publication used the most simple conceivable
+approach, applying finite electric fields along the hydrogen bond axis, and measuring the geometric deformation as a
+function of field strength. 
+This approach is problematic in that, strictly speaking, static electronic structure
+calculations in finite fields are not well-defined due to the instability of the molecule in the field. 
+It furthermore
+requires a relatively large number of geometry optimizations at various field strengths.  
+The second approach \cite{Werling0} used
+an analytical expression for \dtt{} derived from a Taylor expansion around zero field strength and zero displacement.
+This approach is therefore well-defined from an electronic structure point of view, and it leads to a significant
+reduction of computational cost because it requires only one geometry optimization as well as the curvature along a 1D
+potential curve.  
+Naturally, this approach is restricted to predict only a single contribution to the full piezoelectric
+tensor at a time, where one would typically choose the coordinates so that the largest contribution to the
+piezo-response is obtained (\dtt{}). 
+Naturally, the approach is rather unwieldy to use for systems where one cannot
+identify, a priori, an individual coordinate to describe the piezoelectric response. 
+However useful for hydrogen-bonded piezoelectrics, the simple 1D approach also neglects the coupling between deformations 
+along different coordinate axes. 
+For these reasons, the present section aims to develop a complete formalism for the description of molecular
+piezoelectric responses, irrespective of the dimensionality of the potential energy surface and independent from any
+assumptions about preferred axes for the response. 
+%Furthermore, it is not clear in which direction to apply the electric field. 
+%The assumptions of the 
+%model matched that of the potential energy scanning method (rename for sure).  The assumptions are summarized as follows.
+%A dimer subsystem of the crystal structure is ``sufficient`` to describe the piezoelectric effect for the bulk crystal structure.  
+%This follows from the second assumption which states that the piezoelectric properties of the crystal is a direct result of the deformation
+%of the intermolecular ''bond`` between the monomers of the dimer subsystem.  In our previous paper [ref] we showed that within an electrostatic field the deformation
+%of the intermolecular bond for MNA is two orders of magnitude greater than individual monomer contraction within a field.  Thus we assume that the monomers are rigid within the field.
+%Furthermore, we ignore the anisotropic effect of the field by applying only a field in one direction and only allowing deformation of hydrogen-bond in the same direction.
+%Thus we drastically reduce the dimensionality of the problem to two variables--namely the hydrogen-bond length, $z$, and the field magnitude $f$.   
+
+% The previous mathematical model was suited for the hydrogen-bonded systems.  The assumptions of the model matched those
+% of the method which we had been using.  Firstly, by separating the monomer pairs and
+% approximating the potential energy curves, we assumed that relaxation of the monomers within
+% the field were negligible and would not appreciably affect the hydrogen-bond length.
+% This drastically reduced the dimensionality of the problem so that the hydrogen-bond length, $z$, was the sole variable responsible for the piezoelectric effect.  We also
+% exclude any anisotropic effects of the applied field on the hydrogen-bond length by applying the
+% field in only one direction.
+This new approach will help extend the theory of piezoelectric response to arbitrary classes of molecules. 
+Examples of
+systems that we are particularly interested in are single-molecule responses in organic systems such as helicines or
+peptides. 
+%While the simple model works well for systems consisting of relatively inelastic (compared to the intermolecular forces) monomers, the application of this model to other
+%systems is rather limited.  
+%For example, we are interested in trying to approximate the piezoelectric coefficient for single organic molecules like helicene and peptides. 
+To this end, we develop a language for molecular electromechanical responses based on, and making connections to, strain
+theory as known from continuum mechanics. 
+While aimed at deriving definitions and working equations for practical
+applications, this work touches on some fundamental aspects of the philosophy of science, namely the question at what
+size it is appropriate to describe a system as (continuum) material and when as a molecule, and how to reconcile the
+languages of both scales \cite{hartmann}. 
+This approach will take into account the fully-dimensional relaxation of the
+system in response to an applied electric field. 
+As such, our approach is valid for any direction of piezoelectric
+responses (or combinations thereof), and does not require any a priori knowledge of the preferred (dominant) axes. 
+This
+feature is essential to enable automating the process of calculating molecular piezoelectric responses for applications such
+as computational screening. 
+%We could
+%also apply such methods to single molecules, since the system can no longer be broken into individual monomers which we can separate.
+%Thus we will devise a method to accomplish these goals in the sections to come.
+
+\subsection{Simplifying the Equation for the Piezoelectric Coefficient}
+
+Recall \eq{eq:longstrainDeriv3}.  
+We have claimed that this equation is equivalent to our previous methods for estimating \dtt for molecules \cite{Werling0}. 
+Before we can make this connection, we will find it useful to first simplify \eq{eq:longstrainDeriv3}.  
+We can reduce \eq{longstrainDeriv2} further by using the definition for the Green strain tensor $\bld{E}$ (\eq{eq:H2E}). 
+We first rewrite \eq{eq:longstrainDeriv2} elementwise (the derivative is a vector quantity with components of field) using the definition of $\bld{A}$ (\eq{eq:A}).
+\begin{equation}
+\begin{split}
+\label{eq:element}
+\frac{\partial \epsilon ({\bf{0}})}{\partial f_l}&= \frac{1}{2}e_i \bigg(\frac{\partial^2 u_i(\bld{0})}{\partial X_k\partial f_l} + \frac{\partial^2 u_k(\bld{0})}{\partial X_i \partial f_l} + \\
+ &\frac{\partial^2 u_j(\bld{0})}{\partial X_i \partial f_l}\frac{\partial u_j(\bld{0})}{\partial X_k} + \frac{\partial u_j(\bld{0})}{\partial X_i}\frac{\partial^2 u_j(\bld{0})}{\partial X_k \partial f_l}\bigg)e_k
+ \end{split}
+\end{equation}
+The last two terms in \eq{eq:element} result from the product rule for $\bld{A}^T\bld{A}$ from \eq{eq:H2E}.  
+Both terms vanish when evaluated at zero field.  
+This is because $\frac{\partial u_j(\bld{0})}{\partial X_i}=A_{ji}(\bld{0})=0$ (every element is zero) if
+we take the zero field body as $K_0$ and $K$ (which is equivalent to evaluating $\bld{A}$ at zero field. 
+If this is the case, the displacement vector for every point in the body is constant (and actually $\bld{0}$), and hence 
+the derivative in any direction ($X_i$) vanishes (see Appendix for more information on strain theory).  
+We can therefore rewrite \eq{eq:element}, ignoring the last two terms.  
+\begin{equation}
+\label{eq:element2}
+\frac{\partial \epsilon ({\bf{0}})}{\partial f_l}= \frac{1}{2}e_i \bigg(\frac{\partial^2 u_i(\bld{0})}{\partial X_k\partial f_l} + \frac{\partial^2 u_k(\bld{0})}{\partial X_i \partial f_l} \bigg)e_k
+\end{equation}
+We can rewrite \eq{eq:element2} in terms of matrix derivatives for simplicity.  
+\begin{equation}
+\begin{split}
+\label{eq:nonelement}
+\frac{\partial \epsilon ({\bf{0}})}{\partial \bld{f}}&= \frac{1}{2}\bld{e} \bigg(\frac{\partial \bld{A}^T(\bld{0})}{\partial \bld{f}} + \frac{\partial \bld{A}(\bld{0})}{\partial \bld{f}} \bigg)\bld{e} \\
+\frac{\partial \epsilon ({\bf{0}})}{\partial \bld{f}}&= \bld{e}\frac{\partial \bld{A}(\bld{0})}{\partial \bld{f}}\bld{e}
+\end{split}
+\end{equation}
+Because both matrices are contracted by $\bld{e}$ on both sides, and one is the transpose of the other in these two dimensions, both terms in the first line were equivalent and reduced to twice
+the value of one term, which cancelled the prefactor of $\frac{1}{2}$ in the final line.
+$\frac{\partial \bld{A}(\bld{0})}{\partial \bld{f}}$ is a 3 dimensional tensor, and it is equivalent to the field derivative of the Green strain tensor evaluated at zero field (ie. the piezoelectric tensor evaluated
+at zero field).  
+We will work with \eq{eq:nonelement} in the sections to come.  
+
+\subsection{Molecular connections to Strain Theory and the Piezoelectric Matrix}
+
+Thus far, we have claimed that the derivative of the longitudinal strain equation (eqn) with respect to the applied electric field system
+is related to our calculations of \dtt in our previous work \cite{Werling0,Werling1}.  
+In this section we will attempt to explain geometrically the connection of strain theory to our work, and apply our equations to molecular 
+systems.
+Furthermore, we will demonstrate why, for molecules, the full piezoelectric tensor is untenable for calculation and introduce the piezoelectric 
+matrix $\bld(M)$, which will take the place
+of the piezoelectric tensor for molecules.  
+
+In the Background section we presented a working equation (\eq{eq:longstrainDeriv3}) with dependence on the piezoelectric tensor ($\bld(d)$),
+and we further reduced this equation to \eq{eq:nonelement} for the 
+zero field evaluation of \dtt.  
+We have yet, however, to explain the direct connection of \eq{eq:nonelement} to our previous work.  
+To interpret \eq{eq:nonelement} geometrically, we need to look back to \fig{fig:deform}.  
+As we recall, longitudinal strain deals with how material lines in continuum bodies deform.  
+The direction of the material line in the undeformed
+body was given by $\bld{e}$. 
+In \eq{eq:nonelement}, two of the indexes of $\frac{\bld{A}(\bld{0})}{\partial \bld{f}}$ are contracted with $\bld{e}$--namely the indexes of the 
+undeformed coordinates $X_i$ and displacement vector coordinates $u_i$.  
+If we ask what the contractions with $\bld{e}$ mean, we can gain insight into how to understand \dtt and furthermore connect strain theory to 
+molecular piezoelectricity and point out differences.  
+First we define a vector $\bld{X}$ in the direction of $\bld{e}$ with a length parameter of $s_0$ (equivalent to that shown in 
+the undeformed body in \fig{fig:deform}).  
+\begin{equation}
+ \bld{X} = s_0 \bld{e}
+\end{equation}
+Taking the derivative with respect to $s_0$ tells us how the vector changes per unit change in the length of $s_0$
+\begin{equation}
+\label{eq:dxds_0}
+ \frac{d\bld{X}}{ds_0}= \bld{e}  \equiv \frac{dX_i}{ds_0} = e_i
+\end{equation}
+Here we have a useful definition of $\bld{e}$.  
+The change in coordinates in the undeformed system per unit of $s_0$ corresponds to the 
+vector $\bld{e}$, which gives the direction of our material line in the undeformed body.  
+With this definition we may further simplify \eq{eq:nonelement}.  We will
+again use the definition of $\bld{A}$.  
+\begin{equation}
+\begin{split}
+\label{eq:Meq}
+\frac{\partial \epsilon ({\bf{0}})}{\partial f_l}&= e_i\frac{\partial^2 u_i(\bld{0})}{\partial f_l \partial X_k}e_k = e_i \frac{\partial^2 u_i(\bld{0})}{\partial f_l \partial X_k}\frac{dX_k}{d_{s_0}}\\
+\frac{\partial \epsilon ({\bf{0}})}{\partial f_l}&=e_i\frac{\partial^2 u_i(\bld{0})}{\partial f_l \partial s_0}\\
+\frac{\partial \epsilon ({\bf{0}})}{\partial f_l}&=e_i P_{il}(\bld{0})\\
+\frac{\partial \epsilon ({\bf{0}})}{\partial \bld{f}}&=\bld{e}\bld{P}(\bld{0})
+\end{split}
+\end{equation}
+We have substituted in for $e_k$ our definition in \eq{eq:dxds_0} and contracted over the index $k$ in the zero field piezoelectric tensor, 
+corresponding to the undeformed coordinates $X_k$. 
+We have renamed the resulting matrix from this contraction $\bld(P)=\frac{\partial^2\bld{u}}{\partial s_0 \partial \bld{f}}$.  
+We will call ${\bf{P}}$, in the sections to come, the piezoelectric matrix.  
+Here we focus on the matrix in the context of a continuum body; later we will apply the ideas to discrete molecular systems.
+As we move along the material line in the undeformed coordinates, $s_0$ is the curve parameter for the displacement vectors to the deformed coordinates (see \fig{fig:deform}).  
+We may evaluate the vector derivatives of the the displacement vector $\bld{u}$ as we move infinitesimally along $s_0$.  
+This gives us $\frac{\partial \bld{u}}{\partial s_0}$ evaluated
+at our point of interest in the body.  
+We may then evaluate the derivative of $\frac{\partial \bld{u}}{\partial s_0}$ with respect to the field vector at a 
+given field magnitude (which in our case is $0$).  
+We then obtain the matrix $\bld{P}$.  
+Of course it is equally valid to view the matrix by looking at $\frac{\partial \bld{u}}{\bld{f}}$ at a given point in our body first and 
+then asking how this matrix changes by moving infinitesimally along our material line.  
+The order we take the derivatives of $\bld{u}$ should not matter because we assume 
+$\bld{u}(\bld{f},s_0)$ to be smooth and obey Euler's rule for mixed derivatives.  
+
+In the sections to come $\bld{P}$ will become very important for us.  
+First, however, we must finish explaining the connection between \eq{eq:nonelement}, which we have just rewritten
+as \eq{eq:Meq}.  
+We need to explain the other contraction with $\bld{e}$, which contracts with the index for the displacement vector field, $\bld{u}$.  
+Since $\bld{e}$ is a unit vector, if we project $\bld{u}$ onto $\bld{e}$ the resulting vector will have the length $\bld{u}\cdot \bld{e}$. 
+We can name this length variable $v$, we recognize it is merely a linear combination
+of the individual components of $\bld{u}$.  $
+v$ describes the portion of $\bld{u}$ which is along $\bld{e}$, which is the direction of our undeformed material line.  
+\begin{equation}
+ v = \bld{u}\cdot \bld{e} = u_i e_i
+\end{equation}
+Hence, any derivatives of $\bld{u}$ will carry through in the typical manner for linear equations.
+\begin{equation}
+\label{eq:prevWork}
+ \frac{\partial^2 v}{\partial s_0 \partial f_l} =  e_i \frac{\partial^2 u_i}{\partial s_0 \partial f_l}
+\end{equation}
+If we evaluate these derivatives at a particular point in the undeformed body and at zero field, we obtain a result identical to \eq{eq:Meq}.  
+Hence, \eq{eq:Meq} describes field derivative of the change 
+in the displacement vector along $\bld{e}$ per unit of change along the material line in the undeformed body.  
+In simpler terms, as we move along the undeformed material line,
+the piezoelectric matrix measures how the strain changes per unit of field in each direction.  
+
+
+From \eq{eq:prevWork}, which is equivalent to \eq{eq:longstrainDeriv3}, we can easily see how evaluating the field derivative of longitudinal strain is similar to our previous work \cite{Werling0,Werling1}.
+In our previous work we estimated the deformation of organic dimer systems in the direction of an applied field.  
+In this work we separated the dimers by aligning two atoms (usually hydrogen-bonded)
+along a particular axis and estimated how applying a field in this direction would change the distance between these two atoms.  
+We accomplished this through a potential energy ''scan``
+along this separation coordinate.  
+However, we only approximated the deformation in the direction of the original bond direction.  
+For example, if the hydrogen-bond was along the z-axis,
+we would only approximate the deformation of the bond-along the z-axis--even though there are three possible dimensions in which the bond may deform.  
+\eq{eq:prevWork} is similar in that 
+the contraction the components of ${\bld{u}}$ with ${\bld{e}}$, projects the deformation onto the original material line direction ${\bld{e}}$.  
+The only difference is that the result of 
+\eq{eq:longstrainDeriv3} is a vector with field components because the derivative was taken with respect to each field component.  
+If we wanted to recover a similar approximation to \dtt, which
+mirrors our previous work, we would either take the derivative of the longitudinal strain with respect to just one component of the field along 
+the direction of the original bond, or of 
+course we may project the result of \eq{eq:prevWork} onto a field length parameter in the direction of ${\bld{e}}$, 
+in a manner akin to projecting the displacent derivative with respect to the undeformed
+coordinates, ${\bld{X}}$, onto the parameter $s_0$.  
+
+All of the work described so far has been done in the spirit of continuum mechanics.  
+Meaning that on any length scale the system will always contain matter.  
+For our molecular considerations in this work, the continuum hypothesis clearly does not hold.  
+We are mostly interested in calculating something similar to piezoelectric coefficients for single or several molecular
+systems that are in general aperiodic.  
+In a periodic system like a crystal, we can talk about the deformation of unit cells in which case the 
+cell dimensions act like inifinitesimal vectors which are the basis for the displacement derivatives discussed above.  
+In this case, the continuum derivatives involved in strain are easily translated into the molecular realm.  
+However, when we have single molecules or small systems which show marked anisotropic variety, we lack the unit cells or raw 
+choice of basis vectors to describe the deformation of the 
+system.  
+It is for this reason that it is impossible to calculate the full third rank piezoelectric tensor for a molecule.  
+If we were to ask how the molecule or system deforms as we move in the 
+$x$, $y$,or $z$ direction, we would be at a loss for how to adequately describe the response.  
+
+\begin{figure*}
+  \centering
+
+  \includegraphics[width=1.00\textwidth]{vector.pdf}
+  \caption{We draw a material line between nuclei a and b in a hypothetical small system.  A) If we were to apply a field, the nuclei would be allowed to ''relax`` within the field to find a minimum in energy. 
+  B)We calculate the displacement vectors for each nuclei from their previous to current positions. C)}
+  \label{fig:defAnalysis}
+\end{figure*}
+Consider the following example.
+If we had the system dipicted in \fig{fig:defAnalysis}, we may draw what is, in the molecular sense, a material line.  
+In the continuum sense a material line connects adjacent (in a continuous sense)
+points of the undeformed body, and in general, if the body is deformed in a ''smooth`` way, we may draw a continuous line in the undeformed body representing the same 
+set of points (as shown in \fig{fig:deform}).
+For a molecule, there is no way to do this.  
+There is space between the nuclei, or rather a sea of electron density.  
+To make the connection to strain theory, we shall use the same 
+idea presented in our previous work \cite{Werling0,Werling1}; we will choose a line drawn between any two nuclei in the system as a material line of interest.  
+If this is the case, we may draw many ''material lines,`` and in some cases they will point in similar directions as other material lines, 
+and could in fact overlap.  
+If we look at the deformation in \fig{fig:defAnalysis}, we can indicate with vectors the relative deformation of 
+two pairs of nuclei (which act as a material line).  
+Even though these material lines occupy nearly the same region of space and are in a similar direction, they can have markedly different 
+relative deformations (and hence piezoelectric matrices) between the pairs.  
+In a continuum material, we assume that a single tensor can fully describe the piezoelectric properties of 
+an infinitesimally small region of the material, and if we wish to determine the piezoelectric matrix for any direction, we would contract over the 
+index for the undeformed body coordinates
+with a directional vector in the direction of the new material line.  
+For a molecule, if we take the approach presented here and use a pair of nuclei to define a material line, we cannot
+construct a full piezoelectric tensor which adequately describes the whole molecule or even a part of the molecule.  
+The best we could do is to write a piezoelectric matrix for every
+pair of nuclei in the molecule or system because the tensorial properties of the molecule do not vary in a continuous 
+manner but show extreme anisotropy to the point where deformation in 
+similar directions may be very different (ie. there is no bijection connecting points in the system to a piezoelectric tensor).
+
+
+One might wonder why we bother with strain theory at all if this were the case.  
+We could afterall develop this theory from simple geometric arguments and nothing would change--we would merely dispense
+with the connections to continuum body mechanics.  
+The reason we approach this problem from the view point of continuum mechanics is so that we can use this formalism for any further development 
+of this theory (time depenence, nonequilibrium and finite field calculations) and so that we may compare single molecule deformation to the full 
+piezoelectric response of a crystal.  
+
+
+\subsection{The Molecular Displacement Derivative with Respect to Field}
+We now wish to derive a practical way to calculate piezoelectric matrices for molecular systems.
+As mentioned in the above section, when constructing the piezoelectric matrix $\bld(P)=\frac{\partial^2\bld{u}}{\partial s_0 \partial \bld{f}}$,
+we may choose either to take the field derivative of $\frac{\partial \bld{u}}{\partial s_0}$ or the derivative of 
+$\frac{\partial \bld{u}}{\bld{f}}$ with respect to the material line length parameter $s_0$.  
+We will find the latter of the two methods advantageous because it requires no actual finite field calculations.
+In a continuum body we would calculate $\frac{\partial \bld{u}}{\bld{f}}$ at some point of interest or as a tensor field for the whole body.
+The molecular equivalent is to calculate $\frac{\partial \bld{u}}{\bld{f}}$ for all of the nuclei of the system--ie. here we take the vector
+${\bf{u}}$ to be the displacement for every nuclear coordinate as a molecule or small system relaxes in a field.
+Therefore, the matrix $\frac{\partial \bld{u}}{\bld{f}}$ will have dimensions of $3Nx3$.
+
+In our previous paper we calculate the derivative of the hydrogen-bond length parameter with respect to the field magnitude in the z direction
+$\frac{dz}{df}$.
+The derivation will proceed via a similar routine for $\frac{\partial \bld{u}}{\bld{f}}$ but adds the complication of 
+multiple variables, and as we shall see, rotation and translation contamination.  
+% We now derive a formalism to determine the displacement vectors in response to an applied electric field, and thus
+% working equations for predicting the piezoelectric response matrices \dd{} as introduced above. For the sake of
+% simplicity in the presentation, we focus on presenting the derivation for a single \dd{} matrix, which describes the
+% piezoelectric response between a predetermined, but arbitrary pair of atoms. 
+To this end, we use a Taylor series of the molecular energy in terms of atomic displacements \uu{} for an arbitrary molecular system 
+and electric field vector \ff{},
+\begin{equation}
+\begin{aligned}
+E(\uu,\ff) 
+  &= E(0,0) + \bld{g}_{\uu}^{T} \uu + \bld{g}_{\ff}^{T} \ff + \frac{1}{2} \, \uu^T \bld{H}_{\uu\uu} \uu \\
+  &+ \frac{1}{2} \, \ff^T \bld{H}_{\ff\ff} \ff + \uu^T \bld{H}_{\uu\ff} \ff,
+\end{aligned}
+\end{equation}
+where we truncate after the quadratic (bilinear) terms. Here, we use $\bld{g}_{x}$ to denote the gradient with respect
+to the full cartesian nuclear coordinates (denoted by $\uu$), and $\bld{H}_{uu}$ for the full nuclear cartesian Hessian (denoted by $\uu$). 
+% For convenience, we represent the Taylor expansion in terms of the \uu and \ff vectors separately, which will serve our purposes when we differentiate.
+% This time we require that the gradient (with respect to position variables) be the zero vector, which corresponds to finding the minimum energy geometry:
+We aim to predict the new equilibrium geometry in response to an applied electric field, i.e.
+\begin{equation}
+\nabla_{\uu}E(\uu,\ff) = \bld{0} = \bld{g}_{\uu} + \bld{H}_{\uu\uu} \uu + \bld{H}_{\uu\ff} \ff
+\end{equation}
+Assuming that the initial geometry has been optimized, the gradient $\bld{g}_{\uu}$ is zero and thus we can solve easily
+for the displacement, 
+\begin{equation}
+\label{eq:xvec}
+\uu = -{\bf{H_{\uu\uu}}}^{-1} \cdot \bf{H_{\uu\ff}}\cdot \ff
+\end{equation}
+This equation for \uu{} is quite useful, because differentiation with respect to \ff{} and $s_0$ (the length of the material
+line) under the constraints of zero field and strain (which is consistent with the assumption that the energy is minimized) 
+will yield the piezoelectric coefficient, as desired.  
+
+Following through and taking the derivative with respect to \ff{} yields the matrix \firstDeriv{\uu}{\ff} 
+\begin{equation}
+  \label{eq:dxvec}
+  \left( \firstDeriv{\uu}{\ff} \right)_{\bld{f} = \bld{0}, \bld{T} = \bld{0}} 
+  = -\bld{H}_{\uu \uu}^{-1} \cdot \bld{H}_{\uu \ff}
+\end{equation}
+This equation can be seen as a generalization of eq. (6) from our previous publication \cite{Werling0} to the full dimensionality of the
+potential energy surface.  
+We note that even if the gradient were not ignored in 
+\eq{eq:xvec}, it would disappear upon differentiation anyways. 
+Furthermore, this equation, if evaluated at zero field is exact and
+follows from the multivariable cyclic rule of calculus (the three vectors of interest are the gradient, the displacement, and the field), and 
+this can be seen by keeping higher order terms and setting $\uu=0$ and $\ff=0$ in the result.
+
+Although \eq{eq:dxvec} is formally correct, calculating $\firstDeriv{\uu}{\ff}$ in practice requires us to remove
+translations and rotations from the coordinate system. 
+Taking this step ensures (a) the physicality of the result, since
+a molecular rotation or translation is typically made impossible by external mechanical constraints of the system, and
+(b) that there is no problem due to singularity of the geometric Hessian $\bld{H}_{\uu{}\uu{}}$. 
+
+% \marginnote{Remove?} 
+At this point, it is useful to illustrate the physical picture underlying the derivation presented
+so far. 
+By rearranging \eq{eq:xvec}, we obtain 
+\begin{equation}
+  \label{eq:forces}
+  \bld{H}_{\uu \uu} \uu = -\bld{H}_{\uu \ff} \ff
+\end{equation}
+The Hessian matrix contains the second derivatives of the energy with respect to nuclear positions, and hence, the term
+on the left is the change in force (or gradient) generated by moving the
+nuclei by the vector \uu from equilibrium (within the harmonic approximation).  
+The term on the right is the approximate change in force generated by the field vector \ff on the nuclei.
+At equilibrium (minimum energy), these forces must be equal. 
+Since the geometric Hessian is a symmetric matrix, it has orthogonal eigenvectors, and 
+one can represent the displacement vector \uu{} as a linear combination of these eigenvectors. 
+Since translations and rotations correspond to zero or near-zero eigenvalues, respectively, one can construct infinitely
+many displacement vectors that solve \eq{eq:forces} and only differ by the weight of the translation and rotation
+eigenvectors. 
+We also note that strain should not depend on translations and rotations (if Coriolis forces are
+neglected). 
+Aside from avoiding numerical problems in the inversion, it is therefore useful to remove translations and
+rotations to obtain unique solutions for the displacement vectors. 
+Since we are merely interested in describing strain, all that matters for the is the relative (intramolecular) deformation of the constituents of the system.
+
+
+We will not discuss in detail how to construct translations and rotations to remove from the Hessian matrix, but we refer the reader to Appendix B.
+We will now give a general outline of how to remove these vectors from the hessian.
+Projecting out rotations and translations is easily accomplished by first constructing translation vectors and rotation vectors for the system. 
+The Appendix gives a detailed account on how to construct rotation and translation vectors for the system in the nuclear cartesian space.
+We use a tensor similar to the moment of inertia tensor (but instead mass independent)
+its eigenvectors to construct the rotation vectors plus three translation vectors (altogether 5
+vectors for linear and 6 vectors for non-linear systems). 
+We may then choose a basis from which we project out these rotations and translations.  
+The eigenvector of the Hessian are suitable although any basis which spans the full nuclear space will do.
+The Appendix outlines how we then create a basis of either $3N-5$ (linear) or $3N-6$ (nonlinear) vectors which are orthogonal to our rotation and translation vectors.
+For convenience we choose this basis to be orthonormal.  
+We then organize this basis into the column vectors of a $n\times m$ matrix ${\bf{V}}$ ($n=3N$ and $m=3N-5$ or $m=3N-6$) .
+It is important to note that this basis only lives in the vibrational space of the molecular system.  
+Because the basis is orthonormal we have $\vv = {\bf{V}}^T\uu$. 
+% From these we form a matrix $\bld{V}$ to project these
+% vectors out of each of the eigenvectors from the Hessian,  We can then reorthonormalize the remaining vectors.  We are
+% then left with $3N-5$ (linear molecules) or $3N-6$ (nonlinear molecules) orthonormal vectors which contain only vibrational
+% modes (or linear combinations of vibrational modes).  We can organize these vectors column-wise into the $n \times m$
+% matrix $V$. Here $n=3N$ and $m=3N-6$ ($m=3N-5$), respectively. 
+We then transform \eq{eq:dxvec} into the new coordinate system which occupies a subspace of the original system 
+\begin{equation}
+\begin{split}
+\label{eq:HessTrans}
+\bld{V}^{T} \cdot \bld{H}_{\uu \uu} \cdot \bld{V} \cdot \bld{V}^{T} \cdot \uu &= - \bld{V}^{T} \cdot \bld{H}_{\uu \ff} \cdot \ff \\
+{\bf{H_{\vv \vv}}} \cdot \vv &= -{\bf{H_{\vv \ff}}} \cdot \ff
+\end{split}
+\end{equation}
+% Because the Hessian matrix is symmetric (and hence the transformation would be unitary if
+% we considered all modes including rotations and translations), we can use the transpose of ${\bf{V}}$ to cast the
+% coordinates \uu
+% in terms of normal modes \vv
+% \begin{equation}
+% \label{eq:vequation}
+% {\bf{H_{\vv \vv}}} \cdot \vv = -{\bf{H_{\vv \ff}}} \cdot \ff
+% \end{equation}
+The geometric Hessian on the left-hand side is now of reduced dimensionality $m \times m$, and $\bld{H}_{\vv \ff}$ is of
+dimension $m \times 3$.  
+%We also projected the displacement vector onto the normal modes to cast the displacement
+%in terms of the vector \vv.  Finally, on the right-hand side, we change the displacement derivatives of the mixed derivative matrix to be in the coordinates of the normal
+% modes.  
+We leave the coordinates for the field unchanged because ${\bf{H_{\vv\ff}}}$ is a two-point tensor, and we can choose the basis of \ff to be whatever we like.  
+We usually choose them to be Cartesian coordinates which are in the same direction as the Cartesian coordinates of the nuclei for analysis purposes.
+% \marginnote{Clarify?}
+
+Now that ${\bf{H_{\vv\vv}}}$ is, in general, no longer singular, we can safely calculate the inverse (although this is
+not necessary or the most efficient approach for solving this type of problem), to solve for the displacements in our new
+coordinates, 
+\begin{equation}
+\label{eq:veq}
+\vv = - \, \bld{H}_{\vv \vv}^{-1} \cdot {\bf{H_{\vv \ff}}} \cdot \ff
+\end{equation}
+There can be cases where the initial geometry optimization finds a saddle point instead of a minimum in the energy.  In
+this case there may be additional modes which correspond to negative eigenvalues which may be projected out in addition
+to rotations or translations. 
+% \marginnote{Is this relevant?}
+
+To convert the displacements back to Cartesian nuclear coordinates, one simply needs to multiply by $V$ from the left, 
+\begin{equation}
+\uu_{\mathrm{vib}} = \bld{V}\cdot \vv = - \, \bld{V} \cdot \bld{H}_{\vv \vv}^{-1} \cdot \bld{H}_{\vv \ff} \cdot \ff,
+\end{equation}
+where we introduce the subscript $\mathrm{vib}$ to signify that these displacements correspond only to intramolecular
+deformations. 
+Again, we differentiate with respect to the field under the constraint in the zero-field and zero-strain limit to obtain 
+\begin{equation}
+  \label{eq:finalDxdf}
+  \left( \firstDeriv{\uu_{\mathrm{vib}}}{\ff} \right)_{\bld{f} = \bld{0}, \bld{T} = \bld{0}} = 
+  - {\bf{V}} \cdot {\bf{H_{\vv \vv}}}^{-1} \cdot {\bf{H_{\vv \ff}}}
+\end{equation}
+\eq{eq:finalDxdf} is our final result, and we now have only to concern ourselves with retrieving the final
+formulas for the  piezoelectric matrix for small systems.
+
+\subsection{The ${\bf{P}}$ matrix for Molecular Systems}
+We have thus far discussed the derivation of the Piezoelectric matrix ${\bf{P}}$ from a discussion of continuum mechanics, and how it encapsulates
+the deformation properties along a material line at a given point in a continuum body. 
+We have calculated $ \firstDeriv{\uu_{\mathrm{vib}}}{\ff}$ for a molecular system as a replacement to calculating the tensor field (can be specified for every point in a 
+continuum body) $\frac{\partial \bld{u}}{\bld{f}}$ for a continuum body.
+We have also discussed calculating the piezoelectric coefficient as the derivative of the longitudinal strain of a material line with respect to field, which we then evaluate
+at zero field. 
+Now that we have $ \firstDeriv{\uu_{\mathrm{vib}}}{\ff}$, we can present how to calculate a molecular version of $\bld(P)=\frac{\partial^2\bld{u}}{\partial s_0 \partial \bld{f}}$
+to describe the field deformation characteristics around the molecular equivalent of a material line. 
+
+To calculate a ${\bf{P}}$ matrix, we start by picking a material line in our system.  
+This part can be (somewhat) tricky and has an incredible impact on the piezocoefficient.  
+In a crystal it makes sense to study the
+deformation of a unit cell due to the periodic nature of the crystal, since we expect that within a uniform field the deformation of all of the 
+images of the unit cell should be identical.
+There is no such natural kernel in the finite system realm.  
+We have had much success in previous work in approximating the piezocoefficient by studying the deformation of the attribute of our
+system we expect to have the most deformation within a field. 
+One should take care however, in the assumption that the deformation properties of a small system extend to a bulk material.
+However, if we are to compare similar molecular systems for their deformation properties,
+it is reasonable to assume that picking a similar attribute in a group, such as the hydrogen-bond in our previous systems, would \textit{a priori}, be a good way to establish which members of
+the group are the best piezoelectrics.
+
+For our purposes here, we need only be concerned with a general method by which we choose a material line.  We shall, then with our freedom,
+choose our material line to be a line segment between two atoms.  
+We choose the two atoms via chemical intuition and the deformation we expect
+(ie. hydrogen-bonded atoms and the like). 
+One of the atoms will act as the point $P_0$ in \fig{fig:deform} in the undeformed system and will thus serve as the point of origin for our
+material line.
+We could also form linear combinations of points and for instance consider a line segment between the centers of mass for two monomers
+in our system, but we need not discuss this at this point.  
+Now that we have our line segment, we recall the knowledge we have accumulated about deformation
+analysis to aid in our efforts. 
+We wish to approximate $\bld{P}=\frac{\partial^2\bld{u}}{\partial s_0 \partial \bld{f}}$ around the point $P_0$ of our material line.
+We have the $3N\times 3$ matrix $ \firstDeriv{\uu_{\mathrm{vib}}}{\ff}$ wich holds the $3\times3$ matrix $\firstDeriv{\uu}{\ff}_i$, indicating the 
+displacement field derivative for the $3$ nuclear coordinates with respect to the field coordinates, for the $i$th atom of the molecule or system. 
+We have dropped the ''vib'' subscript for convenience, though it is understood.
+The molecular version of the ${\bf{P}}$ for this material line in the vicinity of these two atoms is then given by
+\begin{equation}
+\label{eq:INeedIt2}
+ P = \frac{\firstDeriv{\uu}{\ff}_2 - \firstDeriv{\uu}{\ff}_1}{r_0}  
+\end{equation}
+where $r_0$ is the distance between these two atoms in the equilibrium geometry. 
+This is equivalent to a numerical derivative, though we can not arbitrarily choose how small to make $r_0$, but are handcuffed by the distance in the 
+equilibrium geometry (a consequence of the discrete nature of the system).  It should be pointed out that the difference of any linear combination
+of matrices $\firstDeriv{\uu}{\ff}_i$ can be used to calculate a piezoelectric matrix.  
+The matrix would then coincide with the deformation properties of a material line connecting the two points given by the same linear combinations of ${\bf{u}}_i$
+for the molecular system.  
+For example the geometric center or the center of mass of two regions of a bigger molecular system can be used and the deformation properties 
+for the material line between these two points can be determined.
+
+As discussed in the previous sections, if we wished to calculate \dtt in a method similar to our other papers, we must contract the ${\bf{P}}$ matrix 
+over the indices for the displacement vector with unit vector ${\bf{e}} = \frac{{\bf{r}}_2- {\bf{r}}_1}{r_0}$.  
+Furthermore, we would also need to contract over 
+the field indices, multiplying by a unit vector also in the direction of the ${\bf{e}}$, (the basis chosen for the field must coincide with the basis for the 
+nuclear coordinates if the contracted vector is actually ${\bf{e}}$).
+We would thus obtain.
+\begin{equation}
+\begin{split}
+ \dtt &= {\bf{e}}_u{\bf{P}}{\bf{e}}_f \\
+ &=\frac{\partial^2 u_{r_0}}{\partial r_{0} \partial f_{r_0}}
+\end{split}
+\end{equation}
+The subscripts attached to the vector ${\bf{e}}$ are to indicate both the indices of contracation (ie. the vector $\uu$ or $\ff$) and to indicate that 
+although the vector ${\bf{e}}$ is in the direction of the material line it might have two different representations depending on the nuclear coordinate
+and field bases.
+As an example, the $3\time3$ piezoelectric matrix were calculated for two atoms along the z-axis, and the field basis was chosen to correspond with the x,
+y, and z direction, then the ${\bf{e}}=(0,0,1)$ and the component of the matrix $P_33$ would be equal to $\dtt$ as in our previous papers.  
+At this point we should again mention that two piezoelectric matrices for two material lines (line segments between atoms) for a molecule can be 
+very different even if the material lines occupy a similar region of space and are in similar directions.
+It is for this reason that there is no way to logically approximate the full third rank piezoelectric tensor for a molecule.  
+In a sense, the derivation for the piezoelectric matrix and the connection to our calculated piezoelectric matrix is somewhat tenuous, but from 
+a philosophical point of view and a practical point of view the authors of this paper believe that the connections hsould be made.  
+
+To this end the piezoelectric matrix also has significant utility beyond approximations of $\dtt$.  
+We can ask questions like, what direction of applied field is necessary to get the largest possible deformation betweent two atoms of a molecular
+system?
+If we apply a small field $\ff$ to our molecule, ${\bf{P}}\cdot \ff$ will tell us the relative direction of the displacemement vectors of the two nuclei which make up our material line per unit of the distance separating the two nuclei.
+If we were to diagonalize ${\bf{P}}$, we would obtain eigenvectors which indicate in what direction to apply a field to have our strain vector $ \frac{\partial {\bf{u}}}{\partial r_0}$ to be in the same direction as the field.  
+This is of course not the same as optimizing the deformation response for an applied field.  
+To do so we can optimize $\lvert\frac{\partial {\bf{u}}}{\partial r_0}\rvert^2$ under the constraint of a small finite field--namely, ${\bf{f}}^T{\bf{f}}=k$, where k is some arbitrary small square
+of the magnitude of the field.
+We construct the equation to optimize with the appropriate lagrange equation and set the gradient with respect to the field coordinates equal to zero.  
+The result 
+is the typical eigenvalue problem for the matrix ${\bf{P}}^T{\bf{P}}$
+\begin{equation}
+ \begin{split}
+ \lvert\frac{\partial {\bf{u}}}{\partial r_0}\rvert^2&={\bf{f}}^T{\bf{P}}^T{\bf{P}}{\bf{f}} \\
+ g({\bf{f}}) = {\bf{f}}^T{\bf{f}}-k&=0\\
+ \end{split}
+\end{equation}
+ The constraint equations is given by $g({\bf{f}})$ along with the equation we wish to optimize.
+ We combine the two by multiplying $g({\bf{f}})$ by $\lambda$ (lagrange multiplier) and subtracting the two equations to obtain our lagrange equation.
+ We then differentiate with respect to the field and set the result equal to zero.   
+\begin{equation}
+ \begin{split}
+  L({\bf{f}})&={\bf{f}}^T{\bf{P}}^T{\bf{P}}{\bf{f}}-\lambda({\bf{f}}^T{\bf{f}}-k)\\
+  \frac{\partial g({\bf{f}})}{{\bf{f}}}&=0 \implies
+  {\bf{P}}^T{\bf{P}}{\bf{f}}=\lambda {\bf{f}}
+ \end{split}
+\end{equation}
+
+The matrix, ${\bf{P}}^T{\bf{P}}$, is symmetric and real, and therefore has orthogonal eigenvectors and real eigenvalues.   
+The largest eigenvalue gives the maximum value of $\lvert\frac{\partial {\bf{u}}}{\partial r_0}\rvert^2$ for an applied field of 
+magnitude one unit and the eigenvector indicates the direction in which to apply the field to get the optimum deformation.  
+Since we construct ${\bf{P}}$ for two atoms in the in the molecular or 
+small system, it is possible to find the optimum field direction to apply to the system to get the best deformation for any pair of atoms.  
+The direction of the relative change in the displacement vector
+between the two atoms will have the direction given by ${\bf{P}}{\bf{f}}$ 
+which is not necessarily in the direction of the distance vector between the two atoms. 
+
+\subsection{Full Molecular Piezoelectric Response as a Rank 4 Tensor} 
+As mentioned in previous sections it is impossible to record a full third rank piezoelectric tensor for a given point in space for a molecular 
+system--in contrast to a continuum body where we can calculate the piezoelectric tensor at every point in the continuum body as a tensor field.
+We can, however, write down a piezoelectric matrix for every pair of atoms in a molecular system and store the results as a rank 4 tensor.
+To describe the piezoelectric response of the molecule in its entirety, we organize the individual response matrices
+into a supermatrix $\bld{D}$ (or rank-4 tensor $D_{ijkl}$) 
+\begin{equation} 
+  \bld{D} \equiv 
+            \left(
+              \begin{array}{ccccc}
+                \bld{P}_{1,1}   & \bld{P}_{1,2}   & \cdots & \bld{P}_{1,N-1}   & \bld{P}_{1,N}   \\
+                \bld{P}_{2,1}   & \bld{P}_{2,2}   & \cdots & \bld{P}_{2,N-1}   & \bld{P}_{2,N}   \\
+                \vdots          & \vdots          & \ddots & \vdots            & \vdots          \\
+                \bld{P}_{N-1,1} & \bld{P}_{N-1,2} & \cdots & \bld{P}_{N-1,N-1} & \bld{P}_{N-1,N} \\
+                \bld{P}_{N,1}   & \bld{P}_{N,2}   & \cdots & \bld{P}_{N,N-1}   & \bld{P}_{N,N}   \\
+              \end{array}
+            \right)
+\end{equation}
+where $N$ is the total number of atoms.
+An entry $P_{ij}$ in the supermatrix is given by
+\begin{equation}
+ P_{ij} = \frac{\firstDeriv{\uu}{\ff}_j - \firstDeriv{\uu}{\ff}_i}{r_{ij}} 
+\end{equation}
+where $\firstDeriv{\uu}{\ff}_i$ is the portion of the field derivative of the displacement vectors for the system corresponding to atom $i$ (as discussed 
+in the previous sections), and 
+$r_{ij}$ is the distance between atom $i$ and $j$ in the equilibrium geometry.
+
+The diagonal elements are undefined (dividing a zero matrix by zero), and flipping the
+row and column indices inverts the order of the subtraction of $\firstDeriv{\uu}{\ff}_i$ and $\firstDeriv{\uu}{\ff}_j $ and hence the 
+supermatrix is antisymmetric
+\begin{equation} 
+  \bld{D} \equiv 
+            \left(
+              \begin{array}{ccccc}
+                  \bld{P}_{1,1}   &   \bld{P}_{1,2}   & \cdots &   \bld{P}_{1,N-1}   &   \bld{P}_{1,N}   \\
+                 -\bld{P}_{1,2}   &   \bld{P}_{2,2}   & \cdots &   \bld{P}_{2,N-1}   &   \bld{P}_{2,N}   \\
+                  \vdots          &   \vdots          & \ddots &   \vdots            &   \vdots          \\
+                 -\bld{P}_{1,N-1} &  -\bld{P}_{2,N-1} & \cdots &   \bld{P}_{N-1,N-1} &   \bld{P}_{N-1,N} \\
+                 -\bld{P}_{1,N}   &  -\bld{P}_{2,N}   & \cdots &  -\bld{P}_{N-1,N}   &   \bld{P}_{N,N}   \\
+              \end{array}
+            \right)
+\end{equation}
+with $N(N+1)/2$ independent elements.
+A similar analysis can be used to determine the field direction which optimizes the deformation between the two atoms for each ${\bf{P}}$ matrix.
+Such a supermatrix can be useful for identifying which pairs of atoms could be the most useful in identifying ``good '' piezoelectric candidates
+for similar families of systems.  
+% The question that remains is what use is knowing the relative deformation between any pair of atoms in the system?  After all, it would be more useful to predict the change in potential accross the surface of a molecule given a deformation 
+% in some direction.  The piezoelectric matrix presented here is a useful tool for predicting the piezoresponse of similar systems to choose the best piezoelectric candidates. 
+% If one chooses the same two atoms in two very closely related systems and calculates the piezoelectric matrix for the pair of atoms, it is possible to show the types of deformation changes 
+% that happen between the related systems and can be used to qualitatively decide which of the candidates might show better piezoelectric response.  
+% 
+% As a side note, it should be mentioned that although we relate and derive the piezoelectric matrix from continuum strain theory, there is no ''real`` extension of this method to measuring
+% piezoelectric coefficients for small molecules.  For a real crystal there are unit cells which deform uniformly when presented with a uniform electric field (at least in the bulk).  Therefore,
+% it is possible to build the full 3rd rank piezoelectric tensor by taking derivatives of the unit cell parameters with respect to field.  For small molecules and system it is not straight forward and 
+% in fact very arbitrary to set up any such ''box`` corresponding to a unit cell.  Therefore, by using pairs of atoms and looking at the relative deformation between them by calculating 
+% the piezoelectric matrix,  we do something analogous
+% to contracting the full piezoelectric tensor with a unit vector in the direction of the pair of atoms.  If we could choose three arbitrary pairs of atoms with linearly indepedent
+% distance vectors between them and calculate the piezoelectric matrix for each pair, one might think that it is possible to back calculate the full piezoelectric tensor.  However, the piezoelectric matrix
+% method presented here is in severe contrast to that of a continuum body.  For a small systme the response is incredibly aniosotropic and does not very smoothly as in the continuum case.  For example,
+% two pairs of atoms could have roughly the same distance vector direction, but vastly different piezoelectric matrices.  One could argue that the piezoelectric tensor exists for every point in a material
+% and the that the distance vectors might be separated to enough to warrant that they should have different piezoelectric tensors, but the distance ranges of molecules are so small that 
+% the piezoelectric tensor would not change continously and cannot since the nuclei are discrete entities.  The method of calculating the piezoelectric matrix is merely a tool of comparison for families of systems.
+% 
+
+% \subsection{Dependence of the Geometric Displacement on the Applied Electric Field}
+% 
+% As outlined in the background section, the piezoelectric tensor \dd{} for a discrete, inhomogeneous system, such as a
+% molecule, is most readily derived by expressing the Green tensor using the derivatives of the displacement vectors
+% \uu{}.
+% Since there is no continuous material line whose deformation could be measured, we define for each pair of atoms
+% in the molecule one piezoelectric
+% matrix $\bld{d} = \left( d_{kl} \right)$ that describes the change of the displacement vector as a function of applied
+% electric field,
+% \begin{equation} 
+%   d_{kl} \equiv \left( \frac{\partial u_{k}}{\partial f_{l}} \right)_{\bld{f} = \bld{0}, \bld{T} = \bld{0}}
+% \end{equation}
+% %for each pair of atoms, where we can use the previous discussion of longitudinal strain to 
+% %Our derivation follows our previous derivation[ref] but extends the dimensionality of our system from $z$ and
+% %$f$ to the full 3N nuclear coordinates of the system, \uu, and the 3 directions of the field vector \ff.  We use \uu here because we are concerned with the displacement of the nuclear 
+% %coordinates from equilibrium.  
+% To describe the piezoelectric response of the molecule in its entirety, we organize the individual response matrices
+% into a supermatrix $\bld{D}$ (or rank-4 tensor $D_{ijkl}$) 
+% \begin{equation} 
+%   \bld{D} \equiv 
+%             \left(
+%               \begin{array}{ccccc}
+%                 \bld{d}_{1,1}   & \bld{d}_{1,2}   & \cdots & \bld{d}_{1,N-1}   & \bld{d}_{1,N}   \\
+%                 \bld{d}_{2,1}   & \bld{d}_{2,2}   & \cdots & \bld{d}_{2,N-1}   & \bld{d}_{2,N}   \\
+%                 \vdots          & \vdots          & \ddots & \vdots            & \vdots          \\
+%                 \bld{d}_{N-1,1} & \bld{d}_{N-1,2} & \cdots & \bld{d}_{N-1,N-1} & \bld{d}_{N-1,N} \\
+%                 \bld{d}_{N,1}   & \bld{d}_{N,2}   & \cdots & \bld{d}_{N,N-1}   & \bld{d}_{N,N}   \\
+%               \end{array}
+%             \right)
+% \end{equation}
+% where the row and column indices for each submatrix $\bld{d}$ are given by the atom indices. $N$ is the total number of
+% atoms. We note that flipping the
+% row and column indices inverts the direction of the direction of the distance vector. Therefore, supermatrix $\bld{D}$
+% is antisymmetric
+% \begin{equation} 
+%   \bld{D} \equiv 
+%             \left(
+%               \begin{array}{ccccc}
+%                   \bld{d}_{1,1}   &   \bld{d}_{1,2}   & \cdots &   \bld{d}_{1,N-1}   &   \bld{d}_{1,N}   \\
+%                  -\bld{d}_{1,2}   &   \bld{d}_{2,2}   & \cdots &   \bld{d}_{2,N-1}   &   \bld{d}_{2,N}   \\
+%                   \vdots          &   \vdots          & \ddots &   \vdots            &   \vdots          \\
+%                  -\bld{d}_{1,N-1} &  -\bld{d}_{2,N-1} & \cdots &   \bld{d}_{N-1,N-1} &   \bld{d}_{N-1,N} \\
+%                  -\bld{d}_{1,N}   &  -\bld{d}_{2,N}   & \cdots &  -\bld{d}_{N-1,N}   &   \bld{d}_{N,N}   \\
+%               \end{array}
+%             \right)
+% \end{equation}
+% with $N(N+1)/2$ independent elements. The supermatrix $\bld{D}$ could probably be reduced somewhat in dimensionality and
+% factorized into diagonal blocks by
+% choosing a nonredundant coordinate system that takes the collective behavior, i.e. the coupling between atomic
+% displacements into account. An example would be to use a vibrational eigenmode basis. However, for the sake of intuitive
+% geometric interpretation, we focus here on using the displacement vectors for atom pairs. We only remark that we ensure
+% the predicted piezoelectric response matrices contain no redundancies due to translations or rotations by using a normal
+% mode projection. 
+% We will further discuss the connection between the $\bld{u}$ used here and
+% the displacement vectors from \fig{fig:deform} later in this section. 
+%For now it suffices to state that $\bld{u}$ measures the
+%displacement of the nuclear coordinates from their equilibrium position in response to the electric field. 
+%This should also be reminiscent of the displacement vector shown in (figure); we shall expound upon this connection later.  In
+%this way we approximate the full relaxation of any given system in an applied field. 
+
+% We now derive a formalism to determine the displacement vectors in response to an applied electric field, and thus
+% working equations for predicting the piezoelectric response matrices \dd{} as introduced above. For the sake of
+% simplicity in the presentation, we focus on presenting the derivation for a single \dd{} matrix, which describes the
+% piezoelectric response between a predetermined, but arbitrary pair of atoms. 
+% To this end, we use a Taylor series of the molecular energy in terms of atomic displacements \uu{} and electric field
+% vector \ff{},
+% \begin{equation}
+% \begin{aligned}
+% E(\uu,\ff) 
+%   &= E(0,0) + \bld{g}_{\uu}^{T} \uu + \bld{g}_{\ff}^{T} \ff + \frac{1}{2} \, \uu^T \bld{H}_{\uu\uu} \uu \\
+%   &+ \frac{1}{2} \, \ff^T \bld{H}_{\ff\ff} \ff + \uu^T \bld{H}_{\uu\ff} \ff,
+% \end{aligned}
+% \end{equation}
+% where we truncate after the quadratic (bilinear) terms. Here, we use $\bld{g}_{x}$ to denote the gradient with respect
+% to coordinate $x$, and $\bld{H}_{xy}$ for the Hessian with respect to coordinates $x$ and $y$. 
+% % For convenience, we represent the Taylor expansion in terms of the \uu and \ff vectors separately, which will serve our purposes when we differentiate.
+% % This time we require that the gradient (with respect to position variables) be the zero vector, which corresponds to finding the minimum energy geometry:
+% We aim to predict the new equilibrium geometry in response to an applied electric field, i.e.
+% \begin{equation}
+% \nabla_{\uu}E(\uu,\ff) = \bld{0} = \bld{g}_{\uu} + \bld{H}_{\uu\uu} \uu + \bld{H}_{\uu\ff} \ff
+% \end{equation}
+% Assuming that the initial geometry has been optimized, the gradient $\bld{g}_{\uu}$ is zero and thus we can solve easily
+% for the displacement, 
+% \begin{equation}
+% \label{eq:xvec}
+% \uu = -{\bf{H_{\uu\uu}}}^{-1} \cdot \bf{H_{\uu\ff}}\cdot \ff
+% \end{equation}
+% This equation for \uu{} is quite useful, because differentiation with respect to \ff{} and $s_0$ (the length of the material
+% line) 
+% under the
+% constraints of zero field and strain (which is consistent with the assumption that the energy is minimized) 
+% will yield the piezoelectric coefficient, as desired.  
+% 
+% Following through and taking the derivative with respect to \ff{} yields the matrix \firstDeriv{\uu}{\ff} 
+% \begin{equation}
+%   \label{eq:dxvec}
+%   \left( \firstDeriv{\uu}{\ff} \right)_{\bld{f} = \bld{0}, \bld{T} = \bld{0}} 
+%   = -\bld{H}_{\uu \uu}^{-1} \cdot \bld{H}_{\uu \ff}
+% \end{equation}
+% This equation can be seen as a generalization of eq. (X) from our previous publication to the full dimensionality of the
+% potential energy surface [ref].  We note that even if the gradient were not ignored in 
+% \eq{eq:xvec}, it would disappear upon differentiation anyways. 
+% 
+% Although \eq{eq:dxvec} is formally correct, calculating $\firstDeriv{\uu}{\ff}$ in practice requires to remove
+% translations and rotations from the coordinate system. Taking this step ensures (a) the physicality of the result, since
+% a molecular rotation or translation is typically made impossible by external mechanical constraints of the system, and
+% (b) that there is no problem due to singularity of the geometric Hessian $\bld{H}_{\uu{}\uu{}}$. 
+% 
+% \marginnote{Remove?} At this point, it is useful to illustrate the physical picture underlying the derivation presented
+% so far. 
+% By rearranging \eq{eq:xvec}, we obtain 
+% \begin{equation}
+%   \label{eq:forces}
+%   \bld{H}_{\uu \uu} \uu = -\bld{H}_{\uu \ff} \ff
+% \end{equation}
+% The Hessian matrix contains the second derivatives of the energy with respect to nuclear positions, and hence, the term
+% on the left is the change in force (or gradient) generated by moving the
+% nuclei by the vector \uu from equilibrium (within the harmonic approximation).  The term on the right is the approximate change in force generated by the field vector \ff on the nuclei.
+% At equilibrium (minimum energy), these forces must be equal. Since the geometric Hessian is a symmetric matrix, it has
+% orthogonal eigenvectors, and 
+% one can represent the displacement vector \uu{} as a linear combination of these eigenvectors. 
+% Since translations and rotations correspond to zero or near-zero eigenvalues, respectively, one can construct infinitely
+% many displacement vectors that solve \eq{eq:forces} and only differ by the weight of the translation and rotation
+% eigenvectors. We also note that strain should not depend on translations and rotations (if Coriolis forces are
+% neglected). Aside from avoiding numerical problems in the inversion, it is therefore useful to remove translations and
+% rotations to obtain unique solutions for the displacement vectors. 
+% Since we are merely interested in describing strain, all that matters for the is the relative (intramolecular) deformation of the constituents of the system.
+% 
+% We will not discuss in detail how to remove translations and rotations from the Hessian matrix, but we will give a brief
+% outline.  For a more thorough discussion we refer the reader to [ref].  Projecting out rotations and translations is
+% easily accomplished by constructing translation vectors and rotation vectors for the system [Ref]. We use the moment of
+% inertia tensor and its eigenvalues to construct the rotation vectors plus three translation vectors (altogether 5
+% vectors for linear and 6 vectors for non-linear systems).  From these we form a matrix $\bld{V}$ to project these
+% vectors out of each of the eigenvectors from the Hessian,  We can then reorthonormalize the remaining vectors.  We are
+% then left with $3N-5$ (linear molecules) or $3N-6$ (nonlinear molecules) orthonormal vectors which contain only vibrational
+% modes (or linear combinations of vibrational modes).  We can organize these vectors column-wise into the $n \times m$
+% matrix $V$. Here $n=3N$ and $m=3N-6$ ($m=3N-5$), respectively. We then recast \eq{eq:dxvec} as 
+% \begin{equation}
+% \label{eq:HessTrans}
+% \bld{V}^{T} \cdot \bld{H}_{\uu \uu} \cdot \bld{V} \cdot \bld{V}^{T} \cdot \uu = - \bld{V}^{T} \cdot \bld{H}_{\uu \ff} \cdot \ff
+% \end{equation}
+% Because the Hessian matrix is symmetric (and hence the transformation would be unitary if
+% we considered all modes including rotations and translations), we can use the transpose of ${\bf{V}}$ to cast the
+% coordinates \uu
+% in terms of normal modes \vv
+% \begin{equation}
+% \label{eq:vequation}
+% {\bf{H_{\vv \vv}}} \cdot \vv = -{\bf{H_{\vv \ff}}} \cdot \ff
+% \end{equation}
+% The geometric Hessian on the left-hand side is now of reduced dimensionality $m \times m$, and $\bld{H}_{\vv \ff}$ is of
+% dimension $m \times 3$.  
+% %We also projected the displacement vector onto the normal modes to cast the displacement
+% %in terms of the vector \vv.  Finally, on the right-hand side, we change the displacement derivatives of the mixed derivative matrix to be in the coordinates of the normal
+% modes.  
+% We leave the coordinates for the field unchanged because ${\bf{H_{\vv\ff}}}$ is a two-point tensor, and we can choose the coordinates of \ff to be whatever we like.  We usually choose them to be Cartesian
+% coordinates which overlap with those of the Cartesian coordinates of the nuclei for analysis purposes.
+% \marginnote{Clarify?}
+% 
+% Now that ${\bf{H_{\vv\vv}}}$ is, in general, no longer singula, we can safely calculate the inverse (although this is
+% not usually the most efficient approach for solving this type of problem), to solve for the displacements in normal mode
+% coordinates, 
+% \begin{equation}
+% \label{eq:veq}
+% \vv = - \, \bld{H}_{\vv \vv}^{-1} \cdot {\bf{H_{\vv \ff}}} \cdot \ff
+% \end{equation}
+% There can be cases where the initial geometry optimization finds a saddle point instead of a minimum in the energy.  In
+% this case there may be additional modes which correspond to negative eigenvalues which may be projected out in addition
+% to rotations or translations. \marginnote{Is this relevant?}
+% 
+% To convert the displacements back to Cartesian nuclear coordinates, one simply needs to multiply by $V$ from the left, 
+% \begin{equation}
+% \uu_{\mathrm{vib}} = \bld{V}\cdot \vv = - \, \bld{V} \cdot \bld{H}_{\vv \vv}^{-1} \cdot \bld{H}_{\vv \ff} \cdot \ff,
+% \end{equation}
+% where we introduce the subscript $\mathrm{vib}$ to signify that these displacements correspond only to intramolecular
+% deformations. 
+% Again, we differentiate with respect to the field under the constraint in the zero-field and zero-strain limit to obtain 
+% \begin{equation}
+%   \label{eq:finalDxdf}
+%   \left( \firstDeriv{\uu_{\mathrm{vib}}}{\ff} \right)_{\bld{f} = \bld{0}, \bld{T} = \bld{0}} = 
+%   - {\bf{V}} \cdot {\bf{H_{\vv \vv}}}^{-1} \cdot {\bf{H_{\vv \ff}}}
+% \end{equation}
+% \eq{eq:finalDxdf} is in our final result, and we now have to concern ourselves with retrieving the final
+% formulas for the  piezo coefficient for small systems.
+
+
+
+% \subsection{Dependence of Geometric Displacement on the Length of the Material Line}
+% Now that we have the derivative matrix we would like to form the piezoelectric tensor, which was defined earlier in the manuscript.  Recall \eq{eq:piezoTen}.
+% The piezoelectric tensor is the derivative of the strain tensor with respect to the applied field, making it inherently third rank.  We should have all of the necessary information to
+% build the tensor.  We know how nuclear positions will shift infinitesimally in an applied field and we know the current positions of all of our nuclei.  We start by picking
+% a material line in our system.  This part can be (somewhat) tricky and has an incredible impact on the piezocoefficient.  In a crystal it makes sense to study the
+% deformation of a unit cell due to the periodic nature of the crystal, since we expect that within a uniform field the deformation of all of the images of the unit cell should be identical.
+% There is no such natural kernel in the finite system realm.  We have had much success thus far in approximating the piezocoefficient by studying the deformation of the attribute of our
+% system we expect to cause the most distortion, though admittedly there is no substantial reason why this should be the best way to proceed.  However, given a similar set of piezoelectric candidates,
+% it is reasonable to assume that picking a similar attribute in a group, such as the hydrogen-bond in our previous systems, would \textit{a priori}, be a good way to establish which members of
+% the group are the best piezoelectrics.
+% 
+% For our purposes here, we need only be concerned with a general method by which we choose a material line.  We shall, then with our freedom,
+% choose our material line to be a line segment between two atoms.  We choose the two atoms via chemical intuition and the deformation we expect
+% (ie. hydrogen-bonded atoms and the like). One of the atoms will act as the point $P_0$ in \fig{fig:deform} in the undeformed system and will thus serve as the point of origin for our
+% material line.
+% We could also form linear combinations of points and for instance consider a line segment between the centers of mass for two monomers
+% in our system, but we need not discuss this at this point.  Now that we have our line segment, we recall the knowledge we have accumulated about deformation
+% analysis to aid in our efforts. From \eq{eq:finalDxdf}, we have the infinitesimal movements of the nuclei in an applied field. In analogy to the derivation of the Green-Strain tensor
+% in the deformation analysis section of this document, we aim to find how this material deforms --in this instance, in the presence of the field.
+% 
+% We will be dealing with numerical
+% differentiation here since we have discrete points (atoms) in our material line.
+% First, we will point out that we are interested in displacement vectors or changes in displacement vectors, which were labeled as $u_i$ and $\partial u_i$ respectively in the strain overview.
+% Our nuclear derivative matrix, which we derived in the previous section, contains these displacements per unit field.  Meaning we can basically approximate the displacement vectors for each
+% of the two atoms in our material line as follows.
+% \begin{equation}
+% \label{eq:u}
+%  \bf{u}_a = \firstDeriv{\uu_a}{\ff}\ff
+% \end{equation}
+% 
+% This is a matrix multiplication, where $\firstDeriv{\uu}{\ff}$ is the matrix we calculated in the last section.  The index, $a$, indicates that we have taken only a part of this
+% matrix, namely the derivatives involving the $x$,$y$, and $z$ component of atom $a$.  This should be a three by three matrix --3 components of nuclear position and 3 components of field.
+% We do this for both of the atoms we have chosen in our material line.  Recall that the displacement vectors were a function of material line position $X_i$, aka our atom positions in the
+% undeformed body.  We need to know the derivatives
+% of these displacement vectors with respect to these positions.
+% 
+% We will let our curve parameter, in this case, be the length of our undeformed material line, $r_0$.  This is analogous to $s_0$ in our derivation of the green-strain tensor.
+% \begin{equation}
+%  r_0=|{\bf{X}_2}-{\bf{X}_1}|=|d{\bf{X}}|
+% \end{equation}
+% Here, ${\bf{X}_2}$ and ${\bf{X}_1}$ are the position vectors of the two atom positions making up the material line, and their difference is the vector $d{\bf{X}}$. So we can ascertain
+% that our displacement derivative is given by
+% \begin{equation}
+% \label{eq:uR0Approx}
+%  \frac{\partial {\bf{u}}}{\partial r_0} \approx \frac{{\bf{u}_2}-{\bf{u}_1}}{r_0}
+% \end{equation}
+% Similar to \eq{eq:dXkds0}, if ${\bf{e}}$ is a unit vector along our undeformed material line, we have,
+% \begin{equation}
+%  {\bf{e}}= \frac{d{\bf{X}}}{dr_0}
+% \end{equation}
+% 
+% If we recall \eq{eq:A}, we can write the following:
+% \begin{equation}
+% \label{eq:uR0}
+%  \frac{\partial {\bf{u}}}{\partial r_0} = \frac{\partial u_i}{\partial X_k} \frac{\partial X_k}{dr_0} = A_{ik}e_k ={\bf{A}}\cdot {\bf{e}}
+% \end{equation}
+% We have a formula for $\frac{\partial {\bf{u}}}{\partial r_0}$, from our calculated properties (the nuclear derivative matrix and
+% equilibrium atomic distances).  However, we cannot from this determine ${\bf{A}}$ fully, which we could then use to derive the full
+% piezoelectric tensor (which we would obtain by differentiating the green-strain tensor with respect to the field vector).
+% 
+% The reason cannot determine $\bf{A}$ is because we need three unique material lines for which we can calculate the displacement derivatives in the direction of these
+% lines.  Finding 3 material lines would be easy for periodic systems for which we can calculate these derivatives for the three unit cell dimensions, but for single molecules
+% and small systems we have no real systematic way of choosing material lines.  One idea is to imagine a box around the system using vectors which correspond to nuclear
+% distances which represent the biggest separations in the x, y, and z direction, but this seems quite arbitrary and not as useful at this time.
+% We shall for the moment, instead, continue considering only the longitudinal strain along the material line we have chosen, and we shall be more concerned
+% with finding the field vector direction which optimizes our piezocoefficient approximation.
+% 
+% Recall the definition of the Green tensor given in \eq{eq:H2E}.
+% Remember that the formula for the longitudinal strain calculated from the Green-strain tensor had the following term which we used to maximize
+% the longitudinal strain in \eq{eq:longstrain} and \eq{eq:strainOpt}.
+% 
+% \begin{equation}
+%  2 {\bf{e}}\cdot{\bf{E}}\cdot {\bf{e}} 
+%  = {\bf{e}} \cdot {\bf{A}} \cdot {\bf{e}} + {\bf{e}} \cdot {\bf{A^T}} \cdot {\bf{e}} + {\bf{e}} \cdot {\bf{A^T}} \cdot
+%  {\bf{A}} \cdot {\bf{e}} + O(f^2)
+% \end{equation}
+% If we now use our result from \eq{eq:uR0}, we can write
+% \begin{equation}
+% \label{eq:strainField}
+%  2 {{\bf{e}} \cdot {\bf{E}} \cdot {\bf{e}}} =  {\bf{e}}\cdot \frac{\partial {\bf{u}}}{\partial r_0} + \frac{\partial {\bf{u}}}{\partial r_0}^T \cdot {\bf{e}} + \frac{\partial {\bf{u}}}{\partial r_0}^T \cdot \frac{\partial {\bf{u}}}{\partial r_0}
+% \end{equation}
+% Looking back to {\eq{eq:uR0Approx}} and {\eq{eq:u}}, we will be able to rewrite our result in terms of a small applied field:
+% \begin{equation}
+% \label{eq:INeedIt}
+%  \frac{\partial {\bf{u}}}{\partial r_0} \approx \frac{{\bf{u}_2}-{\bf{u}_1}}{r_0} = \frac{\firstDeriv{{\bf{u}_2}}{\ff}\ff - \firstDeriv{{\bf{u}_1}}{\ff}\ff}{r_0} = \frac{\firstDeriv{{\bf{u}}}{\ff}}{r_0}\cdot \ff
+% \end{equation}
+% We now define for convenience
+% \begin{equation}
+% \label{eq:q}
+%  {\bf{e}} \cdot  \frac{\partial {\bf{u}}}{\partial r_0} \approx {\bf{e}} \cdot  \frac{\firstDeriv{{\bf{u}}}{\ff}}{r_0}\ff \equiv {\bf{q}^T}\cdot{\ff}
+% \end{equation}
+% where we have renamed our vector in the last step, which is a contraction between the unit vector $\bf{e}$ and the field derivative matrix which has been scaled by $r_0$.
+% Furthermore we will also redefine another quantity,
+% \begin{equation}
+%  \frac{\partial {\bf{u}}}{\partial r_0}^T \cdot \frac{\partial {\bf{u}}}{\partial r_0} = \ff^T \frac{\firstDeriv{\bf{u}}{\ff}}{r_0}^T \frac{\firstDeriv{\bf{u}}{\ff}}{r_0}\ff \equiv \ff^T \cdot {\bf{Q}}\cdot \ff
+% \end{equation}
+% In the last step we have defined a new matrix Q.
+% Now we can simply rewrite \eq{eq:strainField} as follows:
+% \begin{equation}
+% \label{eq:runningOutOfNames}
+%  2{\bf{e}} \cdot {\bf{E}} \cdot {\bf{e}} \approx  \ff^T \cdot {\bf{Q}} \cdot \ff + {\bf{q}^T} \cdot \ff  + \ff^T \cdot {\bf{q}}
+% \end{equation}
+% Cleary the value we obtain for this equation depends on the field magnitude and direction of the field.  How can we obtain the piezocoefficient \dtt from \eq{eq:runningOutOfNames}?
+% Recall from \eq{eq:piezoTen} that the definition of the piezoelectric tensor is the derivative of the strain tensor with respect to the field vector.
+% Note that our strain tensor is a function of the field, but we are unable to separate it from the contractions with the unit vector $\bf{e}$ due to our choice of
+% our material line.  But we do know that $\bf{e}$ is independent of field, so we may write the following:
+% \begin{equation}
+%  \frac{d}{d{\bf{f}}}(2{\bf{e}}\cdot {\bf{E}} \cdot {\bf{e}}) = 2{\bf{e}}\cdot \frac{d{\bf{E}}}{d{\bf{f}}}\cdot {\bf{e}} \approx  \frac{d}{d{\bf{f}}}\bigg(\ff^T \cdot {\bf{Q}} \cdot \ff + {\bf{q}^T} \cdot \ff  + \ff^T \cdot {\bf{q}}\bigg)
+% \end{equation}
+% As we can see, $\frac{d\bf{E}}{d\bf{f}}$ is exactly the piezo tensor we are after, we just do not have the information to know it fully.  However, we can still approximate \dtt
+% in a similar way to what we have been doing by evaluating ${\bf{e}}\cdot \frac{d{\bf{E}}}{d{\bf{f}}}\cdot {\bf{e}}$ for a zero field.
+% 
+% Carrying out the differentiation, we obtain
+% \begin{equation}
+%  2{\bf{e}}\cdot \frac{d{\bf{E}}}{d{\bf{f}}}\cdot {\bf{e}} \approx  2({\bf{Q}} \cdot \ff  + {\bf{q}})
+% \end{equation}
+% and dividing both sides by two and evaluating for a zero field we obtain
+% \begin{equation}
+%  {\bf{e}} \cdot \frac{d{\bf{E}}}{d{\bf{f}}}\cdot {\bf{e}}\bigg|_{{\bf{f}}={\bf{0}}} \approx  {\bf{q}}
+% \end{equation}
+% 
+% Recall that \dtt is a scalar and not a vector quantity.  The remaining index is over the different field unit vectors which we have used in our calculations.  First,
+% we should explicitly try to identify $\bf{q}$ in terms of known variables.
+% 
+% Recalling $\bf{q}$'s definition from \eq{eq:q}, we attempt to ascribe physical meaning to $\bf{q}$:
+% \begin{equation}
+% \label{eq:NoMoreNames}
+%  {\bf{q}^T}\cdot{\bf{f}} =  {\bf{e}} \cdot \frac{\partial {\bf{u}}}{\partial r_0} \implies {\bf{q}^T} = {\bf{e}} \cdot \frac{\partial^2 {\bf{u}}}{\partial \ff \partial r0}
+% \end{equation}
+% Now we would like to know what the effect is of contracting the matrix on the left with our unit vector ${\bf{e}}$ --which we note is the unit vector in the
+% direction of the material line.  The contracted index matches the index over the different componenets of the displacement vector ${\bf{u}}$.
+% 
+% \eq{eq:NoMoreNames} is essentially a transformation of the components of ${\bf{u}}$ to a single variable which corresponds to the length of a new vector in the direction
+% of our originial material line.  We define a new variable $v$ from the scalar components of our ${\bf{u}}$ vector.
+% \begin{equation}
+%  v = {\bf{e}}\cdot {\bf{u}} = e_xu_x+e_yu_y+e_zu_z
+% \end{equation}
+% That is, we are projecting our displacement vector onto the material line.  The derivatives of $u_i$ with respect to $\ff$ and $r_0$ will match that of our matrix.
+% To obtain the derivatives of $v$ with respect to $\ff$ and $r_0$ will then involve contracting over the $u$ indices with ${\bf{e}}$, which is essentially what we have
+% in \eq{eq:NoMoreNames}.  We may now write the following:
+% 
+% \begin{equation}
+%  {\bf{q}^T} = \frac{\partial^2 v}{\partial \ff \partial r_0}
+% \end{equation}
+% 
+% This result is essentially the same as what we have prescribed in our previous paper where we perform one dimensional potential energy scans and ask what
+% the change in hydrogen bond length is per unit field.  The only difference here is that now we have three field components to worry about instead of one.
+% We want to know what the directional derivative of $\frac{\partial{v}}{\partial r_0}$ is in the field direction which maximizes the piezo response.
+% 
+% We define an arbitrary field vector with unit vector $\bf{c}$ and length $f_0$
+% \begin{equation}
+% {\bf{f}} =  f_0 {\bf{c}} \implies \frac{df_i}{df_0} = c_i
+% \end{equation}
+% Hence, transforming the piezocoefficient proceeds as
+% \begin{equation}
+% \label{eq:madness}
+% {\bf{q}^T} \cdot {\bf{c}} = \frac{\partial^2 v}{\partial f_i \partial r_0} \frac{df_i}{df_0} = \frac{\partial^2 v}{\partial f_0 \partial r_0}
+% \end{equation}
+% It is clear what direction for the field we must choose to
+% maximize the piezocoefficient. $\bf{c}$ should be in the same direction as $\bf{q}$ (since \eq{eq:madness} is just a dot product).  Keep in mind that the reference frames for positions and the field components need
+% not correspond to the same frame, so it might be useful to transform the frame for the field into the frame for the position movements later, but the piezocoefficient will remain the
+% same.
+% 
+% Now we have a mathematically more robust way to find our approximation for \dtt that involves a harmonic approximation for the potential well for our system at equilibrium.
+% With this new method we no longer need to perform numerous optimizations or potential energy scans.  Our calculations now take individual monomer relaxation into account, and we
+% should therefore obtain more accurate calculatons for \dtt with finite systems. All we need to approximate \dtt is an initial geometry optimization and three
+% separate force calculations while applying small fields in each of the component directions.  We also need to calculate the Hessian and normal modes, but it is also possible
+% to use the approximate Hessian from the end of the geometry optimization and remove translations and rotations manually. We will not discuss the details of these procedures at this point, but initial
+% calculations show that these methods are working.  For now we will cover one more interesting subject and conclude with future genetic algorithm calculations to conclude this
+% document.
+
+% \subsection{The ${\bf{P}}$ matrix}
+% 
+% We have thus far discussed calculating the piezoelectric coefficient as the derivative of the longitudinal strain of a material line with respect to field, which we then evaluate
+% at zero field.  Recall from \eq{eq:NoMoreNames} that we contracted the matrix $\frac{\partial^2 {\bf{u}}}{\partial \ff \partial r0}$ with ${\bf{e}}$ to obtain ${\bf{uf}}^T$.  
+% By doing this we only considered deformation in the direction of the original material line, in the same vein as our previous papers (ref) and consistent with our equations for longitudinal
+% strain.  We do not necessarily need to constrict our discussion to the precise definition for longitudinal strain.  We can name $\frac{\partial^2 {\bf{u}}}{\partial \ff \partial r0}$ the matrix ${\bf{P}}$, and ask interesting 
+% questions about the piezoelectric response of a molecular system.      
+% Formally, we have already stated how to calculate ${\bf{P}}$ in \eq{eq:INeedIt}, which we may rewrite.  
+% \begin{equation}
+% \label{eq:INeedIt2}
+%  \frac{\partial {\bf{u}}}{\partial r_0} \approx \frac{{\bf{u}_2}-{\bf{u}_1}}{r_0} = \frac{\firstDeriv{{\bf{u}_2}}{\ff}\ff - \firstDeriv{{\bf{u}_1}}{\ff}\ff}{r_0} = \frac{\partial^2 {\bf{u}}}{\partial \ff \partial r0} \cdot \ff = {\bf{P}}\cdot \ff
+% \end{equation}
+% 
+% If we apply a small field $\ff$ to our molecule, ${\bf{P}}\cdot \ff$ will tell us the relative direction of the displacemement vectors of the two nuclei which make up our material line per unit of the distance separating the two nuclei.
+% If we were to diagonalize ${\bf{P}}$, we would obtain eigenvectors which indicate in what direction to apply a field to have our strain vector $ \frac{\partial {\bf{u}}}{\partial r_0}$ to be in the same direction as the field.  This is of course 
+% not the same as optimizing the deformation response for an applied field.  To do so we can optimize $\lvert\frac{\partial {\bf{u}}}{\partial r_0}\rvert^2$ under the constraint of a small finite field--namely, ${\bf{f}}^T{\bf{f}}=k$, where k is some arbitrary small square
+% of the magnitude of the fail. We construct the equation to optimize with the appropriate lagrange equation and set the gradient with respect to the field coordinates equal to zero.  The result 
+% is the typical eigenvalue problem for the matrix ${\bf{P}}^T{\bf{P}}$
+% \begin{align}
+%  \lvert\frac{\partial {\bf{u}}}{\partial r_0}\rvert^2&={\bf{f}}^T{\bf{P}}^T{\bf{P}}{\bf{f}} \\
+%  L = {\bf{f}}^T{\bf{f}}-k&=0\\
+%   g({\bf{f}})&={\bf{f}}^T{\bf{P}}^T{\bf{P}}{\bf{f}}-\lambda({\bf{f}}^T{\bf{f}}-k)\\
+%   \frac{\partial g({\bf{f}})}{{\bf{f}}}&=0 \implies
+%   {\bf{P}}^T{\bf{P}}{\bf{f}}=\lambda {\bf{f}}
+% \end{align}
+% 
+% The matrix, ${\bf{P}}^T{\bf{P}}$, is symmetric and real, and therefore has orthogonal eigenvectors and real eigenvalues.   The largest eigenvalue gives the maximum value of $\lvert\frac{\partial {\bf{u}}}{\partial r_0}\rvert^2$ for an applied field of 
+% magnitude one unit and the eigenvector indicates the direction in which to apply the field to get the optimum deformation.  Since we construct ${\bf{P}}$ for two atoms in the in the molecular or 
+% small system, it is possible to find the optimum field direction to apply to the system to get the best deformation for any pair of atoms.  The direction of the relative change in the displacement vector
+% between the two atoms will have the direction given by ${\bf{P}}{\bf{f}}$ which is not necessarily in the direction of the distance vector between the two atoms. 
+% 
+% The question that remains is what use is knowing the relative deformation between any pair of atoms in the system?  After all, it would be more useful to predict the change in potential accross the surface of a molecule given a deformation 
+% in some direction.  The piezoelectric matrix presented here is a useful tool for predicting the piezoresponse of similar systems to choose the best piezoelectric candidates. 
+% If one chooses the same two atoms in two very closely related systems and calculates the piezoelectric matrix for the pair of atoms, it is possible to show the types of deformation changes 
+% that happen between the related systems and can be used to qualitatively decide which of the candidates might show better piezoelectric response.  
+% 
+% As a side note, it should be mentioned that although we relate and derive the piezoelectric matrix from continuum strain theory, there is no ''real`` extension of this method to measuring
+% piezoelectric coefficients for small molecules.  For a real crystal there are unit cells which deform uniformly when presented with a uniform electric field (at least in the bulk).  Therefore,
+% it is possible to build the full 3rd rank piezoelectric tensor by taking derivatives of the unit cell parameters with respect to field.  For small molecules and system it is not straight forward and 
+% in fact very arbitrary to set up any such ''box`` corresponding to a unit cell.  Therefore, by using pairs of atoms and looking at the relative deformation between them by calculating 
+% the piezoelectric matrix,  we do something analogous
+% to contracting the full piezoelectric tensor with a unit vector in the direction of the pair of atoms.  If we could choose three arbitrary pairs of atoms with linearly indepedent
+% distance vectors between them and calculate the piezoelectric matrix for each pair, one might think that it is possible to back calculate the full piezoelectric tensor.  However, the piezoelectric matrix
+% method presented here is in severe contrast to that of a continuum body.  For a small systme the response is incredibly aniosotropic and does not very smoothly as in the continuum case.  For example,
+% two pairs of atoms could have roughly the same distance vector direction, but vastly different piezoelectric matrices.  One could argue that the piezoelectric tensor exists for every point in a material
+% and the that the distance vectors might be separated to enough to warrant that they should have different piezoelectric tensors, but the distance ranges of molecules are so small that 
+% the piezoelectric tensor would not change continously and cannot since the nuclei are discrete entities.  The method of calculating the piezoelectric matrix is merely a tool of comparison for families of systems.
+
+
+
+
+
+
+

@@ -44,14 +44,24 @@ All contributors will be credited in this README and in any publications.
 
 ## Related Literature
 
-This problem connects to several areas of mathematics:
+### Core papers on this problem
 
-- **Barnard & Steinerberger (2017)** — "Three convolution inequalities on the real line with connections to additive combinatorics" ([arXiv:1903.08731](https://arxiv.org/abs/1903.08731)). Introduces the second autocorrelation inequality and proves $C \leq 1$.
-- **Ruzsa (1991)** — Connections to sumset estimates and additive energy in additive combinatorics.
-- **Mockenhaupt & Ricker (2009)** — Connections between $L^p$ improving properties of convolution operators and the structure of the support of $f$.
-- **Christ (2014)** — Near-extremizers for Young's convolution inequality; techniques for understanding near-optimal structures.
-- **Green (2004)** — "Finite field models in additive combinatorics" — difference sets and sum-product phenomena relevant to optimal comb structure.
-- **Einstein Arena Problem Page** — [einsteinarena.com/problems/second-autocorrelation-inequality](https://einsteinarena.com/problems/second-autocorrelation-inequality) for the competition context and discussion threads.
+- **Barnard & Steinerberger (2017)** — "Three convolution inequalities on the real line with connections to additive combinatorics" ([arXiv:1903.08731](https://arxiv.org/abs/1903.08731)). Introduces the second autocorrelation inequality and proves $C \leq 1$. Shows the arcsine distribution achieves constant autocorrelation.
+- **Jaech & Joseph (2025)** — "Finding extremizers for the second autocorrelation inequality" ([arXiv:2508.02803](https://arxiv.org/abs/2508.02803)). Proves $C \geq 0.94136$ via numerical optimization. The optimal continuous function has a **spike + comb** structure. Code: [github.com/ajaech/autocorrelation_inequality](https://github.com/ajaech/autocorrelation_inequality).
+- **Rechnitzer (2026)** — "Self-convolutions: symmetry, near-constant behavior, and higher-order inequalities" ([arXiv:2602.07292](https://arxiv.org/abs/2602.07292)). Derives the optimality condition $f \star f \star f = \text{const}$ on $\text{supp}(f)$. Uses parametric Bessel function ansatz.
+- **Boyer & Li (2025)** — "The second autocorrelation inequality: towards a constructive proof that $C \geq 0.901564$" ([arXiv:2506.16750](https://arxiv.org/abs/2506.16750)). Constructive lower bound using explicit function families.
+
+### Related mathematical background
+
+- **Cloninger & Steinerberger (2019)** — "On the dual Bourgain conjecture" ([arXiv:1907.07017](https://arxiv.org/abs/1907.07017)). Connections to Bourgain-type estimates.
+- **Matolcsi & Vinuesa (2017)** — "Improved bounds on the supremum of autoconvolutions" ([arXiv:1707.07464](https://arxiv.org/abs/1707.07464)). Related autoconvolution optimization.
+- **Ruzsa (1991)** — Sumset estimates and additive energy in additive combinatorics.
+- **Christ (2014)** — Near-extremizers for Young's convolution inequality.
+- **Green (2004)** — Finite field models in additive combinatorics.
+
+LaTeX source of the core papers (from arXiv) is available in [`literature/`](literature/) for agent-readable access.
+
+**Einstein Arena Problem Page** — [einsteinarena.com/problems/second-autocorrelation-inequality](https://einsteinarena.com/problems/second-autocorrelation-inequality)
 
 ## Key Techniques
 

@@ -1,0 +1,24 @@
+\begin{thebibliography}{4}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Boyer and Li(2025)}]{boyer2025improved}
+Christopher Boyer and Zane~Kun Li. 2025.
+\newblock An improved example for an autoconvolution inequality.
+\newblock \emph{arXiv preprint arXiv:2506.16750}.
+
+\bibitem[{Martin and O’Bryant(2009)}]{martin2009supremum}
+Greg Martin and Kevin O’Bryant. 2009.
+\newblock The supremum of autoconvolutions, with applications to additive number theory.
+\newblock \emph{Illinois Journal of Mathematics}, 53(1):219--235.
+
+\bibitem[{Matolcsi and Vinuesa(2010)}]{matolcsi2010improved}
+M{\'a}t{\'e} Matolcsi and Carlos Vinuesa. 2010.
+\newblock Improved bounds on the supremum of autoconvolutions.
+\newblock \emph{Journal of mathematical analysis and applications}, 372(2):439--447.
+
+\bibitem[{Novikov et~al.(2025)Novikov, V{\~u}, Eisenberger, Dupont, Huang, Wagner, Shirobokov, Kozlovskii, Ruiz, Mehrabian et~al.}]{novikov2025alphaevolve}
+Alexander Novikov, Ng{\^a}n V{\~u}, Marvin Eisenberger, Emilien Dupont, Po-Sen Huang, Adam~Zsolt Wagner, Sergey Shirobokov, Borislav Kozlovskii, Francisco~JR Ruiz, Abbas Mehrabian, et~al. 2025.
+\newblock Alphaevolve: A coding agent for scientific and algorithmic discovery.
+\newblock \emph{arXiv preprint arXiv:2506.13131}.
+
+\end{thebibliography}

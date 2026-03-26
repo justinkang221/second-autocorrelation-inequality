@@ -1,0 +1,696 @@
+\section{Background: Introduction to Piezoelectricity}
+
+%start background here. 
+
+Piezoelectricity is a phenomenon that relates mechanical deformation with charge separation and vice versa.  Piezoelectric compounds are ubiquitous in nature (bone, collagen, proteins, crystals, etc.) and 
+industry (zinc oxide, lead zirconate titanate, etc.).  
+When piezoelectric materials are compressed or deformed in some
+manner, they become polarized and the difference in chemical potentials at opposite surfaces can be measured
+as a voltage difference.  
+This process is due to either the reorientation of dipoles and their corresponding Weiss domains (local areas of similar dipole density) under applied stress or a local 
+change in the environment surrounding the domains.
+Conversely, piezoelectric materials are also deformed in response to an applied electric field. This deformation is due
+to the field interacting with the molecular electrostatic moments (both static and induced). 
+%, and increasing the separation
+%between oppositely charged moieties.  
+For the purposes of this manuscript, we will be concerned with the linear piezoelectric equations, which pertain to
+infinitesimally small applied stresses and electric fields, respectively.   
+The theory of piezoelectric response is well-established for crystalline (bulk) systems. 
+For more information on piezoelectricity we refer the reader to Ref. \cite{ieeePiezo,Martin1972, Cohen:2008gh}
+%We can describe the piezoelectric properties of a crystal via the direct or converse
+%piezoelectric effect.  
+The {\em direct} piezoelectric effect describes the polarization (electric charge density displacement) $D_{i}$ of the crystal in terms of an applied
+stress $T_{jk}$ and electric field $f_j$, %~\eq{eq:direct}.
+\begin{equation}
+\begin{aligned}
+\label{eq:direct}
+D_i = d_{ijk}T_{jk}+\epsilon_{ij}f_j \\
+\bf{D} = \bf{dT}+\bf{\epsilon f}.
+\end{aligned}
+\end{equation}
+Here and in the following, Einstein sum convention is implied for repeated indices. 
+The {\em converse} piezoelectric effect describes the strain $E_{ij}$ 
+induced in the material when an external field is applied, %~\eq{eq:convers}.
+\begin{equation}
+\begin{aligned}
+\label{eq:convers}
+E_{ij} &= \sigma_{ijkl}T_{kl}+d_{ijk}f_k \\
+\bf{E} &= \bf{\sigma T}+\bf{df}. 
+\end{aligned}
+\end{equation}
+%The vector $\bf{D}$ corresponds to the electric charge density displacement. The vector $\bf{f}$ corresponds to an applied electric field.
+Here the tensor $\bf{E}$ is known as Green strain tensor. 
+The stress tensor, $\bf{T}$, is linked to the strain tensor
+by the rank-4 compliance tensor, $\bm{\sigma}$, at zero field. 
+% \marginnote{Do we need the compliance tensor?}
+For aperiodic systems it is easiest to work with the converse equations by applying an electric field without any
+stress. 
+%In our calculations, we are interested in applying an electric field (without applying any stress), and approximating the deformation.
+%We are therefore solely interested in the piezoelectric tensor $\bf{d}$, and furthermore we focus on the
+%converse piezoelectric equation in attempts to approximate a small part of $\bf{d}$--namely \dtt.  The reason we focus on \eq{eq:convers} is because we are interested in
+%small systems for which it is easier to apply a field and approximate the deformation of the systems rather than apply a stress and approximate the polarization.  Small systems are 
+%ideal when we wish to use electronic structure methods with electron correlation (which is difficult in periodic calculations).  
+%
+The piezoelectric tensor is then given by 
+\begin{equation}
+\label{eq:piezoTen}
+d_{ijk} = \left(\frac{\partial E_{ij}}{\partial f_k}\right)_{{\bf T} = {\bf 0}}.
+\end{equation}
+We note that the indices pertaining to strain, ${ij}$, depend on the coordinate system used as a reference frame
+for measuring strain (which can be e.g. unit cell parameters or cartesian coordinates, etc.), whereas the index contracted with the
+field, $k$, depends on the external (laboratory) reference frame of the applied field.
+
+To understand how to calculate $d_{ijk}$ in practice and to provide some context for the following sections, we 
+introduce here selected concepts of strain theory within the framework of continuum mechanics. 
+In continuum mechanics, the material is treated as a   
+collection of a continuum of infinitesimally small particles. 
+Obviously, this is not an appropriate description for a
+molecular system. 
+Starting from these definitions, we will therefore develop a theory for molecular (i.e., discrete, anisotropic and inhomogeneous) systems. 
+%We shall then attempt to cast the problem
+%at hand-- namely calculating \dtt-- in terms of strain theory. 
+A more complete derivation of the Green strain tensor can be found in the Appendix. 
+Our discussion closely follows the presentation from Ref. \cite{contMech}.
+
+Generally, strain analysis is concerned with concepts such as longitudinal strain, shear strain, and volumetric strain.
+We will be mostly concerned with longitudinal strain for the discussion that follows.
+To this end, consider a body undergoing mechanical deformation (\fig{fig:deform}).
+% \marginnote{KEITH: Define vector u.}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.48\textwidth]{deform.pdf}
+  \caption{General deformation of a body. Adapted from Ref. \cite{contMech}. The position vectors for the undeformed body, $K_0$, and the deformed body, $K$ are given by ${\bf{X}}$ 
+  and ${\bf{x}}$ respectively.  The displacement vector, ${\bf{u}}$ map the position in the undeformed coordinates to a position in the deformed coordinates, and indicate the direction and 
+  magnitude in the ``shift'' of an infinitetessimal particle in space as the body deforms.  }
+  \label{fig:deform}
+\end{figure}
+Configurations $K_0$ and $K$ correspond to the undeformed and deformed bodies, respectively. 
+Particle positions before and after deformation are denoted by $X$ and $x$, respectively, where we note that these
+positions are specified within the same (external) coordinate frame. The vector field ${\bf{u}}({\bf{X}}, t)$ gives the displacement vector from a point the undeformed body 
+to a corresponding point in the deformed body.  The displacement vector field will become important later when we define the Green strain tensor.  For molecular systems the 
+a discrete displacement vector field exists for each atom in a molecule or a system as said body deforms.  
+A central question is how a given material line deforms as the body is deformed from the initial ($K_0$) to the final
+($K$) shape. 
+For our purposes, the material line can be seen as any line drawn through some arbitrary but continuous path of particles
+in the body. For convenience, we show the undeformed material line as a straight line segment $P_{0}Q_{0}$ with length
+$s_0$ and the deformed material line as the curve along $PQ$ with length $s$. 
+The unit vector along the line segment $P_{0}Q_{0}$ is called $\bld{e}$. 
+Based on this picture, one defines the longitudinal strain $\epsilon$, i.e. the strain along the direction of $\bld{e}$,
+as the relative change in the length of the material line upon deformation in the limit of infinitesimal line length:
+\begin{equation}
+\label{eq:longstrain}
+\epsilon=\lim_{s_0\to 0}\frac{s-s_0}{s_0}=\frac{ds-ds_0}{ds_0}=\frac{ds}{ds_0}-1
+\end{equation}
+We note that we used a very similar, though less rigorous definition in our previous papers \cite{Werling0,Werling1} where we used the
+percent deformation in bond lengths to approximate the piezoelectric deformation.   
+As noted, we are not concerned with volumetric or shear strain here, although the Appendix presents more details about
+the Green strain tensor which can be used to completely specify the deformation around a point within a body.
+
+The goal now is to find working equations for calculating the longitudinal strain $\epsilon$ from \eq{eq:longstrain}. 
+To this end, one needs to determine the arc length $s$ of the deformed material line. 
+Treating $s_0$ as a variable parameter, any point along the undeformed material line $P_{0}K_{0}$ can be
+written as $\bld{X}_{0} + s_0 \cdot \bld{e}$, where $\bld{X}_0$ is the starting point of the undeformed material line. The positions
+of particles in the deformed bodies can then be defined as functions of the undeformed point as well as a time
+coordinate $t$ that determines the progress of the deformation: $\bld{x} = \bld{x}(\bld{X}_{0} + s_0 \cdot\bld{e}, t)$.
+The arc length of $s$ as a function of $s_0$ (which we treat as a curve parameter) is then  
+\begin{equation}
+\label{eq:arclen}
+s(s_0) = \int_0^{s_0}\sqrt{\frac{dx_i}{d\bar{s}_0}\frac{dx_i}{d\bar{s}_0}}d\bar{s}_0, 
+\end{equation}
+which suggests that the arc length derivative with respect to $s_0$ and it's square are
+\begin{equation}
+\label{eq:dsds0}
+  \begin{split}
+    \frac{ds(s_0)}{ds_0} &= \sqrt{\frac{dx_i}{ds_0}\frac{dx_i}{ds_0}} \\
+     \bigg(\frac{ds}{ds_0}\bigg)^2 &= \frac{dx_i}{d\bar{s}_0}\frac{dx_i}{d\bar{s}_0}
+  \end{split}
+\end{equation}
+The derivative of the deformed arc length with respect to the undeformed length parameter is more easily cast in
+terms of a mixed derivative of the deformed coordinates $\bld{x}$ with respect to the undeformed coordinates $\bld{X}$,
+\begin{equation} 
+\label{eq:dGrad}
+  F_{ik} = \frac{\partial x_{i}}{\partial X_{k}},
+\end{equation}
+to yield 
+% Looking back to \fig {fig:deform}, We can let the line element $P_0Q_0$ be called $d{\bf{r}_0}$, with length $s_0$ and unit vector ${\bf{e}}$.
+% From this we can then write.
+% 
+% \begin{equation}
+% \label{eq:dXkds0}
+%  d{\bf{r}}_0={\bf{e}}\,ds_0=dX_k\,{\bf{e}}_k \quad \Rightarrow \quad dX_k=e_k\,ds_0 \quad \Leftrightarrow \quad e_k=\frac{dX_k}{ds_0}
+% \end{equation}
+% 
+% We will use \eq{eq:dXkds0} later.
+% If we consider the vector differential along $s$, tangent to the curve, which we call $d{\bf{r}}$ and has components $dx_i$, we may write
+% \begin{equation}
+% \label{eq:drds0}
+% d{\bf{r}}=\frac{\partial{\bf{r}}}{\partial s_0} \quad \Rightarrow \quad dx_i=\frac{x_i}{\partial{s_0}}ds_0
+% \end{equation}
+% Now we would like to relate the line elements $d{\bf{r_0}}$ from $K_0$ with $d{\bf{r}}$ in $K$.
+% \begin{equation}
+% \label{eq:drd0}
+% d{\bf{r}}=\frac{\partial{\bf{r}}}{\partial {\bf{r}_0}} \cdot d{\bf{r}_0} \quad  \Leftrightarrow \quad dx_i=\frac{\partial x_i}{\partial X_k}dX_k
+% \end{equation}
+% 
+% We thus have the deformation gradient ${\bf{F}}$.
+% \begin{equation}
+%  \label{eq:defGrad}
+%  {\bf{F}}=\bigtriangledown({\bf{r}})=\frac{\partial{\bf{r}}}{\partial{\bf{r}_0}} \quad \Leftrightarrow  \quad F_{ik}=\frac{\partial x_i}{\partial X_k}
+% \end{equation}
+% 
+% 
+% We would like to calculate $(\frac{ds}{ds_0})^2$ from before.  So first we ask what is $\frac{\partial x_i}{\partial s_0}\bigg|_{s_0=0}$?
+% \begin{equation}
+%  \frac{\partial x_i}{\partial s_0}\bigg|_{s_0=0}=\frac{\partial x_i(X,t)}{\partial X_k}
+%  \frac{\partial (X_k+s_0e_k)}{\partial s_0}\bigg|_{s_0=0}\quad \Rightarrow \quad \frac{\partial x_i}{s_0}=
+%  \frac{\partial x_i}{\partial X_k}\frac{dX_k}{ds_0}=F_{ik}e_k
+% \end{equation}
+% 
+% In the last step we have used our result from \eq{eq:dXkds0}.  This is analogous to a directional derivative, but instead of using
+% the gradient of a scalar quantity, we instead use the deformation gradient which is inherently a matrix.
+% 
+% We can now write
+% \begin{equation}
+% \label{eq:dsds02}
+%  \bigg(\frac{ds}{ds_0}\bigg)^2=\frac{dx_i}{d\bar{s}_0}\frac{dx_i}{d\bar{s}_0}=
+%  (F_{ik}e_k)(F_{il}e_l)= {\bf{e\cdot (F^TF)\cdot e}}={\bf{e\cdot C \cdot e}}
+% \end{equation}
+% ${\bf{C}}$ is known as the Green deformation tensor. We have come a long way, but recall
+% that the displacement of a particle during deformation is given by $\bf{u}(\bf{r}_0, t)$.
+% We would like to recast the deformation tensor in terms of the displacement gradient, which
+% we call $\bf{H}$
+% \begin{equation}
+% \label{eq:A}
+%  \bf{H} = \frac{\partial {\bf{u}}}{\partial {\bf{r}_0}} \quad \Leftrightarrow \quad H_{ik}=\frac{\partial u_i}{\partial X_k}
+% \end{equation}
+% Recalling that
+% \begin{equation}
+%  x_i(X,t) = X_i +u_i(X,t)
+% \end{equation}
+% we may infer
+% \begin{equation}
+%  \frac{\partial x_i}{\partial X_k} = \frac{\partial X_i}{\partial X_k}+ \frac{\partial u_i}{\partial X_k}
+% \end{equation}
+% or
+% \begin{equation}
+%  F_{ik} = \delta_{ik}+ H_{ik} \quad \Leftrightarrow \quad \bf{F} = \bf{1} + \bf{H}
+% \end{equation}
+% We recast the Green deformation tensor as follows:
+% \begin{equation}
+%  {\bf{C}}= {\bf{F^TF}} = ({\bf{1}} + {\bf{H^T}})({\bf{1}}+ {\bf{H}})= {\bf{1}}+ {\bf{H}} + {\bf{H^T}} +{\bf{H^TH}}
+% \end{equation}
+% The Green strain tensor, ${\bf{E}}$ is defined by:
+% \begin{equation}
+% \label{eq:H2E}
+%  {\bf{E}}= \frac{1}{2}({\bf{H}} + {\bf{H^T}} + {\bf{H^TH}})
+% \end{equation}
+% which we can represent by elements as:
+% \begin{equation}
+%  E_{kl}=\frac{1}{2}\bigg(\frac{\partial u_k}{\partial X_l}  + \frac{\partial u_l}{\partial X_k} +
+%  \frac{\partial u_i}{\partial X_k}\frac{\partial u_i}{\partial X_l}\bigg)
+% \end{equation}
+% 
+% We have accomplished what we set out to do.  The reason for doing this will be made clear later.
+% Our methods for measuring the piezocoefficient are directly tied to understanding strain.
+% 
+% Hence we can rewrite the Green deformation tensor, ${\bf{C}}$, as follows:
+% \begin{equation}
+%  {\bf{C}} = {\bf{1}} + 2{\bf{E}}
+% \end{equation}
+
+%The derivation is presented in the Appendix, but we may write $\bigg(\frac{ds}{ds_0}\bigg)^2$ as 
+% Looking back at \eq{eq:dsds02}, we can rewrite the equation as
+\begin{equation}
+\label{eq:dsds022}
+% \begin{split}
+ \left(\frac{ds}{ds_0}\right)^2
+ %= e_{i} F_{ik} F_{kj} e_{j}
+ %\equiv e_{i} C_{ij} e_{j}
+ %\equiv e_{i} (\delta_{ij} + 2 E_{ij}) e_{j},
+ = \bld{e} \cdot (\bld{F}^{T} \bld{F}) \cdot \bld{e} \\
+%  \end{split}
+ \end{equation}
+ $(\bld{F}^{T} \bld{F})$ is known as the Green deformation tensor and which we denote by ${\bf{C}}$.  
+ Appendix A shows the derivation for the relationship between the Green deformation tensor and the Green Strain tensor, ${\bf{E}}$, but we arrive at  
+ \begin{equation}
+ \begin{split}
+ \left(\frac{ds}{ds_0}\right)^2 = \bld{e} \cdot \bld{C} \cdot \bld{e} \\
+ &\equiv \bld{e} \cdot (\bld{1} + 2\bld{E}) \cdot \bld{e}  \\
+ &= 1 + 2\bld{e} \cdot \bld{E} \cdot \bld{e},
+\end{split}
+\end{equation}
+using $C = \bld{1} + 2\bld{E}$.
+% where we have introduced definitions for the Green deformation tensor 
+% \begin{equation}
+%   \bld{C} = \bld{F}^{T} \bld{F}
+% \end{equation}
+% and the Green
+% strain tensor 
+% \begin{equation}
+%   \bld{E} = \frac{1}{2} \left(\bld{C} - \bld{1}\right)
+% \end{equation}  
+With these definitions, we arrive at a working equation for longitudinal strain along a material line defined by the
+unit vector $\bld{e}$ as 
+\begin{equation}
+\label{eq:longstrain2}
+  \epsilon 
+  = \frac{ds}{ds_0} - 1
+  = \sqrt{ 1 + 2{\bf{e}}\cdot \bf{E} \cdot \bf{e}} - 1
+\end{equation}
+In the limit of small deformations, the working equation for the longitudinal strain becomes
+\begin{equation} 
+\label{eq:small}
+  \epsilon = \bld{e} \cdot \bld{E} \cdot \bld{e}
+\end{equation}
+which can be seen from a taylor expansion about the point $\bld{e} \cdot \bld{E} \cdot \bld{e} = 0$
+%In the last two equations, ${\bf{C}}$ is the Green Deformation tensor and is ${\bf{E}}$ is the Green Strain Tensor.  In \eq{eq:dsds022} we use
+%${\bf{C}}={\bf{1}}+2{\bf{E}}$.
+We have not yet defined the elements of the Green strain tensor, ${\bf{E}}$, but they are given by 
+\begin{equation}
+\label{eq:gst}
+ E_{kl}=\frac{1}{2}\bigg(\frac{\partial u_k}{\partial X_l}  + \frac{\partial u_l}{\partial X_k} +
+  \frac{\partial u_i}{\partial X_k}\frac{\partial u_i}{\partial X_l}\bigg)
+\end{equation}
+and is derived fully in the Appendix.  
+The Green strain tensor only depends on the derivatives of the displacement vector field with respect to the 
+undeformed position vectors. Just as the displacement is a vector field with a unique vector specified for every point in the undeformed body, the Green strain tensor 
+is a tensor field that fully specifies the strain around a given point in the deformed body in reference to the undeformed body.  
+
+For convenience later on, we may define the matrix ${\bf{A}}$, and recast the Green strain tensor in terms of ${\bf{A}}$.
+\begin{equation}
+  \label{eq:A}
+  A_{ik} = \frac{\partial u_i}{\partial X_k},
+\end{equation}
+ and recast the Green strain tensor in terms of ${\bf{A}}$.
+ \begin{equation}
+ \label{eq:H2E}
+  {\bf{E}}= \frac{1}{2} \left( \bld{A} + \bld{A}^{T} + \bld{A}^{T}\bld{A} \right),
+\end{equation}
+% So far, we have not defined the transformation that describes the deformation of the body from $K_0$ to $K$. It is
+% useful to recast \eq{eq:longstrain} in terms of this transformation; the longitudinal strain can then be determined by
+% measuring the change in coordinates for a given pair of points. To this
+% end, one introduces a vector $\bld{u}$ that defines, for each point along the undeformed material line, how it maps onto
+% the corresponding point on the deformed body. 
+% Since the deformed material
+% line is, in general, curved, the transformation vector length and direction depend, in general, on which point the point along the
+% undeformed material line is being transformed. 
+% By parameterizing each point on the undeformed material line 
+% using $\bld{X}_{0}$ as the starting point, $\bld{e}$ for the direction and $s_0$ as a length parameter, the
+% transformation vector can be written as a
+% function of these parameters: $\bld{u} = \bld{u}(\bld{X}_{0} + s_{0} \cdot \bld{e})$. 
+% Using this definition of the body transformation, the Green strain tensor can be rewritten in terms of the
+% transformation vectors $\bld{u}$ (see Appendix A for a derivation):
+% \begin{equation}
+%  \label{eq:H2E}
+%   {\bf{E}}= \frac{1}{2} \left( \bld{A} + \bld{A}^{T} + \bld{A}^{T}\bld{A} \right),
+% \end{equation}
+% where $\bld{A}$ is the matrix of derivatives between the displacement vectors $\bld{u}$ and the undeformed coordinates
+% $\bld{X}$, 
+% \begin{equation}
+%   \label{eq:A}
+%   A_{ik} = \frac{\partial u_i}{\partial X_k}
+% \end{equation}
+% This formulation is advantageous from a practical perspective, because $\bld{E}$ can now be
+% easily approximated numerically by measuring displacements. 
+% The Green strain tensor could also be used to define shear and volumetric strain in very similar fashions, but we focus
+% here on the longitudinal strain.  
+We now wish to show how we can approximate \dtt in a manner equivalent to our previous papers \cite{Werling0,Werling1}.
+For our situation, we take the undeformed body, $K_0$ to be the optimized geometry at zero field.  
+The only source of deformation for our system will be the applied electric field ${\bld{f}}$, which implies that the Green strain tensor
+is also a function of ${\bld{f}}$, i.e. $\bld{E} = \bld{E}(\bld{f})$.  We can therefore rewrite \eq{eq:longstrain2}.
+\begin{equation} 
+  \epsilon = \sqrt{1 + 2 \, \bld{e} \cdot \bld{E}(\bld{f}) \cdot \bld{e}} - 1
+                \approx \bld{e} \cdot \bld{E}(\bld{f}) \cdot \bld{e}
+\end{equation}
+If we take the derivative with respect to $\bld{f}$ we obtain the following.
+\begin{equation}
+\label{eq:longstrainDeriv}
+\frac{\partial \epsilon ({\bf{f}})}{\partial {\bf{f}}} = \frac{{\bf{e}}\cdot \frac{\partial {\bf{E}}({\bf{f}})}{\partial {\bf{f}}} \cdot {\bf{e}}}{\sqrt{ 1 + 2{\bf{e}}\cdot \bf{E(f)} \cdot \bf{e}}}
+\end{equation}
+Because we choose $K_0$ as our system at zero field, $\bld{E}(\bld{f}=\bld{0})=\bld{0}$ ($\bld{0}$ on the right hand side is a matrix not a vector)--ie. the displacement derivatives contained
+in $\bld{A}$ are all zero since the $\bld{u}=\bld{0}$ everywhere. 
+If we evaluate \eq{eq:longstrainDeriv} at $\bld{f}=\bld{0}$ the derivative reduces to the following equation.    
+\begin{equation}
+\label{eq:longstrainDeriv2}
+\frac{\partial \epsilon ({\bf{0}})}{\partial {\bf{f}}} = {\bf{e}}\cdot \frac{\partial {\bf{E}}({\bf{0}})}{\partial {\bf{f}}} \cdot {\bf{e}}
+\end{equation}
+\eq{eq:longstrainDeriv2} not surprisingly matches the field derivative of the longitudinal strain at small defomations (\eq{eq:small}). 
+The derivative of the Green strain tensor $\bld{E}$ with respect to the field, $\bld{f}$ is just the piezoelectric tensor, $\bld{d}$ (\eq{eq:piezoTen}). 
+Thus the derivative of the longitudinal strain at zero field reduces to the following:
+\begin{equation}
+\label{eq:longstrainDeriv3}
+\frac{\partial \epsilon ({\bf{0}})}{\partial {\bf{f}}} = {\bf{e}}\cdot \bld{d}({\bf{0}}) \cdot {\bf{e}}
+\end{equation}
+In the sections to come, we will reduce \eq{eq:longstrainDeriv3} to a simpler form, devise a method for calculating piezoelectric coefficients for molecules,
+and introduce the piezoelectric matrix, $\bld{P}$.  \eq{eq:longstrainDeriv3} can be used to approximate \dtt in the same manner as our previous papers \cite{Werling0,Werling1}, but is a generalization, which
+we will find useful later.  Furthermore, it connects the work we have done thus far to strain theory, which we hope serves as a tool for future work in this area.  
+
+
+% We can reduce \eq{longstrainDeriv2} further by using the definition for the Green strain tensor $\bld{E}$ (\eq{eq:H2E}). 
+% We first rewrite \eq{eq:longstrainDeriv2} elementwise (the derivative is a vector quantity with components of field) using the definition of $\bld{A}$ (\eq{eq:A}).
+% \begin{equation}
+% \begin{split}
+% \label{eq:element}
+% \frac{\partial \epsilon ({\bf{0}})}{\partial f_l}&= \frac{1}{2}e_i \bigg(\frac{\partial^2 u_i(\bld{0})}{\partial X_k\partial f_l} + \frac{\partial^2 u_k(\bld{0})}{\partial X_i \partial f_l} + \\
+%  &\frac{\partial^2 u_j(\bld{0})}{\partial X_i \partial f_l}\frac{\partial u_j(\bld{0})}{\partial X_k} + \frac{\partial u_j(\bld{0})}{\partial X_i}\frac{\partial^2 u_j(\bld{0})}{\partial X_k \partial f_l}\bigg)e_k
+%  \end{split}
+% \end{equation}
+% The last two terms in \eq{eq:element} result from the product rule for $\bld{A}^T\bld{A}$ from \eq{eq:H2E}.  Both terms vanish when evaluated at zero field.  This is because 
+% $\frac{\partial u_j(\bld{0})}{\partial X_i}=A_{ji}(\bld{0})=0$ (every element is zero) if we take the zero field body as $K_0$ and $K$ (which is equivalent to evaluating $\bld{A}$ at zero field. 
+% If this is the case, the displacement vector for every point in the body is constant (and actually $\bld{0}$), and hence the derivative in any direction ($X_i$) vanishes (see Appendix
+% for more information on strain theory).  We can therefore rewrite \eq{eq:element}, ignoring the last two terms.  
+% \begin{equation}
+% \label{eq:element2}
+% \frac{\partial \epsilon ({\bf{0}})}{\partial f_l}= \frac{1}{2}e_i \bigg(\frac{\partial^2 u_i(\bld{0})}{\partial X_k\partial f_l} + \frac{\partial^2 u_k(\bld{0})}{\partial X_i \partial f_l} \bigg)e_k
+% \end{equation}
+% We can rewrite \eq{eq:element2} in terms of matrix derivatives for simplicity.  
+% \begin{equation}
+% \begin{split}
+% \label{eq:nonelement}
+% \frac{\partial \epsilon ({\bf{0}})}{\partial \bld{f}}&= \frac{1}{2}\bld{e} \bigg(\frac{\partial \bld{A}^T(\bld{0})}{\partial \bld{f}} + \frac{\partial \bld{A}(\bld{0})}{\partial \bld{f}} \bigg)\bld{e} \\
+% \frac{\partial \epsilon ({\bf{0}})}{\partial \bld{f}}&= \bld{e}\frac{\partial \bld{A}(\bld{0})}{\partial \bld{f}}\bld{e}
+% \end{split}
+% \end{equation}
+% Because both matrices are contracted by $\bld{e}$ on both sides, and one is the transpose of the other in these two dimensions, both terms in the first line were equivalent and reduced to twice
+% the value of one term, which cancelled the prefactor of $\frac{1}{2}$ in the final line.
+% $\frac{\partial \bld{A}(\bld{0})}{\partial \bld{f}}$ is a 3 dimensional tensor, and it is equivalent to the derivative of the Green strain tensor evaluated at zero field (ie. the piezoelectric tensor evaluated
+% at zero field).  
+% We will work with \eq{eq:nonelement} in the sections to come.  
+
+
+
+
+
+
+
+
+
+
+% To arrive at working equations for studying piezoelectric systems, we recall that the piezoelectric tensor
+% $\bld{d}$ is defined as the derivative of longitudinal strain (along a given material line) with respect to electric field coordinates. In general,
+% the mechanical (geometric) response of the material depends on the field, i.e. $\bld{E} = \bld{E}(\bld{f})$.   
+% Defining a set of unit vectors $\{\bld{e}_{i}\}$ that spans the coordinate system in which to consider the piezoelectric
+% response, the strain along these axes becomes
+% \begin{equation} 
+%   \epsilon_{ij} = \sqrt{1 + 2 \, \bld{e}_{i} \cdot \bld{E}(\bld{f}) \cdot \bld{e}_{j}} - 1
+%                 \approx \bld{e}_{i} \cdot \bld{E}(\bld{f}) \cdot \bld{e}_{j}
+% \end{equation}
+% and the corresponding piezoelectric tensor becomes 
+% \begin{equation} 
+%   d_{ijk} 
+%   = \left( \frac{\partial \epsilon_{ij}}{\partial f_{k}} \right)_{\bld{T} = \bld{0}}
+%   = \bld{e}_{i} \cdot \frac{\partial E}{\partial f_{k}}(\bld{f}) \cdot \bld{e}_{j}
+% \end{equation}
+% From this formulation it becomes clear that the piezoelectric response can be readily evaluated by determining the field
+% derivatives of the Green strain tensor. 
+
+%Since we are interested in quantifying the piezoelectric response along different coordinate axes, 
+%we must concern ourselves with the derivative with respect to the field applied to the system.  For our purposes the distortion represented by the strain tensor solely depends on the 
+%applied field.  We can therefore write the following:
+%\begin{equation}
+%\label{eq:longstrain2}
+%\epsilon=\frac{ds}{ds_0}-1= \sqrt{ 1 + 2{\bf{e}}\cdot {\bf{E}}({\bf{f}}) \cdot \bf{e}} -1
+%\end{equation}
+%where ${\bf{f}}$ is the field vector applied to the system.  If we take the derivative of $\epsilon$ with respect to the field vector we obtain
+%\begin{equation}
+%\label{eq:longstrainDeriv}
+%\frac{\partial \epsilon ({\bf{f}})}{\partial {\bf{f}}} = \frac{{\bf{e}}\cdot \frac{\partial {\bf{E}}({\bf{f}})}{\partial {\bf{f}}} \cdot {\bf{e}}}{\sqrt{ 1 + 2{\bf{e}}\cdot \bf{E(f)} \cdot \bf{e}}}
+%\end{equation}
+%We are interested in the piezoelectric properties of the molecule at zero field.  Without writing the form of ${\bf{E}}({\bf{f}})$ explicitly (although this is easy if we are concerned only with the 
+%linear piezoelectric effect), we may assert that ${\bf{E}}({\bf{0}})=0$.  We therefore evaluate ~\eq{longstrainDeriv} for zero field.
+%\begin{equation}
+%\label{eq:longstrainDeriv2}
+%\frac{\partial \epsilon ({\bf{0}})}{\partial {\bf{f}}} = {\bf{e}}\cdot \frac{\partial {\bf{E}}({\bf{0}})}{\partial {\bf{f}}} \cdot {\bf{e}}
+%\end{equation}
+%~\eq{eq:longstrainDeriv2} is what we must calculate to approximate \dtt.  
+%%ends here
+
+
+% \subsection{Continuum Mechanics (Stress and Strain)}
+% In the sections to follow, we will present the linear piezoelectric equation.  Before this, we will
+% give a brief overview of some areas of continuum mechanics (most notably stress and strain) which we will find useful later.
+% The discussions here will be adapted from ~\cite{contMech}.
+% 
+% Continuum mechanics is rooted in the continuum hypothesis.
+% The continuum hypothesis in summary states that matter is infinitely divisible and no matter how small, a volume element of the matter
+% will always contain matter.  Also, for a given type of matter, the matter will maintain continuity throughout deformation and movement ~\cite{contMech}.
+% We know that these statements are not rigorously true, since matter is made up of discrete objects like atoms and molecules, and there
+% can indeed be a great deal of space (in a relative sense) between atoms and molecules in a material.  However, in general the great number of
+% of atoms and molecules which exist in a relevant size (macroscopic world) of some solid or liquid body, would lead to the conclusion that
+% this hypothesis is ``good enough'' to work with.  And actually, for our purposes, the violation of the continuuity of a crystal body will
+% make our work with the linear piezotensor much easier.
+% 
+% \begin{figure}
+% 
+%   \centering
+%   \includegraphics[width=\textwidth]{stressUnitCube.png}
+%   \caption{Unit of continuum material ~\cite{contMech}.}
+%   \label{fig:unit}
+% \end{figure}
+% 
+% We will start our review with an infinitesimal unit of a some continuum material (see \fig {fig:unit}). For our purposes we will consider
+% the stress vectors ($\bf{t}$)acting on the unit and the strain which results.  Stress has units of pressure and can be imagined as a pressure vector
+% acting on or across a surface. We notice that the author uses ${\bf{t}}$ to denote the individual stress vectors acting on the 3 ``front'' surfaces of the unit cell.
+% We also notice that there is a unit vector normal ($\bf{e}_i$) to each surface which make up our basis.  In \fig {fig:unit}, we see that the individual stress vectors ${\bf{t_i}}$ can be
+% broken up into
+% component stresses (in our basis) ${\bf{T_{ji}}}$ along the face of each front surface.
+% 
+% At this point we should mention that there are stress vectors that act on the faces of the opposing sides of our ``cube''
+% of material.  However, they will be equal and opposite with respect to the opposing surface and we need not consider them to
+% fully describe the stress in the material~\cite{contMech}.
+% 
+% We can furthermore organize this information into a matrix ${\bf{T}}$.  The diagonal of the matrix ${\bf{T_{ii}}}$ consists of the normal stresses.
+% These stresses point ``away from (or into) the surface'' and in the case of a rectrangular system are normal to the surface.
+% The off diagonal elements, ${\bf{T_{ij}}}, i\neq j$ consist of the shear stresses which generally act along the surface of the piece of the continuum
+% material.  Stress, in 3 dimensions, has units of pressure.
+% 
+% It turns out that this matrix contains all the information we need about the stress acting on a particle within a body.  The Cauchy stress-theorem, which
+% we will not prove, states that the stress vector acting on a surface through our unit cube is uniquely determined by our stress tensor of the particle
+% and the normal of the surface.  In other words, if we were to ``cut'' through our differential element, creating some exposed face with unit normal ${\bf{n}}$, we could
+% calculate the stress vector ${\bf{t}}$ acting on the surface via ${\bf{t}}= {\bf{T}} \dot {\bf{n}}$~\cite{contMech}. This is all we need to know about the stress tensor for the time
+% being and we can move on to the strain tensor.
+% 
+% Deformation analysis generally concerns the local deformation around a point in a continuum material.  We are interested in the strain tensor ${\bf{S}}$, which we will use to understand
+% piezoelectric effect in the following section.  Deformation analysis is a rich subject with many topics, but we shall attempt to stick to what is necessary for the present work
+% and following section.
+% 
+% Our discussion will follow the line of reasoning presented in~\cite{contMech}.
+% Generally, strain analysis is concerned with concepts like longitudinal strain, shear strain, and volumetric strain.
+% These have simple definitions, but first let us consider a body undergoing deformation (\fig {fig:deform}).
+% 
+% \begin{figure}
+%   \centering
+% 
+%   \includegraphics[width=\textwidth]{deform.png}
+%   \caption{General deformation of a body.~\cite{contMech}}
+%   \label{fig:deform}
+% \end{figure}
+% 
+% Notice that we have configuration $K_0$ and $K$ corresponding to the undeformed and deformed bodies respectively, and particle positions are given by $X$ and $x$ respectively
+% for each configuration.  We can define a material line, which in our figure is given by the line segment $P_0Q_0$ with length $s_0$ in $K_0$, and ask what happens to the material line as the body deforms.
+% For our purposes the material line can be seen as a line drawn through some arbitrary group of particles in the body (here it is a straight line for convenience), and we are
+% asking what the line will look like if we draw it through the same particles after a deformation, which is given by the curve along $PQ$ with length $s$ in $K$. The deformed material line is,
+% in general, curved.
+% Looking at this picture we can define the longitudinal strain in the direction of $\bf{e}$, which we will call $\epsilon$ as follows:
+% \begin{equation}
+% \label{eq:longstrain}
+% \epsilon=\lim_{s_0\to 0}\frac{s-s_0}{s_0}=\frac{ds-ds_0}{ds_0}=\frac{ds}{ds_0}-1
+% \end{equation}
+% This can be viewed as the change in length of the material line per length of the the undeformed line segment $P_0Q_0$.
+% We actually use an approximation to this value later when we attempt to calculate piezocoefficients for our systems.
+% 
+% We will not concern ourselves with volumetric and shear strain for now.
+% We want to arrive at the Green strain tensor which can be used to completely specify the deformation around a point in our body.
+% First we will allow $s_0$ to be a curve parameter which we may vary for the material lines in both $K_0$ and $K$. We can therefore specify
+% points along each material line from $P_0$ to $Q_0$ as $X_i+s_0e_i$, which we trace out as $s_0$ increases. We can therefore express the positions
+% of particles in the deformed bodies as a function of this line segment and time--$x_i({\bf{X}}+s_0{\bf{e}},t)$.
+% 
+% Evaluating the arc length of $s$ as a function of $s_0$ which we treat as a curve parameter, we find that
+% 
+% \begin{equation}
+% \label{eq:arclen}
+% s(s_0) = \int_0^{s_0}\sqrt{\frac{dx_i}{d\bar{s}_0}\frac{dx_i}{d\bar{s}_0}}d\bar{s}_0
+% \end{equation}
+% 
+% This indicates to us that
+% 
+% \begin{align}
+% \label{eq:dsds0}
+% \frac{ds(s_0)}{ds_0} &= \sqrt{\frac{dx_i}{ds_0}\frac{dx_i}{ds_0}} \\
+% ds^2 &= \frac{dx_i}{ds_0}\frac{dx_i}{ds_0}ds_0^2
+% \end{align}
+% 
+% Looking back to \fig {fig:deform}, We can let the line element $P_0Q_0$ be called $d{\bf{r}_0}$, with length $s_0$ and unit vector ${\bf{e}}$.
+% From this we can then write.
+% 
+% \begin{equation}
+% \label{eq:dXkds0}
+%  d{\bf{r}}_0={\bf{e}}\,ds_0=dX_k\,{\bf{e}}_k \quad \Rightarrow \quad dX_k=e_k\,ds_0 \quad \Leftrightarrow \quad e_k=\frac{dX_k}{ds_0}
+% \end{equation}
+% 
+% We will use \eq{eq:dXkds0} later.
+% If we consider the vector differential along $s$, tangent to the curve, which we call $d{\bf{r}}$ and has components $dx_i$, we may write
+% \begin{equation}
+% \label{eq:drds0}
+% d{\bf{r}}=\frac{\partial{\bf{r}}}{\partial s_0} \quad \Rightarrow \quad dx_i=\frac{x_i}{\partial{s_0}}ds_0
+% \end{equation}
+% Now we would like to relate the line elements $d{\bf{r_0}}$ from $K_0$ with $d{\bf{r}}$ in $K$.
+% \begin{equation}
+% \label{eq:drd0}
+% d{\bf{r}}=\frac{\partial{\bf{r}}}{\partial {\bf{r}_0}} \cdot d{\bf{r}_0} \quad  \Leftrightarrow \quad dx_i=\frac{\partial x_i}{\partial X_k}dX_k
+% \end{equation}
+% 
+% We thus have the deformation gradient ${\bf{F}}$.
+% \begin{equation}
+%  \label{eq:defGrad}
+%  {\bf{F}}=\bigtriangledown({\bf{r}})=\frac{\partial{\bf{r}}}{\partial{\bf{r}_0}} \quad \Leftrightarrow  \quad F_{ik}=\frac{\partial x_i}{\partial X_k}
+% \end{equation}
+% 
+% 
+% We would like to calculate $(\frac{ds}{ds_0})^2$ from before.  So first we ask what is $\frac{\partial x_i}{\partial s_0}\bigg|_{s_0=0}$?
+% \begin{equation}
+%  \frac{\partial x_i}{\partial s_0}\bigg|_{s_0=0}=\frac{\partial x_i(X,t)}{\partial X_k}
+%  \frac{\partial (X_k+s_0e_k)}{\partial s_0}\bigg|_{s_0=0}\quad \Rightarrow \quad \frac{\partial x_i}{s_0}=
+%  \frac{\partial x_i}{\partial X_k}\frac{dX_k}{ds_0}=F_{ik}e_k
+% \end{equation}
+% 
+% In the last step we have used our result from \eq{eq:dXkds0}.  This is analogous to a directional derivative, but instead of using
+% the gradient of a scalar quantity, we instead use the deformation gradient which is inherently a matrix.
+% 
+% We can now write
+% \begin{equation}
+% \label{eq:dsds02}
+%  \bigg(\frac{ds}{ds_0}\bigg)^2=\frac{dx_i}{d\bar{s}_0}\frac{dx_i}{d\bar{s}_0}=
+%  (F_{ik}e_k)(F_{il}e_l)= {\bf{e\cdot (F^TF)\cdot e}}={\bf{e\cdot C \cdot e}}
+% \end{equation}
+% ${\bf{C}}$ is known as the Green deformation tensor. We have come a long way, but recall
+% that the displacement of a particle during deformation is given by $\bf{u}(\bf{r}_0, t)$.
+% We would like to recast the deformation tensor in terms of the displacement gradient, which
+% we call $\bf{H}$
+% \begin{equation}
+% \label{eq:A}
+%  \bf{H} = \frac{\partial {\bf{u}}}{\partial {\bf{r}_0}} \quad \Leftrightarrow \quad H_{ik}=\frac{\partial u_i}{\partial X_k}
+% \end{equation}
+% Recalling that
+% \begin{equation}
+%  x_i(X,t) = X_i +u_i(X,t)
+% \end{equation}
+% we may infer
+% \begin{equation}
+%  \frac{\partial x_i}{\partial X_k} = \frac{\partial X_i}{\partial X_k}+ \frac{\partial u_i}{\partial X_k}
+% \end{equation}
+% or
+% \begin{equation}
+%  F_{ik} = \delta_{ik}+ H_{ik} \quad \Leftrightarrow \quad \bf{F} = \bf{1} + \bf{H}
+% \end{equation}
+% We recast the Green deformation tensor as follows:
+% \begin{equation}
+%  {\bf{C}}= {\bf{F^TF}} = ({\bf{1}} + {\bf{H^T}})({\bf{1}}+ {\bf{H}})= {\bf{1}}+ {\bf{H}} + {\bf{H^T}} +{\bf{H^TH}}
+% \end{equation}
+% The Green strain tensor, ${\bf{E}}$ is defined by:
+% \begin{equation}
+% \label{eq:H2E}
+%  {\bf{E}}= \frac{1}{2}({\bf{H}} + {\bf{H^T}} + {\bf{H^TH}})
+% \end{equation}
+% which we can represent by elements as:
+% \begin{equation}
+%  E_{kl}=\frac{1}{2}\bigg(\frac{\partial u_k}{\partial X_l}  + \frac{\partial u_l}{\partial X_k} +
+%  \frac{\partial u_i}{\partial X_k}\frac{\partial u_i}{\partial X_l}\bigg)
+% \end{equation}
+% 
+% We have accomplished what we set out to do.  The reason for doing this will be made clear later.
+% Our methods for measuring the piezocoefficient are directly tied to understanding strain.
+% 
+% 
+% Hence we can rewrite the Green deformation tensor, ${\bf{C}}$, as follows:
+% \begin{equation}
+%  {\bf{C}} = {\bf{1}} + 2{\bf{E}}
+% \end{equation}
+% Looking back at \eq{eq:dsds02}, we can rewrite the equation as
+% \begin{equation}
+% \label{eq:dsds022}
+%  \bigg(\frac{ds}{ds_0}\bigg)^2={\bf{e\cdot C \cdot e}}={{\bf{e}} \cdot ({\bf{1}} + 2{\bf{E}})\cdot {\bf{e}}} =
+%  1 + 2{\bf{e}\cdot \bf{E} \cdot \bf{e}}
+% \end{equation}
+% Hence, recalling \eq{eq:longstrain}, we can also rewrite our longitudinal strain from before in terms of the Green strain tensor.
+% \begin{equation}
+% \label{eq:longstrain2}
+% \epsilon=\frac{ds}{ds_0}-1= \sqrt{ 1 + 2{\bf{e}}\cdot \bf{E} \cdot \bf{e}} -1
+% \end{equation}
+% 
+% We can also formulate ideas about shear and volumetric strain in terms of the Green strain tensor.  But for
+% now we just understand that we have developed our ideas about strain enough to utilize them for studying
+% our piezoelectric systems.
+% 
+% One more brief topic of discussion is principal strain.  Without going into too much detail, we can understand
+% principal strain as the material lines which maximize or minimize the value of longitudinal strain.  We can quickly demonstrate this.
+% The equation for longitudinal strain is given by \eq{eq:longstrain2} in terms of the Green strain tensor.  Looking at the equation carefully,
+% reveals that finding the extrema for longitudinal strain is the same as finding the extrema for $\bf{e}\cdot \bf{E} \cdot \bf{e}$, since the function
+% is monotonic in this term.  We therefore add the Lagrange multiplier term $\lambda (\bf{e}\cdot\bf{e}-1)$
+% to the strain tensor term, where $\lambda$ is the Lagrange multiplier.  This ensures that the direction vector $\bf{e}$ is normalized.
+% \begin{equation}
+% \label{eq:strainOpt}
+%  {\bf{e}}\cdot {\bf{E}} \cdot {\bf{e}}-\lambda ({\bf{e}}\cdot{\bf{e}}-1)
+% \end{equation}
+% 
+% Since we want to find the extremum of this expression we take the gradient with respect to $\bf{e}$ and set the value equal to the zero vector.
+% This results in the following equation:
+% \begin{align}
+%  \bf{E}\cdot\bf{e} -\lambda \bf{e} &= \bf{0} \\
+%   \bf{E}\cdot\bf{e} &= \lambda \bf{e}
+% \end{align}
+% This is a typical eigenvalue problem.  We note from the above work that the strain
+% tensor is symmetric and therefore the eigenvectors are orthogonal and the eigenvalues real.  By diagonalizing the strain tensor,
+% we find the directions of principal strain and the maximum and minimum longitudinal strain.  If we call our largest eigenvalue $\tilde{\epsilon_1}$ for example, the resulting
+% principal strain would be given by
+% \begin{equation}
+%  \epsilon_1 = \sqrt{1+2\tilde{\epsilon_1}} -1
+% \end{equation}
+% after substituting into \eq{eq:longstrain}.
+% This will be important later when we try to derive the formula to determine the largest possible \dtt.
+
+
+
+
+% \subsection{The Linear Piezoelectric Equation}
+% We now have the necessary information to discuss the linear piezoelectric equation. The equations in this section come from ~\cite{ieeePiezo}The piezoelectric effect
+% can be described via the direct or converse piezoelectric effect.  We can relate the strain tensor to the piezoelectric tensor in the following ways.
+% 
+% For the direct piezoelectric effect we have
+% \begin{align}
+% \label{eq:direct}
+% D_i &= d_{ijk}T_{jk}+\epsilon_{ij}E_j \\
+% \bf{D} &= \bf{dT}+\bf{\epsilon E}
+% \end{align}
+% and for the converse piezoelectric effect we have
+% \begin{align}
+% \label{eq:convers}
+% S_{ij} &= \sigma_{ijkl}T_{kl}+d_{ijk}E_k \\
+% \bf{S} &= \bf{\sigma T}+\bf{dE}
+% \end{align}
+% 
+% 
+% The vector $\bf{D}$ corresponds to the electric charge density displacement. The vector $\bf{E}$ corresponds to an applied electric field.
+% The tensor $\bf{S}$ is strain (the Green strain tensor), which we know to be of rank 2.  The stress tensor, $\bf{T}$, which is of rank 2, is linked to the strain tensor
+% by the compliance tensor, $\bf{\sigma}$, rank 4. In our calculations, we are interested in applying a field and approximating the deformation.
+% We are therefore solely interested in the piezoelectric tensor $\bf{d}$, and furthermore we focus on the
+% converse piezoelectric equation in attempts to approximate a small part of $\bf{d}$--namely \dtt.  The reason we focus on \eq{eq:convers} is because we are interested in
+% small systems for which it is easier to apply a field and approximate the deformation of the systems rather than apply a stress and approximate the polarization.
+% 
+% 
+% Based on the equation for the converse piezoelectric effect, we can define the piezoelectric tensor as:
+% \begin{equation}
+% \label{eq:piezoTen}
+% \frac{\partial S_{ij}}{\partial E_k}=d_{ijk}
+% \end{equation}
+% It is worthwhile to mention that we have an alternative definition for the linear piezoelectric tensor based on the direct equation.
+% \begin{equation}
+% \label{eq:piezoTen2}
+% \frac{\partial D_{i}}{\partial T_{jk}}=d_{ijk}
+% \end{equation}
+% This definition is most likely more suitable for calculations for periodic crystals.
+% 
+% We should point out that the indexes pertaining to strain, ${ij}$, depend on the coordinate system we wish to use as a reference frame
+% for our normal and shear stresses, but the index contracted with the field, $k$, is dependent on the reference frame for the applied field.
+
+

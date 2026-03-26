@@ -1,0 +1,55 @@
+\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
+\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
+% \MRhref is called by the amsart/book/proc definition of \MR.
+\providecommand{\MRhref}[2]{%
+  \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
+}
+\providecommand{\href}[2]{#2}
+\begin{thebibliography}{1}
+
+\bibitem{AlphaEvolve}
+Matej Balog, Alexander Novikov, Ng\^{a}n V\^{u}, Marvin Eisenberger, Emilien
+  Dupont, Po-Sen Huang, Adam~Zsolt Wagner, Sergey Shirobokov, Borislav
+  Kozlovskii, Francisco J.~R. Ruiz, Abbas Mehrabian, M.~Pawan Kumar, Abigail
+  See, Swarat Chaudhuri, George Holland, Alex Davies, Sebastian Nowozin, and
+  Pushmeet Kohli, \emph{Alphaevolve: A coding agent for scientific and
+  algorithmic discovery},
+  \url{https://deepmind.google/discover/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/}.
+
+\bibitem{BarnardSteinerberger}
+Richard~C. Barnard and Stefan Steinerberger, \emph{Three convolution
+  inequalities on the real line with connections to additive combinatorics}, J.
+  Number Theory \textbf{207} (2020), 42--55.
+
+\bibitem{CloningerSteinerberger}
+Alexander Cloninger and Stefan Steinerberger, \emph{On suprema of
+  autoconvolutions with an application to {S}idon sets}, Proc. Amer. Math. Soc.
+  \textbf{145} (2017), no.~8, 3191--3200.
+
+\bibitem{deDiosPontMadrid}
+Jaume de~Dios~Pont and Jos\'e Madrid, \emph{On classical inequalities for
+  autocorrelations and autoconvolutions}, arXiv:2106.13873.
+
+\bibitem{BenGreen100}
+Ben Green, \emph{100 {O}pen {P}roblems},
+  \url{https://people.maths.ox.ac.uk/greenbj/papers/open-problems.pdf}.
+
+\bibitem{MartinOBryant}
+Greg Martin and Kevin O'Bryant, \emph{The supremum of autoconvolutions, with
+  applications to additive number theory}, Illinois J. Math. \textbf{53}
+  (2009), no.~1, 219--235.
+
+\bibitem{MatolcsiVinuesa}
+M\'{a}t\'{e} Matolcsi and Carlos Vinuesa, \emph{Improved bounds on the supremum
+  of autoconvolutions}, J. Math. Anal. Appl. \textbf{372} (2010), no.~2,
+  439--447.e2.
+
+\bibitem{MathOverflow}
+Kevin O'Bryant, \emph{Can {H}\"{o}lder's {I}nequality be strengthened for
+  smooth functions?}, MathOverflow, \url{https://mathoverflow.net/q/60087}.
+
+\bibitem{Yu}
+Gang Yu, \emph{An upper bound for {$B_2[g]$} sets}, J. Number Theory
+  \textbf{122} (2007), no.~1, 211--220.
+
+\end{thebibliography}

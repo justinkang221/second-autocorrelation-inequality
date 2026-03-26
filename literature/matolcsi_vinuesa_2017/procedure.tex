@@ -1,0 +1,169 @@
+\section{Outline of Computational Procedure}
+
+\begin{figure*}
+  \centering
+
+  \includegraphics[width=0.70\textwidth]{flowchart.pdf}
+  \caption{flowchart for computational procedure }
+  \label{fig:flowchart}
+\end{figure*}
+
+(flowchart)
+The procedure for calculating the piezoelectric matrix (consider renaming) will follow
+that presented in \fig{fig:flowchart}.
+
+\subsection{Geometry Optimization}
+
+The first step is of course to optimize the geometry of the molecule/s or small system.  
+Depending the the degree of accuracy desired for the calculation, it may be necessary to use
+more stringent thresholds for gradient of the energy and especially displacement (since we are mainly
+interested in approximating displacement under the application of an applied field).  
+Furthermore, if one is performing a density functional theory (DFT) calculation for the energy, it might be necessary
+to use a finer grid for the integration and smaller cutoffs for the integrals. 
+We have noticed previously that without a decent grid and low cutoffs that there tends to be small ``bumps'' in  cross-sections of the 
+energy which may interfere with calcuations of the hessian and other derivatives with respect to displacement.
+
+Furthermore, one might be interested in constraining the system in some position which might be relevant to the crystal 
+structure or some other reason.  
+For these purposes it might be necessary to employ different methods for constraining the
+geometry and still performing the geometry optimization.  
+These might include lagrange multiplier or projection techniques.
+For these we prefer the reader to \cite{numRec, schlegel, baker}.  
+It is important to remember though that in later steps one might want to 
+later project out such unwanted degrees of freedom in addition to rotations and translations.
+Any type of motion corresponding to an unwanted deformation can be constructed just like the rotation and translation vectors in the Appendix and 
+also projected out of the basis.  
+The corresponding transformation column vector matrix ${\bf{V}}$ will then be reduced in columns by the number of additional unwanted vectors.  
+This would of course not hold if these other unwanted motions are linearly dependent with the rotations and tanslation vectors.
+\subsection{Hessian Calculation}
+
+Frequency calcualtions have become statndard in many program packages and often the Hessian matrix is reported at the 
+end of the calculation or can be recovered from scratch files.  
+Analytical Hessian calculations
+might be prohibitively expensive for large systems and parallel implementaions are not always present for some methods in software packages.
+However, numerical calculations of the Hessian are always 
+embarassingly parallel due to the vast number of independent gradient calculations.  
+We have found for our calculations that molecules greater than 25 atoms or so start to become
+prohibitively expensive for analytical B3LYP \cite{b3lyp,Lee1988} calculations with a moderately
+sized basis set (6-31G(d))\cite{pople}.
+Furthermore, we do not notice a remarkable discrepancy in the 
+final calculation of the piezoelectric matrix when using a numerical Hessian.  
+
+\subsection{Dipole Derivative Calculation}
+
+The dipole derivative, $\frac{\partial^2 E}{\partial \uu \partial \ff}$, calculation may be performed in parallel with the Hessian calculation.
+Alternatively, if one is performing a vibrational analysis for the Hessian calculation, the 
+dipole derivatives are usually calculated as well since they have a well established 
+relationship with the intensity of infrared active vibrational modes \cite{kom}.  
+If this is the case, it is likely that one can merely retrieve the dipole derivatives with the Hessian 
+at the end of a frequency calculation. 
+
+If one wishes to perform the dipole derivative calculation manually we refer the reader
+to Ref \cite{kom}, and we also present the following procedure.  
+After the geometry optimization, either retrieve or perform a separate calculation to obtain the gradient ($\nabla E(\ff=0)$) of the energy. 
+After this, one can calculate the gradient of the molecule for three separate field calculations.  
+The most reasonable choices for field directions are the x, y and z direction.  
+The field magnitude, which we call here $df$,  applied in each direction should be quite
+small (~0.001V/nm).  
+After the three calculations are finished, one may approximate $\frac{\partial \nabla E}{\partial f_x}$,$\frac{\partial \nabla E}{\partial f_y}$ and 
+$\frac{\partial \nabla E}{\partial f_z}$, (or the corresponding length variables for whatever basis you choose) using the finite differences of the gradient from zero field.
+\begin{equation} 
+\begin{split}
+\frac{\partial \nabla E}{\partial f_x} &\approx \frac{\nabla E(f_x = df, f_y=0, f_z=0)-\nabla E(\ff=0)}{df} \\
+\frac{\partial \nabla E}{\partial f_y} &\approx \frac{\nabla E(f_x = 0, f_y=df, f_z=0)-\nabla E(\ff=0)}{df} \\
+\frac{\partial \nabla E}{\partial f_z} &\approx \frac{\nabla E(f_x = 0, f_y=0, f_z=df)-\nabla E(\ff=0)}{df}
+\end{split}
+\end{equation}
+
+Each of these derivatives is a vector quantitiy of dimension $3N$, where $N$ is the number of nuclei, and represent the columns of the matrix ${\bf{H_uf}}$ as presented in the previous sections 
+and (flowchart figure).
+Alternatively, one might choose to perform a few gradient calculations at a few different small field strengths for each field direction and perform a linear regression on each component of the gradient
+to find the slope of each component. 
+We did not notice that this drastically improves the result and is usually unnecessary.  (consider adding the graphs for this)
+
+\subsection{Project Out Rotations and Translations}
+
+Now that we have the Hessian ${\bf{H_{uu}}}$ and the Dipole derivative ${\bf{H_{uf}}}$ matrices, we need to project out rotations, translations and any other unwanted modes
+(if using constraints)from the matrices.  
+This is equivalent to transforming the the basis of the displacement variables to a subspace of modes which lack displacement corresponding to rotation
+and translation.  
+A typical unitary transformation of the Hessian for example (${\bf{H_{UU}}}={\bf{U}}^T \cdot {\bf{H_{uu}}} \cdot {\bf{U}}$) would transform the Hessian from derivatives
+$ H_{u_iu_j} = \frac{\partial^2 E}{\partial u_i \partial u=j}$ to $H_{U_iU_j}=\frac{\partial^2E}{\partial U_i \partial U_j}$, where the variables of the transformed matrix are now with respect
+to the length variables of the new basis.  
+Here we consider that ${\bf{U}}$ is unitary and made up of orthonormal column vectors.  
+In the case where we ignore rotations and translations, we must construct the matrix ${\bf{V}}$ discussed in previous sections by projecting out translation and rotation
+vectors from the eigenvectors of the the Hessian (or any other basis that spans the full nuclear space).  
+
+  In practice, if one is using modern quantum chemistry software, it might be possible to obtain cartesian normal modes from job outputs or the scratch directory.  
+ If this is the case the vectors may already be sorted so that the vectors corresponding to rotations and translations are reported first or last.  
+ If this is not the case, one may always apply the Hessian to 
+the normal modes, and record the norm of the results.  
+The vectors corresponding to the smallest norms (ie. very close to zero) are typically the vectors which represent translations and rotations.
+If a molecule is linear we expect there to be 5 such modes, and ${\bf{V}}$ will have dimesions $3N\times3N-5$.  
+If the molecule is nonlinear we expect 6, and ${\bf{V}}$ will have dimesions $3N\times3N-6$.
+If the translational modes and rotational modes have been identified in this way, the remaining normal modes are make up the columns of ${\bf{V}}$. 
+One should also check that these vectors are orthonormal.  
+Using ${\bf{V}}$, we may now transform ${\bf{H_{uu}}}$ and ${\bf{H_{uf}}}$ to ${\bf{H_{vv}}}$ and ${\bf{H_{vf}}}$ according to (flowchart and equation).
+
+If the program package one is using does not offer cartesian normal modes after a frequency calculation, it is possible to construct translational and rotational modes which may then 
+be projected out from the eigenvectors of the Hessian or mass weighted Hessian.  
+This should then lead to $3N-5$ or $3N-6$ (for linear or nonlinear molecules respectively) nonzero 
+vectors which may then be internally orthonormalized via the Gram-Schmidt method or otherwise \cite{numRec}.
+It might be the case that after projecting out the rotations and translations that there are not $5$ or $6$ zero vectors.
+After the orthogonalization routine, there should be this many zero vectors.  
+For more information, we refer the reader to Ref \cite{numRec}.
+
+\subsection{Solve for Displacement Derivative Matrix}
+
+Now that we have the transformed Hessian and dipole derivative matrix (${\bf{H_vv}}$ and ${\bf{H_vf}}$ respectively), we may now solve for the displacement derivative matrix 
+$\firstDeriv{\uu_{\mathrm{vib}}}{\ff}$.  
+This matrix contains the derivatives of all the nuclear displacement vectors ${\bf{u}}$ with respect to the field vector ${\bf{f}}$ under condition
+that the energy remains minimized and only deformations in the space of the vibrational motion of the molecule is allowed.  
+The matrix is inherently $3Nx3$ once put back into normal cartesian space.  
+We generally solve in the vibrational mode space, but simultaneously 
+transform back to the cartesian space.  
+The equation is given by \eq{eq:finalDxdf} and is also included in \fig{fig:flowchart}.  
+Even though the inverse of the ${\bf{H_vv}}$ is written in \eq{eq:finalDxdf}, 
+it is not necessary to invert this matrix; it is generally more efficient to just solve equation (equation) for $\frac{\partial {\bf{v}}}{\partial {\bf{f}}}$ via known algorithms, widely implemented in such programs as Mathematica, Matlab, and Python
+packages \cite{math,MATLAB:2010,python}.  
+Then of course one must transform $\frac{\partial {\bf{v}}}{\partial {\bf{f}}}$ back to normal space via ${\bf{V}}\cdot \frac{\partial {\bf{v}}}{\partial {\bf{f}}}$.
+
+\subsection{Construct Piezoelectric Matrix}
+
+As discussed in the previous Derivation section, to construct the final piezoelectric matrix ${\bf{P}}$, one first needs to define a ``material line'', 
+which in the molecular sense we 
+take to mean the line segment connecting two atoms of choice in the system (or some other points of reference which will change upon deformation).  
+The unit vector in our position coordinate
+system then becomes ${\bf{e}}$.  
+From the matrix ${\bf{P}}$ we can describe the relative deformation of these two points.  
+${\bf{P}}$, to reiterate, will be an approximation to
+$\frac{\partial^2 {\bf{u}}}{\partial r_0 \partial {\bf{f}}}$, which we approximate via the change in the derivative of the displacement 
+vector ${\bf{u}}$ with respect to the field vector
+${\bf{f}}$ as we move from atom ``a'' to atom ``b'', per unit distance as we move from one atom to another along the ``material line'' in the undeformed body.
+The calculation is simple and is given by
+\eq{eq:INeedIt2} and \fig{fig:flowchart}.  
+The only difficult task is identifying which parts of the $3Nx3$ displacement derivative matrix $\frac{\partial {\bf{u}}}{\partial {\bf{f}}}$ correspond to 
+$\frac{\partial {\bf{u}}_a}{\partial {\bf{f}}}$ and $\frac{\partial {\bf{u}}_b}{\partial {\bf{f}}}$.  
+Both parts are $3x3$ and hence make ${\bf{P}}$ also $3x3$.  
+
+Finding these parts, however, depends on the order of position variables used by the software to write the Hessian and gradients of the molecule.  
+Typically the ordering is 
+(atom1 x, atom1 y, atom1 z  . . . atomN x, atomN y, atom N z). 
+So if one uses for example atom 3 for ``a'' and atom 35 for ``b'' as the two ends of the ``material line'',  $\frac{\partial {\bf{u}}_a}{\partial {\bf{f}}}$
+will be given by rows $3*2+1=7$ through $3*2+3=9$, and $\frac{\partial {\bf{u}}_b}{\partial {\bf{f}}}$ will be given by $3*34+1=103$ through $3*34+3=105$ of $\frac{\partial {\bf{u}}}{\partial {\bf{f}}}$.  
+Hence, $\frac{\partial {\bf{u}}_i}{\partial {\bf{f}}}$
+corresponds to rows $3*(i-1)+1=3i-2$ through $3*(i-1)+3=3i$. 
+This of course assumes that we index the rows starting at $1$ and up to $3N$.  
+In python and other languages it is common
+to index starting from $0$ to $3N-1$. 
+If this is the case, then atom 3 would actually be atom 2 (atom 0 and atom 1 come before) and atom 35 would be atom 34.  
+In this instance the 
+rows to extract from $\frac{\partial {\bf{u}}}{\partial {\bf{f}}}$ would be $3i$ to $3i+2$.  
+
+
+
+
+
+
+
+

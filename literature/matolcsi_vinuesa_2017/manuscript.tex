@@ -1,0 +1,84 @@
+%\documentclass[12pt]{article}
+\documentclass[jcp,twocolumn]{revtex4}
+%\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+%\usepackage{amsymbol}
+%\usepackage{xparse}
+%\usepackage{xspace}
+%\usepackage{setspace}
+%\usepackage[section]{placeins}
+\usepackage{float}
+\usepackage{graphicx}
+%\usepackage{wrapfig}
+%\usepackage{bm}
+\usepackage{marginnote}
+
+\newcommand{\dd}{{\ensuremath{\mathbf{d}}}}
+\newcommand{\dtt}{{\ensuremath{d_{33}}}}
+\newcommand{\evalAt}{{\ensuremath{\bigg|_{(z_0, 0)}}}}
+\newcommand{\evalAtX}{{\ensuremath{\bigg|_{(\bf{x}_0, \bf{f}_0)}}}}
+\newcommand{\evalAtU}{{\ensuremath{\bigg|_{(\bf{u}_0=0, \bf{f}_0=0)}}}}
+\newcommand{\firstDeriv}[2]{{\ensuremath{\frac{\partial #1}{\partial #2}}}}
+\newcommand{\secondDeriv}[2]{{\ensuremath{\frac{\partial^2 #1}{\partial #2^2}}}}
+\newcommand{\secondDerivMix}[3]{{\ensuremath{\frac{\partial^2 #1}{\partial #2 \partial #3}}}}
+\newcommand{\xx}{{\ensuremath{\bf{x}}}}
+\newcommand{\uu}{{\ensuremath{\bf{u}}}}
+\newcommand{\ff}{{\ensuremath{\bf{f}}}}
+\newcommand{\vv}{{\ensuremath{\bf{v}}}}
+\newcommand{\eq}[1]{{Eq. (\ref{#1})}}
+\newcommand{\fig}[1]{{Fig. \ref{#1}}}
+\newcommand{\tab}[1]{{Tab. \ref{#1}}}
+\newcommand{\bld}[1]{\ensuremath{{\mathbf #1}}}
+
+
+%\floatstyle{boxed}
+%\restylefloat{figure}
+
+% \doublespacing
+
+
+
+\begin{document}
+
+\title{Developing a Molecular Theory of Electromechanical Responses}
+\author{Keith A. Werling}
+\author{Geoffrey R. Hutchison}
+\author{Daniel S. Lambrecht}
+\email{lambrecht@pitt.edu}
+\affiliation{Department of Chemistry, University of Pittsburgh, 219 Parkman Avenue, Pittsburgh, PA 15260}
+%\author{%
+%    Keith Werling\\%
+%    \texttt{kaw112@pitt.edu}\\%
+%    Univeristy of Pittsburgh%
+%}%
+
+\input{abstract}
+\maketitle
+%\pagebreak
+%\tableofcontents
+%\pagebreak
+%\listoffigures
+%\listoftables
+%\newpage
+
+
+\input{intro}
+\input{background}
+\input{derivation}
+\input{procedure}
+\input{results}
+\input{conclusion}
+
+\begin{appendix}
+  \input{appendix}
+\end{appendix}
+
+
+% \section{Acknowledgements}
+
+\bibliographystyle{unsrt}
+
+\bibliography{bibliography}
+
+\end{document}

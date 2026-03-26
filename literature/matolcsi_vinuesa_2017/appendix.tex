@@ -1,0 +1,458 @@
+
+
+\section{Relevant Strain Theory}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.48\textwidth]{deform.pdf}
+  \caption{General deformation of a body.~\cite{contMech}}
+  \label{fig:deform1}
+\end{figure}
+% \begin{figure*}
+%   \centering
+% 
+%   \includegraphics[width=0.70\textwidth]{deform.png}
+%   \caption{General deformation of a body.~\cite{contMech}}
+%   \label{fig:deform}
+% \end{figure*}
+
+% Notice that we have configuration $K_0$ and $K$ corresponding to the undeformed and deformed bodies respectively, and particle positions are given by $X$ and $x$ respectively
+% for each configuration.  We can define a material line, which in our figure is given by the line segment $P_0Q_0$ with length $s_0$ in $K_0$, and ask what happens to the material line as the body deforms.
+% For our purposes the material line can be seen as a line drawn through some arbitrary group of particles in the body (here it is a straight line for convenience), and we are
+% asking what the line will look like if we draw it through the same particles after a deformation, which is given by the curve along $PQ$ with length $s$ in $K$. The deformed material line is,
+% in general, curved.
+% Looking at this picture we can define the longitudinal strain in the direction of $\bf{e}$, which we will call $\epsilon$ as follows:
+% \begin{equation}
+% \label{eq:longstrain}
+% \epsilon=\lim_{s_0\to 0}\frac{s-s_0}{s_0}=\frac{ds-ds_0}{ds_0}=\frac{ds}{ds_0}-1
+% \end{equation}
+% This can be viewed as the change in length of the material line per length of the the undeformed line segment $P_0Q_0$.
+% We actually use an approximation to this value later when we attempt to calculate piezocoefficients for our systems.
+% 
+% We will not concern ourselves with volumetric and shear strain for now.
+% We want to arrive at the Green strain tensor which can be used to completely specify the deformation around a point in our body.
+% First we will allow $s_0$ to be a curve parameter which we may vary for the material lines in both $K_0$ and $K$. We can therefore specify
+% points along each material line from $P_0$ to $Q_0$ as $X_i+s_0e_i$, which we trace out as $s_0$ increases. We can therefore express the positions
+% of particles in the deformed bodies as a function of this line segment and time--$x_i({\bf{X}}+s_0{\bf{e}},t)$.
+% 
+% Evaluating the arc length of $s$ as a function of $s_0$ which we treat as a curve parameter, we find that
+% \begin{equation}
+% \label{eq:arclen}
+% s(s_0) = \int_0^{s_0}\sqrt{\frac{dx_i}{d\bar{s}_0}\frac{dx_i}{d\bar{s}_0}}d\bar{s}_0
+% \end{equation}
+% This indicates to us that
+% \begin{align}
+% \label{eq:dsds0}
+% \frac{ds(s_0)}{ds_0} &= \sqrt{\frac{dx_i}{ds_0}\frac{dx_i}{ds_0}} \\
+% ds^2 &= \frac{dx_i}{ds_0}\frac{dx_i}{ds_0}ds_0^2
+% \end{align}
+For convenience we again include ~\fig{fig:deform1}. 
+Again, the material covered here closely follows that presented in Ref \cite{contMech}
+Recall that $K_0$ and $K$ correspond to the undeformed and deformed body respectively, and that the line segment from 
+$P_0$ to $Q_0$ in the undeformed body represents a material, which in the deformed body is given by the curve $P$ to $Q$.
+Here we will derive the deformation gradient ${\bf{F}}$ (\eq{eq:dGrad}) and the Green strain tensor (\eq{eq:gst}) rigorously,
+and rederive the equation for the longitudinal strain (\eq{eq:longstrain2}).
+
+Recall that we wish to derive the Green Strain Tensor ${\bf{E}}$ and ~\eq{eq:dsds022}, which we later use to 
+derive the final formula (\eq{eq:longstrain2}) for the longitudinal strain at a point $P$ of our body.
+We will begin where we 
+left off in the Background section (\eq{eq:dsds0}).  
+% Notice that we have configuration $K_0$ and $K$ corresponding to the undeformed and deformed bodies respectively, and particle positions are given by $X$ and $x$ respectively
+% for each configuration.  We can define a material line, which in our figure is given by the line segment $P_0Q_0$ with length $s_0$ in $K_0$, and ask what happens to the material line as the body deforms.
+% For our purposes the material line can be seen as a line drawn through some arbitrary group of particles in the body (here it is a straight line for convenience), and we are
+% asking what the line will look like if we draw it through the same particles after a deformation, which is given by the curve along $PQ$ with length $s$ in $K$. The deformed material line is,
+% in general, curved.
+% Looking at this picture we can define the longitudinal strain in the direction of $\bf{e}$, which we will call $\epsilon$ as follows:
+% \begin{equation}
+% \label{eq:longstrain_appendix_appendix}
+% \epsilon=\lim_{s_0\to 0}\frac{s-s_0}{s_0}=\frac{ds-ds_0}{ds_0}=\frac{ds}{ds_0}-1
+% \end{equation}
+% This can be viewed as the change in length of the material line per length of the the undeformed line segment $P_0Q_0$.
+% We actually use an approximation to this value later when we attempt to calculate piezocoefficients for our systems.
+% 
+% We will not concern ourselves with volumetric and shear strain for now.
+% We want to arrive at the Green strain tensor which can be used to completely specify the deformation around a point in our body.
+% First we will allow $s_0$ to be a curve parameter which we may vary for the material lines in both $K_0$ and $K$. We can therefore specify
+% points along each material line from $P_0$ to $Q_0$ as $X_i+s_0e_i$, which we trace out as $s_0$ increases. We can therefore express the positions
+% of particles in the deformed bodies as a function of this line segment and time--$x_i({\bf{X}}+s_0{\bf{e}},t)$.
+% 
+% Evaluating the arc length of $s$ as a function of $s_0$ which we treat as a curve parameter, we find that
+% \begin{equation}
+% \label{eq:arclen}
+% s(s_0) = \int_0^{s_0}\sqrt{\frac{dx_i}{d\bar{s}_0}\frac{dx_i}{d\bar{s}_0}}d\bar{s}_0
+% \end{equation}
+% This indicates to us that
+% \begin{align}
+% \label{eq:dsds0}
+% \frac{ds(s_0)}{ds_0} &= \sqrt{\frac{dx_i}{ds_0}\frac{dx_i}{ds_0}} \\
+% ds^2 &= \frac{dx_i}{ds_0}\frac{dx_i}{ds_0}ds_0^2
+% \end{align}
+We can examine how the components of a vector along $P_0Q_0$ change as we vary $s_0$, the length parameter of our undeforme material line.  
+If we write this vector as ${\bf{r}}_0= X_k{\bf{e}}_k$, where ${\bf{e}}_k$ are the 
+unit vectors which make up the basis, we have for a small change in the vector
+% Looking back to \fig{fig:deform}, we can let the line element $P_0Q_0$ be called $d{\bf{r}_0}$, with length $s_0$ and unit vector ${\bf{e}}$.
+% From this we can then write
+\begin{equation}
+\label{eq:dXkds0}
+  \begin{split}
+    d{\bf{r}}_0 &= {\bf{e}}\,ds_0=dX_k\,{\bf{e}}_k \\ 
+    \Rightarrow \quad dX_k &= e_k\,ds_0 \\ 
+    \Leftrightarrow \quad e_k &= \frac{dX_k}{ds_0}
+  \end{split}
+\end{equation}
+We will use \eq{eq:dXkds0} later.
+
+If we consider the vector differential along $s$, tangent to the curve, which we call $d{\bf{r}}$ and has components $dx_i$, we may write
+\begin{equation}
+\label{eq:drds0}
+d{\bf{r}}=\frac{\partial{\bf{r}}}{\partial s_0} \quad \Rightarrow \quad dx_i=\frac{x_i}{\partial{s_0}}ds_0
+\end{equation}
+Now we would like to relate the line elements $d{\bf{r_0}}$ from $K_0$ with $d{\bf{r}}$ in $K$.
+\begin{equation}
+\label{eq:drd0}
+d{\bf{r}}=\frac{\partial{\bf{r}}}{\partial {\bf{r}_0}} \cdot d{\bf{r}_0} \quad  \Leftrightarrow \quad dx_i=\frac{\partial x_i}{\partial X_k}dX_k
+\end{equation}
+
+We thus have the deformation gradient ${\bf{F}}$.
+\begin{equation}
+ \label{eq:defGrad}
+ {\bf{F}}=\bigtriangledown({\bf{r}})=\frac{\partial{\bf{r}}}{\partial{\bf{r}_0}} \quad \Leftrightarrow  \quad F_{ik}=\frac{\partial x_i}{\partial X_k}
+\end{equation}
+
+
+We would like to calculate $(\frac{ds}{ds_0})^2$ from before.  
+%So first we ask what is $\frac{\partial x_i}{\partial s_0}\bigg|_{s_0=0}$?
+Noting that 
+$ 
+ \frac{\partial x_i}{\partial s_0}\bigg|_{s_0=0}
+ =\frac{\partial x_i(X,t)}{\partial X_k}
+ =\frac{\partial (X_k+s_0e_k)}{\partial s_0}\bigg|_{s_0=0}
+$ leads to 
+\begin{equation}
+ \frac{\partial x_i}{s_0}=
+ \frac{\partial x_i}{\partial X_k}\frac{dX_k}{ds_0}=F_{ik}e_k
+\end{equation}
+In the last step we have used our result from \eq{eq:dXkds0}.  
+This is analogous to a directional derivative, but instead of using
+the gradient of a scalar quantity, we instead use the the gradient of a vector quantity which is inherently a matrix--the deformation gradient.
+
+We can now write
+\begin{equation}
+\label{eq:dsds02}
+ \begin{split}
+ \bigg(\frac{ds}{ds_0}\bigg)^2 &= \frac{dx_i}{d\bar{s}_0}\frac{dx_i}{d\bar{s}_0}  \\
+ &= (F_{ik}e_k)(F_{il}e_l) \\
+ &= {\bf{e\cdot (F^TF)\cdot e}} \\ 
+ &= \bf{e\cdot C \cdot e},
+ \end{split}
+\end{equation}
+where ${\bf{C}}$ is known as the Green deformation tensor. 
+Recall
+that the displacement of a particle during deformation is given by $\bf{u}(\bf{r}_0, t)$.
+We would like to recast the deformation tensor in terms of the displacement gradient, which
+we call $\bf{H}$
+\begin{equation}
+\label{eq:H}
+ \bf{H} = \frac{\partial {\bf{u}}}{\partial {\bf{r}_0}} \quad \Leftrightarrow \quad H_{ik}=\frac{\partial u_i}{\partial X_k}
+\end{equation}
+Recalling that
+\begin{equation}
+ x_i(X,t) = X_i +u_i(X,t)
+\end{equation}
+we may infer
+\begin{equation}
+ \frac{\partial x_i}{\partial X_k} = \frac{\partial X_i}{\partial X_k}+ \frac{\partial u_i}{\partial X_k}
+\end{equation}
+or
+\begin{equation}
+ F_{ik} = \delta_{ik}+ H_{ik} \quad \Leftrightarrow \quad \bf{F} = \bf{1} + \bf{H}
+\end{equation}
+We recast the Green deformation tensor as follows:
+\begin{equation}
+ {\bf{C}}= {\bf{F^TF}} = ({\bf{1}} + {\bf{H^T}})({\bf{1}}+ {\bf{H}})= {\bf{1}}+ {\bf{H}} + {\bf{H^T}} +{\bf{H^TH}}
+\end{equation}
+The Green strain tensor, ${\bf{E}}$ is defined by:
+\begin{equation}
+\label{eq:H2E}
+ {\bf{E}}= \frac{1}{2}({\bf{H}} + {\bf{H^T}} + {\bf{H^TH}})
+\end{equation}
+which we can represent by elements as:
+\begin{equation}
+ E_{kl}=\frac{1}{2}\bigg(\frac{\partial u_k}{\partial X_l}  + \frac{\partial u_l}{\partial X_k} +
+ \frac{\partial u_i}{\partial X_k}\frac{\partial u_i}{\partial X_l}\bigg)
+\end{equation}
+We have cast the Green strain tensor in terms of displacement derivatives.  
+
+
+Hence we can rewrite the Green deformation tensor, ${\bf{C}}$, as follows:
+\begin{equation}
+ {\bf{C}} = {\bf{1}} + 2{\bf{E}}
+\end{equation}
+Looking back at \eq{eq:dsds02}, we can rewrite the equation as
+\begin{equation}
+\label{eq:dsds022}
+ \bigg(\frac{ds}{ds_0}\bigg)^2={\bf{e\cdot C \cdot e}}={{\bf{e}} \cdot ({\bf{1}} + 2{\bf{E}})\cdot {\bf{e}}} =
+ 1 + 2{\bf{e}\cdot \bf{E} \cdot \bf{e}}
+\end{equation}
+Hence, recalling \eq{eq:longstrain_appendix}, we can also rewrite our longitudinal strain from before in terms of the Green strain tensor.
+\begin{equation}
+\label{eq:longstrain_appendix2}
+\epsilon=\frac{ds}{ds_0}-1= \sqrt{ 1 + 2{\bf{e}}\cdot \bf{E} \cdot \bf{e}} -1
+\end{equation}
+For the purposes of this paper, this is all that we need to understand in terms of strain theory. 
+We will build off these ideas to derive a molecular approach for piezoelectricity.  
+% We can also formulate ideas about shear and volumetric strain in terms of the Green strain tensor.  But for
+% now we just understand that we have developed our ideas about strain enough to utilize them for studying
+% our piezoelectric systems.
+% 
+% One more brief topic of discussion is principal strain.  Without going into too much detail, we can understand
+% principal strain as the material lines which maximize or minimize the value of longitudinal strain.  We can quickly demonstrate this.
+% The equation for longitudinal strain is given by \eq{eq:longstrain_appendix2} in terms of the Green strain tensor.  Looking at the equation carefully,
+% reveals that finding the extrema for longitudinal strain is the same as finding the extrema for $\bf{e}\cdot \bf{E} \cdot \bf{e}$, since the function
+% is monotonic in this term.  We therefore add the Lagrange multiplier term $\lambda (\bf{e}\cdot\bf{e}-1)$
+% to the strain tensor term, where $\lambda$ is the Lagrange multiplier.  This ensures that the direction vector $\bf{e}$ is normalized.
+% \begin{equation}
+% \label{eq:strainOpt}
+%  {\bf{e}}\cdot {\bf{E}} \cdot {\bf{e}}-\lambda ({\bf{e}}\cdot{\bf{e}}-1)
+% \end{equation}
+% 
+% Since we want to find the extremum of this expression we take the gradient with respect to $\bf{e}$ and set the value equal to the zero vector.
+% This results in the following equation:
+% \begin{equation}
+%  \begin{split}
+%  \bf{E}\cdot\bf{e} -\lambda \bf{e} &= \bf{0} \\
+%   \bf{E}\cdot\bf{e} &= \lambda \bf{e}
+%   \end{split}
+% \end{equation}
+% This is a typical eigenvalue problem.  We note from the above work that the strain
+% tensor is symmetric and therefore the eigenvectors are orthogonal and the eigenvalues real.  By diagonalizing the strain tensor,
+% we find the directions of principal strain and the maximum and minimum longitudinal strain.  If we call our largest eigenvalue $\tilde{\epsilon_1}$ for example, the resulting
+% principal strain would be given by
+% \begin{equation}
+%  \epsilon_1 = \sqrt{1+2\tilde{\epsilon_1}} -1
+% \end{equation}
+% after substituting into \eq{eq:longstrain_appendix}.
+% This will be important later when we try to derive the formula to determine the largest possible \dtt.
+
+\section{Construction of Rotation and Vibration Vectors}
+In the Derivation section of this work we mentioned that in order to solve for $\firstDeriv{\uu_{\mathrm{vib}}}{\ff}$ (\eq{eq:finalDxdf}) it is useful to construct a set of vectors 
+which span the $3N-6$ (or $3N-5$ for linear molecules) dimensional vibrational space of the molecule or system to exclude rotations and translations from the generated displacement vectors 
+in \eq{eq:veq}.  
+To understand why this is necessary we must consder the interpretation of the Hessian matrix acting on a displacement vector.  
+The Hessian matrix is given by the second derivatives
+of the Energy with respect to the nuclear coordinates, $\secondDerivMix{E}{u_i}{u_j}$, or the first derivative of the gradient, $\firstDeriv{\nabla E}{u_j}$. 
+When the Hessian matrix acts on a displacement vector it gives the change in force generated by moving the nuclei along the electronic potential energy surface, in the way described by the vector, if the potential was harmonic. 
+\begin{equation}
+ {\bf{H_{uu}}}\cdot{\bf{u}}=\firstDeriv{\nabla E}{u_j}{du_j}\approx \partial \nabla E 
+\end{equation}
+At equlibrium, the gradient for the system is at (or approximately at) ${\bf{0}}$, meaning there is no net force acting on the nuclei. 
+Therefore a change in the force following displacement of nuclei around the equilibrium is equivalent to the force acting on the nuclei after displacement.  
+If we imagine the effect of moving the nuclei in a manner that mimics a rotation or translation, we should not find that any net force now acts on the nuclei (granted that there is no external field or stress acting on the molecule).
+This is equivalent to saying that the energy of a molecule or system should only depend on the relative position of its nuclei and not its orientation in space if there
+is no external force acting on the system.  
+This is obvious for translations but only true for infinitesimal vectors corresponding to rotation.  
+As a result, if the equilibrium Hessian acts on these vectors, we expect to 
+receive a zero vector as an output.  
+This implies that rotational and translational vectors are eigenvectors of the Hessian with zero eigenvalues.  
+This is the reason the equilibrium 
+Hessian should be singular and why inverting it poses a problem in \eq{eq:xvec}.  
+
+The particular reason the Hessian's singularity poses a problem for neutral molecules or systems is due to rotations.  
+A neutral molecule with a dipole has no net translational movement 
+in a field, but it will rotate to align the dipole in the direction of the field.  
+From \eq{eq:xvec} we see that the change in force on the nuclei caused by the electric field is approximated by the matrix product of the field with the dipole derivative matrix ${\bf{H_{uf}}}$. 
+If the resulting vector from this operation were to ``contain`` (which it inevitably does since the dipole interacts with the field) some force generated by rotation, the predicted
+displacement vector in the direction of rotation would become infinite, making our calculations no longer useful.  
+For this reason we imagine that the molecule does not have any rotational
+freedom (as it would likely not in a piezoelectric bulk material), and we instead project \eq{eq:xvec} into the space of the remaining vibrational degrees of freedom.  
+
+In many cases, it is ok to diagonalize the Hessian and omit the 5 or 6 vectors (linear or nonlinear) which correspond to the lowest eigenvalues (usually very close to zero).
+The remaining vectors usually correspond to the relative deformation of atoms of the molecule.  
+The remaining vectors organized as columns can thus make up the transformation matrix, ${\bf{V}}$, and \eq{eq:finalDxdf} may thus be used to calculate $\firstDeriv{\uu_{\mathrm{vib}}}{\ff}$.
+In practice, however, for numerical calculations of the Hessian or for systems with negative eigenvalues (which might be desirable for reasons of representing a smaller subunit
+of a bulk material), it is safer to construct rotation and translation vectors and remove them manually from the full basis (which could be the eigenvectors of the Hesssian or any basis
+which spans the full $3N$ space. 
+% If we evaluate the Hessian and find its eigenvalues and eigenvectors
+% This is not necessarily that useful in practice, however, because it is highly unlikely
+% that any of the eigenvalues for the Hessian matrix will be exactly zero.  (I need to think more about why this is the case).  
+% This might be a result of how the Hessian is evaluated (whether analytically or 
+% numerically).  Instead, to ensure that we fully remove the influence of rotations or translations, we instead construct 5 (for linear systems) or 6 (nonlinear systems) orthogonal vectors which occupy the 
+% the space spanned by the rotations and translations and proceed to project these vectors out of the eigenvectors.  Following projecting out the rotations and translations, we can then use an orthogonalization
+% routine to create orthogonal vectors that only live in the $3N-5$or $3N-6$ space of the vibrations.  One such method we will outline here is the typical Gram-Schmidt approach.  Some program packages
+% such as Gaussian (ref) and Qchem (ref) typically use the reduced-mass Hessian when performing similar routines.  Here we will use the normal Hessian and first outline how to create 
+% rotation and translation vectors for the system. 
+
+As discussed earlier, we can view the vectors the Hessian acts on as displacement vectors for the nuclei.  
+In this sense the relative velocities of the nuclei under rotational or translational
+motion can be reflected in the displacements.  
+To build the translation vectors, it must be true that all of the nuclei must ''move`` or be displaced by the same vector if the energy of the system is not 
+to change.  
+The molecule also has three dimensions in which it can move.  
+To make the vectors orthogonal, we just pick the x, y, and z directions and construct the unit vectors.  
+We will assume that the vectors are ordered so that the x,y, and z components of displacement are given for an atom before moving on to the next atom in the vector.  
+To illustrate this 
+we will assume $u_{ix}$ is the x component of displacement for the $i$th atom in the system, and the full displacement vector for an $N$ atom system has the following form:
+\begin{equation}
+ {\bf{u}}=(u_{1x}, u_{1y}, u_{1z}, u_{2x}, u_{2y}, u_{2z}, . . ., u_{Nx}, u_{Ny}, u_{Nz})
+\end{equation}
+Thus the 3 normalized translation vectors for the x, y, and z directions (${\bf{u}}^{tx}$,${\bf{u}}^{ty}$, and ${\bf{u}}^{tz}$ respectively) have the form:
+\begin{equation}
+ \begin{split}
+ {\bf{u}}^{tx}&=(\frac{1}{\sqrt{N}}, 0, 0, \frac{1}{\sqrt{N}}, 0, 0,  . . .,\frac{1}{\sqrt{N}}, 0, 0) \\
+ {\bf{u}}^{ty}&=(0, \frac{1}{\sqrt{N}}, 0, 0, \frac{1}{\sqrt{N}}, 0,  . . .,0, \frac{1}{\sqrt{N}}, 0) \\
+ {\bf{u}}^{tz}&=(0, 0, \frac{1}{\sqrt{N}}, 0, 0, \frac{1}{\sqrt{N}},  . . .,0, 0, \frac{1}{\sqrt{N}})
+ \end{split}
+\end{equation}
+
+The rotation vectors are a little trickier to write.  We first need to calculate the geometric center vector for the system and then the position vectors for the nuclei relative to 
+the geometric center. 
+\begin{equation}
+ {\bf{r}}_{gc} = \frac{\sum_i {\bf{x}}_i}{N}
+\end{equation}
+Here ${\bf{x_i}}$, $N$, and ${\bf{r}}_{gc}$ are the positions of the nuclei, total number of nuclei, and the geometric center vector for the molecule respectively.  
+The position vector relative to the geometric center for the $i$th atom is given by
+\begin{equation}
+\label{eq:geomrel}
+ {\bf{r}}_{i}={\bf{x}}_i-{\bf{r}}_{gc}
+\end{equation}
+It is important to note here that for our purposes we will rotate the molecule about the geometric center and not the center of mass in free rotation.  
+We will show later that 
+rotating about the geometric center creates vectors orthogonal to the translational vectors. 
+For a given angular velocity vector ${\bf{\omega}}$ for a molecule, the velocity vector for an atom in the molecule (${\bf{v}}_i$ is given by 
+\begin{equation}
+{\bf{v}}_i = {\bf{r}}_{i}\times {\bm{\omega}}
+\end{equation}
+Thus the displacement vectors we wish to construct have the form
+\begin{equation}
+\label{eq:rotVec}
+ {\bf{u}}^{r\omega}=({\bf{r}}_{1}\times {\bm{\omega}}, {\bf{r}}_{2}\times {\bm{\omega}}, {\bf{r}}_{3}\times {\bm{\omega}}, . . .,{\bf{r}}_{N}\times {\bm{\omega}})
+\end{equation}
+before normalization.
+For a linear or nonlinear molecule, we should be able to construct 2 or 3 rotation vectors respectively that span our space of interest.  
+To do so efficiently we will try 
+to construct orthongonal vectors. 
+We proceed by first realizing that a dot product of two rotation vectors is equivalent to the sum of individual dot products of the displacement vectors
+for atoms with the same index.  
+There are two different angular velocity vectors (${\bm{\omega}}_j$ and ${\bm{\omega}}_k$) associated with two different rotation vectors.  
+\begin{equation}
+  {\bf{u}}^{r\omega_j}\cdot {\bf{u}}^{r\omega_k}=\sum_i ({\bf{r}}_{i}\times {\bm{\omega}}_j) \cdot ({\bf{r}}_{i}\times {\bm{\omega}}_k)
+\end{equation}
+At this point it is helpful to rewrite the cross products as matrix products with the angular velocity vectors. 
+The cross product matrix has the form
+\begin{equation} 
+  \bld{R}_i \equiv 
+            \left(
+              \begin{array}{ccc}
+                0  & -r_{iz}   & r_{iy}     \\
+                r_{iz}   & 0   & -r_{ix}     \\   
+                -r_{iy} & r_{ix} & 0  \\
+              \end{array}
+            \right)
+\end{equation}
+where $r_{ij}$ is the $j$th (x,y, or z) component of the vector ${\bf{r}}_{i}$.
+
+We then replace the cross products with matrix products to obtain
+\begin{equation}
+   {\bf{u}}^{r\omega_j}\cdot {\bf{u}}^{r\omega_k}=\sum_i ({\bf{R}}_{i} {\bm{\omega}}_j) \cdot ({\bf{R}}_{i}{\bm{\omega}}_k)
+\end{equation}
+Then recognizing that the dot product is equivalent to a matrix product of a row and column vector, we may take the transform of the matrix product on the left and multiply it by the 
+matrix product on the right.
+\begin{equation}
+ {\bf{u}}^{r\omega_j}\cdot {\bf{u}}^{r\omega_k}=\sum_i ( {\bm{\omega}}^T_j {\bf{R}}^T_{i})({\bf{R}}_{i} {\bm{\omega}}_k)= {\bm{\omega}}^T_j  (\sum_i {\bf{R}}^T_{i}{\bf{R}}_{i}) {\bm{\omega}}_k
+\end{equation}
+In the last step we have moved the summation over atoms to inside the multiplications with the angular velocity vectors.  
+From this we obtain a new matrix.
+\begin{equation}
+{\bf{S}}= \sum_i {\bf{R}}^T_{i}{\bf{R}}_{i}
+\end{equation}
+This is a sum over the matrix product shown and is necessarily symmetric.  
+Our original goal was to choose angular velocity vectors such that we construct orthogonal rotation vectors.  
+Thus we impose 
+the requirement that this dot product yields zero.  
+\begin{equation}
+{\bf{u}}^{r\omega_j}\cdot {\bf{u}}^{r\omega_k}= {\bm{\omega}}^T_j {\bf{S}} {\bm{\omega}}_k=0
+\end{equation}
+Since our matrix ${\bf{S}}$ is symmetric, it has orthogonal eigenvectors.  Therefore our choice for the set of vectors ${\bm{\omega}}_i$ is obvious.  If we choose the eigenvectors of ${\bf{S}}$ to be 
+our angular velocity vectors we have met the conditions.
+\begin{equation}
+{\bf{u}}^{r\omega_j}\cdot {\bf{u}}^{r\omega_k}= {\bf{\omega}}^T_j {\bf{S}} {\bf{\omega}}_k=\lambda_k{\bf{\omega}}^T_j){\bf{\omega}}_k=0
+\end{equation}
+Here $lambda_k$ is the eigenvalue for the eigenvector ${\bf{\omega}}_k$.
+As we stated before, we chose the geometric center as our rotation point for the system because it also yields rotation vectors orthogonal to the translation vectors.  
+This is not hard to show. 
+As a matter of fact, we only need the sum of the rotation vectors for each atom per full rotation vector to yield the zero vector--or in equation form:
+\begin{equation}
+\label{eq:sumtozero}
+\sum_i {\bf{u}}^{r\omega_j}_i=\sum_i ({\bf{r}}_{i}\times {\bf{\omega}}_j)={\bf{0}}
+\end{equation}
+To show that this is the case we substitute \eq{eq:geomrel} into the \eq{eq:sumtozero}.
+\begin{widetext}
+\begin{equation}
+\begin{split}
+\label{eq:sumtozerofull}
+\sum_i {\bf{u}}^{r\omega_j}_i&=\sum_i ({\bf{r}}_{i}\times {\bf{\omega}}_j)=(\sum_i{\bf{x}}_i-{\bf{r}}_{gc})\times {\bf{\omega}}_j \\
+&=(\sum_i({\bf{x}}_i-\frac{\sum_k {\bf{x}}_k}{N}))\times {\bf{\omega}}_j = (\sum_i{\bf{x}}_i-N\frac{\sum_k {\bf{x}}_k}{N})\times{\bf{\omega}}_j \\
+&=(\sum_i{\bf{x}}_i-\sum_k {\bf{x}}_k)\times{\bf{\omega}}_j={\bf{0}}\times{\bf{\omega}}_j={\bf{0}}
+\end{split}
+\end{equation}
+\end{widetext}
+It might not seem intuitive at first that requiring the sum of the rotation vectors for the indivdual atoms to be the zero vector implies that the full rotation vector is orthogonal to the translation vectors.
+Any translation vector (or linear combination of translation vectors) consists of the same vector of displacement per atom (Otherwise the nuclei would not be displaced in the same direction by the same magnitude. 
+Therefore we may represent any linear combination of translation vectors as the following:
+\begin{equation}
+ {\bf{u}}^{t} =a{\bf{u}}^{tx}+b{\bf{u}}^{tx}+c{\bf{u}}^{tx}=(a,b,c, a,b,c, a,b,c, . . .a,b,c)
+\end{equation}
+The resulting dot product of an arbitrary translation vector with a rotation vector will produce the following expression
+\begin{widetext}
+\begin{equation}
+\begin{split}
+ {\bf{u}}^{r\omega_j}\cdot{\bf{u}}^{t}&=\sum_i {\bf{u}}^{r\omega_j}_i \cdot (a,b,c) \\
+ &=\sum_i(a u^{r\omega_j}_{ix}+b u^{r\omega_j}_{iy}+c u^{r\omega_j}_{iz})= a\sum_i (u^{r\omega_j}_{ix})+b \sum_i (u^{r\omega_j}_{iy})+c \sum_i(u^{r\omega_j}_{iz}) \\
+ &=a*0+b*0+c*0=0
+\end{split}
+\end{equation}
+\end{widetext}
+In the second line, we have broken up the individual displacement vectors for the $i$th atom in the displacement vector into the x, y, and z components to break the sum up in the remaining line. 
+The last line immediately follows from \eq{sumtozerofull}.  
+If the individual displacement vectors for the atoms sum to the zero vector for the rotation displacement vector, then it follows that the 
+x, y, and z components sum to zero separately, and the dot product is zero. 
+Hence constructing the rotational vectors in this way yields vectors that are internally orthogonal (to one another) and vectors
+that are orthogonal to the translation vectors.  
+
+Furthermore we can show that constructing rotation vectors using any center as a rotation point yields a vector that is a linear combination of rotation vectors constructed in the way discussed
+above and translation vectors.  
+To construct such a displacement vector, we first need to calculate the position vectors of the atoms relative to the center as before.  We will do 
+so in such a way that we add a vector ${\bf{s}}$ to the geometric center ${\bf{r}}_{gc}$ to produce the desired arbitrary center of rotation. 
+\begin{equation}
+\label{eq:geomrels}
+ \tilde{{\bf{r}}_{i}}={\bf{x}}_i-({\bf{r}}_{gc}+{\bf{s}})={\bf{x}}_i-{\bf{r}}_{gc}-{\bf{s}}
+\end{equation}
+We then construct the rotation vector as we have done before--this time using the eigenvectors of the matrix $\tilde{\bf{S}}= \sum_i \tilde{{\bf{R}}}^T_{i}\tilde{{\bf{R}}}_{i}$, 
+where the matrix $\tilde{{\bf{R}}}_{i}$ is the matrix form of the cross product of $\tilde{{\bf{r}}_{i}}$ with another vector.  T
+he new eigenvectors for $\tilde{\bf{S}}$, $\tilde{\bm{\omega}}_l$, can be
+written as a linear combination of the eigenvectors for ${\bf{S}}$, ${\bf{\omega}}_j$
+\begin{equation}
+ \tilde{\bf{\omega}}_l = \sum_j c_j {\bf{\omega}}_j
+\end{equation}
+We can now construct a rotation vector, as we have done previously in \eq{eq:rotVec}.
+\begin{widetext}
+\begin{equation}
+ \begin{split}
+  {\bf{u}}^{\tilde{r}\tilde{\omega_l}}&=(\tilde{\bf{r}}_{1}\times \tilde{\bm{\omega}}_l, \tilde{\bf{r}}_{2}\times \tilde{\bm{\omega}}_l, \tilde{\bf{r}}_{3}\times \tilde{\bm{\omega}}_l, . . .,\tilde{\bf{r}}_{N}\times \tilde{\bm{\omega}}_l)\\
+  &=({\bf{x}}_1-{\bf{r}}_{gc}-{\bf{s}} \times \sum_j c_j {\bm{\omega}}_j, . . .,{\bf{x}}_N-{\bf{r}}_{gc}-{\bf{s}} \times \sum_j c_j {\bm{\omega}}_j) \\
+  &=(({\bf{x}}_1-{\bf{r}}_{gc})\times \sum_j c_j {\bm{\omega}}_j-{\bf{s}} \times \sum_j c_j {\bm{\omega}}_j, . . .,({\bf{x}}_N-{\bf{r}}_{gc})\times \sum_j c_j {\bm{\omega}}_j-{\bf{s}} \times \sum_j c_j {\bm{\omega}}_j) \\
+  &=(\sum_j c_j {{\bf{r}}_{1}}\times {\bm{\omega}}_j + {\bf{a}}, . . . \sum_j c_j {{\bf{r}}_{N}}\times {\bm{\omega}}_j + {\bf{a}})\\
+  &=\sum_j c_j ({\bf{r}}_{1}\times {\bm{\omega}}_j, . . .{{\bf{r}}_{N}}\times {\bm{\omega}}_j)+({\bf{a}}, . . .{\bf{a}})
+ \end{split}
+\end{equation}
+\end{widetext}
+Here, ${\bf{a}}=-{\bf{s}} \times \sum_j c_j {\bm{\omega}}_j$, since this vector is constant and does not depend on the atom index.  In the last line, it is clear that the resulting rotational displacement vector
+is a linear combination of the rotation vectors about the geometric center plus a vector containing ${\bf{a}}$ for every atom position.  As stated previously, any such displacement vector where
+the displacement is constant for every atom can be written as a linear combination of the basal translation vectors.  Therefore we have shown that any displacement vector constructed as a rotation
+vector about any point can be written as a linear combination of translation vectors and rotation vectors formed by rotating about the geometric center. Therefore any such set of linearly independent rotation and translation
+vectors will necessarily occupy the same space, and after an internal orthogonalizing scheme, can be projected out from the eigenvectors of the Hessian.  The remaining vectors will contain only vibrations.  
+This is of course only true for infinitesimal displacements as any vibrational motion of the system will change the rotation and hence vibrational vectors.  For the purposes of this manuscript though we 
+are only concerned with the field derivatives of the displacement at zero field, and thus we are not concerned with large system strains.  
+
+
+% \subsection{NonConvergence of the Piezoelectric with Increased Basis Set Size}
+

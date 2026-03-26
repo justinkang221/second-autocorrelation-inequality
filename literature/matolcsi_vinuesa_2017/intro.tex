@@ -1,0 +1,161 @@
+\section{Introduction}
+
+The conversion between mechanical and other forms of energy is a ubiquitous process in many science and engineering applications.
+Most notable from an energy footprint perspective is that a significant fraction of energy is inevitably lost by dissipating heat or vibrations (mechanical or acoustic).
+Piezoelectric harvesting of mechanical into electric energy is therefore an interesting approach to reducing the energy
+footprint of many applications that could for example help extend the battery life times of mobile devices or even
+create self-powered electronic devices. 
+Going in the opposite direction, generating mechanical deformations in response to electric stimuli
+has multiple interesting applications such as for nano-actuators (e.g. piezo-motors in atomic force microscopy) or haptic feedback for microsurgery and other health related fields \cite{Dagdeviren2014}.
+There is an ongoing interest to create organic piezoelectric materials to replace inorganic ceramics\cite{Werling0,Werling1, quan,Moody}.  
+Organic materials offer several potential advantages, for example widely tunable mechanical properties [Matyjaszewski] and avoiding rare or
+problematic elements such as lead or niobium.
+Recently, polymer foam-based organic piezo-materials were reported with large piezoelectric responses (244 pC/N) \cite{Moody}, 
+which demonstrates that it is possible to design organics that could replace inorganic ceramics. 
+
+To realize the full potential of organic piezo-materials, it is necessary to develop
+rational design approaches for organic piezoelectrics. 
+Rationalizing organic polymer based piezoelectrics is very different from crystalline (bulk) materials in that it requires 
+a multi-scale approach ranging from the (single) molecule limit to the bulk material. 
+%A theory or even language to connect the molecular-level piezoelectric response
+%with the bulk observables has not been presented before.  
+However, there is no established formalism, let alone an established language, for {\em molecular} piezoelectricity. 
+For example, the existing theory of piezoelectricity is based on notions from continuum mechanics (bulk scale), to define quantities such as strain and stress,
+typically derived for crystalline (periodic) systems based on unit cells and their deformations. 
+This approach is not able to describe the piezoelectric response of individual molecules and, consequently, their
+connection to the bulk response. 
+Developing a molecular understanding of piezoelectric responses is, however, important
+to describe (noncrystalline) polymers, as well as responses of small (e.g. nano) systems that are inhomogeneous,
+anisotropic, and aperiodic, so that the bulk description is not yet applicable. 
+Examples of the latter include the electromechanical response of biomolecules as well as nano-scale
+machines.  
+%In this publication, we therefore aim to develop a theory of
+%molecular piezoelectric response to develop a bottom-up understanding of organic piezoelectric materials and to aid in
+%the development of rational design approaches. 
+In this publication, we aim to establish a formalism and a language for {\em molecular} piezoelectric responses.
+Establishing such a theory of molecular piezoelectric response is essential to being able to develop a bottom-up
+(molecular-scale) understanding of piezoelectric responses in molecular materials. 
+Furthermore, we also underline differences between {\em molecular} piezoelectric response and bulk response, 
+emphasizing the need for a theory that can be applied and compare potential organic piezoelectric systems.
+
+
+%Organic piezoelectric materials - appeals
+%We want a molecular understanding of piezoelectricity / molecular piezoelectrics because: 
+%a) biomolecules = single-molecule response
+%b) nano-scale machines
+%c) ties in with mechanochemistry = modifying chemical reactivity and physicochemical properties using mechanical
+%deformation.
+
+In our previous publications, we developed a computational approach to predict piezoelectric responses 
+based on the definition of the converse piezoelectric effect, the deformation of a system in
+response to an applied field. 
+This approach is most natural in aperiodic calculations, where it is straightforward to apply an
+electric field perturbation to the Hamiltonian. 
+We established a simple computational procedure where the piezo-coefficient \dtt{} is
+estimated by calculating the geometric response while applying a finite electric field. 
+We then improved on this approach by developing an analytical expression that calculates \dtt{} from the zero-field 
+geometric Hessian and dipole moment derivative. 
+This approach has several advantages over our first procedure, for example by avoiding the
+finite-field calculations (which can be problematic because of electronic instability of molecules in finite electric
+fields) \cite{Yamabe1977, raey, raey1,raey2} and by cutting down on the computational cost via requiring only zero-field calculations (as opposed to
+calculations at several finite field strengths). 
+We demonstrated that both approaches yield comparable results for
+molecular systems and used these approaches to explore piezoelectric responses in hydrogen-bonded systems. 
+In fact, we showed that hydrogen bonding in 2-methyl-4-nitroaniline (MNA) gives rise to significant
+piezoelectricity \cite{Werling1}. 
+We then explored several examples of hydrogen donor-acceptor systems to help establish a general
+rationale for the construction of systems with large \dtt{}. 
+We found that our analytical expression is also useful in explaining piezoelectric responses by showing that a large \dtt{} requires both a large 
+inverse Hessian (large compliance of the bond) and large dipole moment derivative. 
+Point out papers by other authors that build on our approach / explore similar systems. 
+
+The previously developed mathematical model exploited several circumstances to optimize the approach for the description
+of piezoelectric responses in hydrogen-bonded systems. 
+%There were some implicit assumptions both in the model and reflected in the mathematical derivation. 
+Firstly, we tacitly assumed that the hydrogen bond length maps onto the
+deformation that one would observe at the bulk scale. 
+In other words, we only took deformation along the H-bond axis into account.  
+Secondly, we assumed that relaxation of the monomers within the field were negligible and would not
+drastically affect the hydrogen-bond length \cite{Werling1}.  
+We also exclude any anisotropic effects of the applied field on the hydrogen-bond length by
+applying the field in only one direction.  
+These assumptions allowed us to drastically reduce the dimensionality of the problem and map it to a single
+variable $z$, the hydrogen-bond distance, which gave rise to the majority of
+the piezoelectric response. 
+These assumptions were backed by calculations that
+show that the intramolecular piezoelectric response is at least an order of
+magnitude smaller than the intermolecular response \cite{Werling1}.  
+The mapping of the hydrogen bond-length to the \dtt{} works thanks to crystal packing effects that
+confine the majority of the response to one plane. 
+In these respects the potential of this model to describe the piezoelectric
+effect for general types of organic crystals is rather limited indeed. 
+Firstly, it is in general not guaranteed that there is a single, dominating direction of
+largest piezoelectric response and even if there is, it might not be
+straightforward to determine this direction a priori. 
+In fact, in a sense molecules give rise to the most anisotropic cases imaginable compared to the
+rather symmetric periodic cells.  
+Therefore, we aim to extend our previous
+approach by taking the full response of the nuclear coordinates into account.
+% This would take care of possible anisotropy in the response and also does not
+% make any assumptions about coordinates of largest response. 
+This would reveal the full anisotropy in the response of the system and also does not make any assumptions about coordinates of the largest response.
+% The axis and magnitude of the largest piezoelectric response can of course be obtained a
+% posteriori by diagonalizing the calculated piezoelectric tensor. 
+We will show that the axis and magnitude of of the largest piezoelectric response for a given pair of coordinates in a system can be obtained 
+by diagonalizing a matrix derived from the yet to be presented piezoelectric matrix.  
+Furthermore, we derive a useful formula to calculate the piezoelectric matrix and discuss its connection to continuum strain mechanics. 
+We will also underline the difficulty and impracticality of calculating a full 3rd rank piezoelectric tensor for molecules or small systems
+while outlining connections of continuum strain theory to molecular deformations.  
+The method we present for calculating the piezoelectric matrix can be used to understand the deformation properties between any two bodies in a system
+and has great applicability to rational design of organic piezoelectric materials.
+% Another, advantage is that this generalized approach can be automated more
+% easily because it does not require any user input regarding direction of the
+% response. 
+Another advantage is that this generalized approach can be automated and only requires that the user specifies the orientation of the 
+system on which they wish to perform the calculation so that they may interpret the results relative to the systems orientation.
+We discuss this and many other facets which users might find useful to understand and predict the response of molecular deformation in the presence
+of fields.
+
+%Taking into account the full relaxation of the system
+%will lead to more accurate piezoelectric coefficients at a lower cost, which we can then easily automate for screening.  We could
+%also apply such methods to single molecules, since the system can no longer be broken into individual monomers which we can separate.
+%Thus we will devise a method to accomplish these goals in the sections to come.
+
+
+The present publication is the first in a series aiming at the development of a bottom-up understanding of
+electromechanical responses in aperiodic (inhomogeneous and anisotropic) systems. 
+In this publication we will develop a description of the miscroscopic (single-molecule) electromechanical response. How to  
+(Not supposed to be rigorous calculation of \dd{} to be compared to a bulk
+measurement, but rather means of comparison for responses between individual
+molecules. This is an area that does not have a language or formalism yet, but
+requires one to quantify and rationalize. This derivation interfaces with
+multiple relevant areas. 
+Of course it would be extremely informative if one
+could develop an understanding of how molecular piezoelectric response (which
+we are treating here) maps onto the response as measured at the bulk scale.
+Making this connection will be subject of future work. However, we expect that
+developing this quantitative language of molecular piezoelectric response will
+be enormously important for analyzing nano-scale (single-molecule) machines. It also 
+connects well with the emerging area of mechanochemistry and we believe that
+our approach will help lend mechanochemistry a quantitative language. 
+
+This paper is organized as follows. In section II, we provide a brief background of strain theory and the linear
+piezoelectric equation in the established language of bulk deformations. Since we feel that many chemists are unfamiliar
+with continuum mechanics, we provide a more complete introduction to strain theory in appendix A and derivation of the Green strain tensor 
+in the connection to longitudinal strain. Section III presents
+our derivation of molecular piezoelectric response, which is split into five parts. 
+In section III.A we simplify the equations for the field derivative of longitudinal strain that we introduce in the background section.
+In section III.B we indrocue the piezoelectric matrix and make connections from bulk strain theory to 
+molecular systems.
+In section III.C we describe how to construct the displacement field derivative for molecules and the 
+nuance of how to project out unwanted motions.
+In section III.D we show how to calculate the piezoelectric matrix for molecules and some ways it can be used
+to screen for ``good'' organic piezoelectric candidates.
+In section III.E we describe a rank-4 piezoelectric tensor which for a molecule takes the place of the 
+rank-3 piezoelectric tensor field in a bulk system.
+At points necessary in section III, we discuss how deformation response in molecules is uniquely distinguished 
+from bulk response and the inherent anisotropy and inability to ascribe a full piezoelectric system to molecular systems.
+Section IV outlines the computational procedure for calculating molecular piezoelectric responses. 
+In section V we present numerical results for molecules of interest to illustrate the concepts derived in the previous
+sections. 
+We conclude with a discussion and outlook in section VI. 

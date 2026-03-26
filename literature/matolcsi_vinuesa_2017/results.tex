@@ -1,0 +1,150 @@
+\section{Results and Discussion}
+
+\begin{figure*}
+  \centering
+
+  \includegraphics[width=1.00\textwidth]{Matrix.pdf}
+  \caption{1 a) A small helicene-like structure is depicted with the two atoms chosen for the ``material line'' highlighted. b) The calculated piezoelectric matrix is given under the molecule. c) 
+  An estimated matrix from geometry optimizations is shown for comparison on the right. 2 a) A traditional helicene molecule is depicted with the two atoms chosen for the ``material line''
+  highlighted. b) The calculated piezoelectric matrix is given. c) An estimated matrix from geometry optimizations is shown for comparison on the right. 3 a) A nitrogen-rich helicene molecule is depected with the two
+  atoms chosen for the material line highlighted.  b) The calculated piezoelectric matrix is given.  c) An estimated matrix from geometry optimizations is shown for comparison on the right. The axes are presented with 
+  the molecules for an idea of how the two highlighted atoms move in a field as described by their matrices. All values for matrix components are given in $\frac{pm}{V}$. Molecules are rendered with Tachyon in VMD\cite{HUMP96, STON1998}.}
+  \label{fig:matrix}
+\end{figure*}
+\begin{figure}
+  \centering
+
+  \includegraphics[width=0.48\textwidth]{regression.png}
+  \caption{Linear regressions were performed between the matrix values shown in \fig{fig:matrix} between the matrices calculation with \eq{eq:INeedIt2} and the approximated values from the geometry optimizations.
+  The $r^2$ values are given.  The red, blue and green plots correspond to the first, second and third molecules respectively as shown in \fig{fig:matrix}.}
+  \label{fig:correlation}
+\end{figure}
+
+Three molecules were used to test the method developed to calculate a piezoelectric matrix ${\bf{P}}$. 
+\fig{fig:matrix} shows the three molecules and the pairs of atoms in each which were used 
+to calculate a piezoelectric matrix (a).  
+The Piezoelectric matrix based on the atom pairs is also reported from our calculations outlined in the Procedure section (b).  
+Furthermore,
+we also report an estimated piezoelectric matrix from optimizations(c).  
+All energy calculations were performed at the B3LYP/6-31G(d) level with QChem \cite{Qchem}.  
+The plots shown in (c) correspond to geometry optimizations performed with fields applied in the x, y, and z direction
+(columns).  
+The rows of the matrix correspond to $u_x$, $u_y$, and $u_z$.  
+A single plot shows the change in displacement ($u_{ai} -u_{bi}$ (atoms a and b  and component of displacement vector $u_i$))
+from equilibrium between the two highlighted atoms for the corresponding 
+coordinate $u_i$ (given by row) for varying values of field the corresponding field direction $f_j$ (given by column).  
+All other field components are held at 0 for a given plot. 
+The number reported in each plot is the slope of the plot divided by the equilibrium distance ($r_0$) for the two atoms; 
+the numbers should be close to the corresponding entry in the 
+reported ${\bf{P}}$ matrix.  
+The molecules chosen are helicene-like because these molecules offer us the ability to test our new method on single molecule systems which were outside the abilities of our previous methods
+The reason helicene molecules are interesting is 
+because the interactions of the polar ends of the molecules are balanced by dispersion between the coils.  
+Previous work by Huchison et al. \cite{quan}
+shows that these molecules show considerable piezoelectric response.  
+% We know from previous papers(ref) and the current work, that 
+% low frequency (low curvature) vibrational modes are highly deformable (greater movement along the potential energy curve is required to balance an applied force).  
+% The oppositely charged ends of our spring-like molecules should attract each other; however to move closer they must contract the springs.  To contract the springs the 
+% dispersion forces between the spring coils must be overcome.  The coils contract until the slopes (forces) of the potentials exactly cancel.  There is typically an inflection point in a 
+% binding curve.  At large distances the bodies attract and the curvature is negative.  Eventually repulsive force start to have an effect.  
+% 
+% For every molecule presented the sign values between the calculated and estimated matrix are in agreement.  
+Furthermore the equilibrium (zero field) structure for each molecule was 
+aligned with the z-axis such that the two atoms of interest lie on the z-axis.  
+The chosen atoms were generally chosen to be part of the polar functional groups.  
+We generally expected the response to be greatest for the displacment in the 
+z direction with an applied z field (${\bf{P}}_{33}$) which was the case for the first two molecules. 
+The last molecule, however, showed a large ${\bf{P}}_{31}$ component (3rd row and 1st column),
+or in other words a substantial change in displacement in the z direction between the two atoms when a field was applied in the x direction.  
+\fig{fig:correlation} shows the correlation between the calculated piezoelectric components and the components predicted by geometry optimizations.
+The $r^2$ values are quite good for the first two molecules ($~0.99$), but quite poor for the last molecule ($~0.70$) (\fig{fig:correlation}).
+Generally, the errors are quite small for the first two molecules, but the last nitrogen rich helicene shows significant errors in a number of matrix components.
+The signs for the matrix components are generally in agreement except for some cases.  
+It should be noted that when the piezoelectric matrix is computed for the third molecule at the Hartree-Fock/sto-3g \cite{fock, hehre, collins} level and the geometry optimizations performed, the 
+agreement is very similar to those of the previous molecules ($r^2\approx 0.99)$.  
+This might indicate that there are issues with performing density functional theory calculations at finite fields.
+More specifically, a grid is used to calculate the exchange-correlation functionals in many cases and it might be possible that the electron density collects in a a region where electrons would no longer be considered bound.
+In this case one expects that the grid extends past the relative maxima outside where the colombic potential of the nuclei approaches zero after which the energy due to the field goes to negative infinity.  
+As mentioned before, molecules are not stable in electric fields and ionize in the limit of infinite time \cite{Yamabe1977}.
+This problem is avoided for small systems by using local basis sets.  
+Furthermore, we have noted that as basis set size increases, the correlation between the calculated piezoelectric matrix and the approximated matrix from geometry optimizations seems to 
+decrease which might indicate that the calculation of the electron density within a field might become less and less accurate as the electrons are given more ``space'' to occupy. 
+This conclusion seems dubius, however, because it is easily shown that the relative maxima for the nuclear potential within a field of 1V/nm for a system like hydrogen fluoride is on the order of 70 bohr away from the 
+nuclei of the system, and the finite field values we use are typically much less than this.  
+Therefore in the regin around the molecule where the grid is used for quadrature should appear only as a binding potential for the electrons.  
+More work is needed to assess whether nonbinding affects effect these finite fiel geometry opitimizations.
+% The biggest errors seem to occur for the 
+% last molecule, though agreement is still fairly good.  This being said, however, the relative magnitudes
+% between components of the matrices are generally in agreement with the estimated matrix.  
+
+There are numerous other possible sources of errors, but they are mainly retained by the matrix estimated from optimizations and not the method introduced in the previous sections. 
+For example,
+geometry optimizations are never ``fully'' optimized. 
+Instead, the user usually specifies different tolerances for convergence: like a threshold for the gradient of the molecule, a threshold for the change in energy, or
+a threshold for some metric which describes displacement of the molecule from a previous optimization step. 
+When a few or all of requirements for optimization are met the molecule is considered to was noted that at relatively low fields in the 
+be optimized.  
+Often freqency calculations are performed to make sure that no imaginary frequencies are present (ie. there are no negative eigenvalues of the Hessian evaluated at the 
+current geometry) which would indicate that the optimization has failed to produce a nuclear geometry which resides in a basin of the electronic potential energy surface.  
+Using different 
+convergence criterion, we found that the calculated piezoelectric matrices (b in \fig{fig:matrix}) showed very little fluctuation in components.  
+The estimated matrices shown, however, tended to fluctuate
+more radically (some values changed as much as 100 percent or more).  
+Also, for DFT calculations, a fine grid should be used to evaluate the energy.  
+In previous work \cite{Werling0}, we found that the potential
+energy surface shows noticeable bumps when scanning across it (via moving nuclei), and this problem was resolved by using a finer grid to evaluate the density functional.  
+This is especially
+important if numerical evaluations of the Hessian are to be performed.  
+
+Furthermore, there is one more perhaps surprising possible source of error in our calculations.  
+If one looks closely at \fig{fig:matrix}, one can see that the linear regression plots
+routinely do not cross $(0,0)$.  
+However, the y-axis corresponds to the difference of the displacement coordinate $u_i$ between the two atoms of the ``material line'' compared to the 
+undeformed system.  
+This should mean that there is necessarily no difference in the displacement coordinates between the system at zero field and the undeformed geometry (which was optimized at zero field).  
+The point $(0,0)$ is actually omitted from every plot because it does not fit with the rest of the data.  
+However, the rest of the data is shifted in the same direction from this point, and the 
+error is systematic.  
+We have one possible theory for why this might be.  
+If one aligns the molecule hydrogen fluoride in QChem along the axis, for example, and then apply a field in the z-direction, one expects
+the molecule to align itself in the z-direction to minimize energy.  
+QChem, however, removes translations and rotations from steps in the optimization, and for a two nuclei system, this 
+does not allow the molecule to reorient itself within the field.  
+If a large enough field is applied, however, it is possible that QChem will report the optimziation as never converged, despite the 
+fact that the atoms themselves are no longer moving in the optimzation.  
+This indicates that it is likely that QChem does not remove rotations from the gradient when using it for 
+evaluation as to whether the geometry has converged or not.  
+However, the optimization will seek to diminish the gradient nonetheless.  
+To do this it must diminish the gradient along modes
+other than rotations.  
+This is possible because the gradient was non zero to begin with (the gradient never reaches zero for molecules in an optimization due to the time it would take).  
+This means to converge the 
+geometry, the molecule must move relative not just to an applied field but further along the unperturbed potential (if you view the new potential as a linear combination of the 
+zero field potential and a new component due to the field). 
+These movements would be systematically in the same direction because they correspond to movements along the unperturbed potential, and therefore the 
+points in \fig{fig:matrix} would likely shift in the same direction despite the field direction.  
+This is conjecture, but it might explain this shift off of $(0,0)$.  
+For larger field magnitudes, 
+it might also cause bigger shifts and might likely increase the resulting matrix components. 
+With all of these things considered, the new method has none of these downfalls and is only 
+limited by the time it takes to perform the Hessian calculation, which can be improved by using numerical methods present in most software over large numbers of cores.
+
+There is one more system-specific reason why the calculated and esitmated piezoelectric matrices might disagree for the third molecule. 
+It should be noted that for the optimzations performed for fields in the z-direction for the third molecule in \fig{fig:matrix} that the last point is omitted for the smallest
+field value.  
+This was because the hydrogens on the amine group flipped orientation.  
+If we look at the steps of the geometry optimization, we can see that on of the modes of the approximated Hessian in the optimization routine, becomes negative at some point and then becomes 
+positive after a few steps.  
+This typically indicates that the molecule is transitioning between relative minima in the electronic potential.  
+In this instance it is readily viewed as a flip in the amine hydrogen orientation. 
+Since we omitted this point, this could not be what causes a large deviation in the $P_33$ value for this curve.  
+However, it was noted that at some point in the optimization before the amine flip that the number of modes for the Hessian was decreased by 1 for a step.  
+usually translations and rotations corresponding to 6 modes are left out, but in this case an extra mode was left out for a step. 
+This should indicate that a mode was very close to having an eigenvalue near zero.  
+Indeed two such modes are seen throughout the optimzation.  
+The mode would be omitted if it is very close to zero because, when the hessian is inverted to form the next step it would lead to very large displacements corresponding to the mode.
+This might indicate that this molecule might have one or two very close energy minima in the space of the nuclear displacements and at even small fields the molecule might be able to switch basins. 
+This essentially changes the hessian and would lead to a deformation response from geometry optimizations different than that calculated from \eq{eq:finalDxdf}.
+This would be very interesting for the deformation properties of this molecule in real experimental settings.
+The zero field calculation of the piezoelectric matrix can not show such a phenomenon.
+This theory is also conjecture and needs to be explored further, but it could indicate that smaller fields might be able to completely change the deformation properties of a molecular system.

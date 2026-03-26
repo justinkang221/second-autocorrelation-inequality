@@ -1,0 +1,61 @@
+
+
+\section{Conclusion and Outlook}
+Up to this point, we have sought to explore the piezoelectric properties of organic piezoelectrics--which have promising applications in material science.
+In two previous bodies of work we have shown that we can predict to well within an order of magnitude the piezoelectric properties of organic crystals like MNA
+via methods that involve finite field optimizations and/or simple energy ``scans`` along a coordinate of interest (eg. hydrogen bonds).
+While these methods are useful for monomeric systems in which one can use chemical intuition to select a coordinate of interest for which to measure the field dependent 
+deformation properties, for single molecules and slightly larger systems, it may be difficult to identify and exploit such properties as intermolecular bonds which
+otherwise leads us to calculate piezoelectric properties by doing time consuming geometry operations for large numbers of field magnitudes as well as directions.
+
+In this work we have taken the mathematical model and equations resulting from it from our previous work and extended it to the full nuclear dimensionality of 
+a small system.  
+In this way, with just one geometry optimization and one frequency calculation (sometimes threee gradient calculations as well), we can aquire all of the necessary information
+to describe how the molecule or system will deform in a small field and hence obtain the full piezoelectric properties for the system around zero field.
+To this extent we do not need to use any apriori knowledge or intuition for a system and do not have to reduce the dimensionality of the system to understand its
+field deformation properties.
+Furthermore we have made deep connections to strain theory and have addressed the difficulty (or impossibility) of defining a full 3rd rank piezoelectric tensor for a small
+system.  
+To this end we show that we can approximate a piezoelectric matrix which acts like a contraction of the piezoelectric tensor with a unit vector in the direction of the vector between 
+two atoms in the system, but due to the discrete nature of the system a full piezoelectric tensor field cannot be calculated, but instead we can calculate a piezoelectric matrix for each pair of atoms.
+In a sense, the piezoelectric properties of a molecule or small system show extreme anisotropy and discontinuity.
+
+However, we have seen that this method can be used to select for ''good`` organic piezoelectric candidates by screening similar families of molecules for specific deformation properties
+of one or many different pairs of atoms (or linear combinations of atoms). 
+To this extent we hope that this work serves as a staging point for further investigation into other areas of molecular or finite system piezoelectrics--like controlling oscilations in a field
+or optimizing the work done by actuators, etc.  
+Also we hope that the connections we have made to continuum strain theory will raise and may have already answered philosophical questions such as at what length scale can something be called 
+piezoelectric and how do  and can we quantify properties like the piezoelectric tensor for such systems.
+
+% Thus far we have shown that we can reproduce piezoelectric coefficients for hydrogen-bonded organic crystals like MNA to within an order of magnitude
+% with small subsystems of the crystal structure.  
+% Initially this was done by letting our systems relax while in an applied static field.  
+% Due to the natural constraints
+% of the crystal (stacking, etc.) which are nonexistant in the small subsystems, we had to incorporate constraints which mimic the crystal environment artificially.
+% We eventually found that the easiest way to do this for hydrogen-bonded systems is via potential energy scans along the hydrogen-bond coordinate.  
+% In these scans, we
+% separate monomers and perfom single point energy calculations for different separations at various field strengths.  
+% In this way we can approximate the hydrogen-bond length at minimum energy while
+% ignoring the relaxation of the monomers.  
+% We have been successful in this manner because we were able to exploit the relatively large deformation of the
+% hydrogen-bond vs. the deformation of the individual monomers. 
+% From this method, a simple mathematical model was developed to further reduce the number of single point
+% calculations by an order of magnitude.  
+% Furthermore, this model gave us useful insight into what physical factors determine the value of the piezoelectric coefficient --namely
+% the curvature of the energy with respect to deformation and the dipole derivative with respect to deformation.  
+% The mathematical model calculations were able to reproduce
+% the piezoelectric coefficients for a number of test molecules to a remarkable degree in agreement with the previous potential energy scan method.  
+% Finally, utilizing elementary
+% strain theory, we have been able to extend the mathematical model to the full nuclear coordinates for the system and have thus not only reduced the cost of the calculation to
+% a geometry optimization, but we have made the calculation more accurate by allowing full relaxation of the nuclear coordinates.  
+% Thus far we have only performed calculations
+% on MNA that utilize \eq{eq:madness} to calculate the piezocefficient, but the result matches that for a geometry optimization in a small applied field.  
+% We are now no longer limited to small systems made up of monomers.  
+% We can calculate the piezocoefficient for any type of finite deformable system.  
+% Furthermore, we have shown that
+% we may approximate the deformation for small field strengths.
+% 
+% With the new method for approximating \dtt via \eq{eq:madness}, we are in a good position to find the optimal piezoelectric response for a number of small systems.  
+% Wem can therefore automatize the calculation of \dtt and use a genetic algorithm to explore many different organic system spaces.  
+% We have already created a genetic algorithm
+% in python, and along with the automatization of the \dtt calculation, we can potentially explore the piezoelectric properties of many types of organic systems.

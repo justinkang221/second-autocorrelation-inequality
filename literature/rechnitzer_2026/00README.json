@@ -1,0 +1,21 @@
+{
+   "sources" : [
+      {
+         "usage" : "toplevel",
+         "filename" : "arxiv_sub_autoconv.tex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "arxiv_sub_autoconv.bbl"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "the.bib"
+      }
+   ],
+   "spec_version" : 1,
+   "texlive_version" : "2023",
+   "process" : {
+      "compiler" : "xelatex"
+   }
+}
